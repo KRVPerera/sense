@@ -417,3 +417,5 @@ flycheck_*.el
 
 ## add obsidian
 .obsidian
+
+bin

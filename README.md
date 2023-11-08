@@ -19,8 +19,28 @@ End to end IOT system which collects sensor data and visualize on cloud
         - [Grove Loudness sensor](https://wiki.seeedstudio.com/Grove-Loudness_Sensor/) (pin 16, A2)
         - [Grove PIR Motion sensor](https://wiki.seeedstudio.com/Grove-PIR_Motion_Sensor/) (pin 4, D4)
 
+#### ST B-L475E-IOT01A - [ST B-L475E-IOT01A · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/st-b-l475e-iot01a/)
+
+- a temperature and humidity sensor  [HTS221](https://www.st.com/resource/en/datasheet/hts221.pdf)
+- an atmospheric pressure sensor  [LPS22HB](https://www.st.com/resource/en/datasheet/dm00140895.pdf)
+- an accelerometer sensor  [LSM6DSL](https://www.st.com/resource/en/datasheet/lsm6dsl.pdf)
+
 
 ## Network Layer
 
+### Test server
+
+### Deployment server
+
+AWS
 
 ## Data 
+
+>[!WARNING]
+>not sure if accelerometer, gyroscopes have a meaning. 
+>I can see some boards may be connected to robots or moving platforms.. But not sure if we have access to those yet.
+
+#### Sensor data
+- temperature
+- humidity
+- atmospheric pressure

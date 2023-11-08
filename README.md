@@ -16,30 +16,34 @@ End to end IOT system which collects sensor data and visualize on cloud
 4 sensors connected to the MCU via the **I2C** bus are embedded into the IoT-LAB M3 board:
 
 - the **light** sensor: this measures ambient light intensity in lux.  [ISL29020](https://www.iot-lab.info/assets/misc/docs/iot-lab-m3/ISL29020.pdf)
+	[ISL29020 light sensor driver](https://doc.riot-os.org/group__drivers__isl29020.html)
+	
 - the **pressure** and **temperature** sensor: this measures atmospheric pressure in hPa.  [LPS331AP](https://www.iot-lab.info/assets/misc/docs/iot-lab-m3/LPS331AP.pdf)
+	[LPS331AP/LPS25HB/LPS22HB Pressure Sensors Driver](https://doc.riot-os.org/group__drivers__lpsxxx.html)
 - the **accelerometer/magnetometer**: this provides feedback on an object’s acceleration, and can be used to detect movement. By determining a threshold, it generates a change of state on one of the MCU’s digital inputs/outputs in order to create an interrupt, which can be used to bring the MCU out of standby mode.  [LSM303DLHC](https://www.iot-lab.info/assets/misc/docs/iot-lab-m3/LSM303DLHC.pdf)
+	[LSM303DLHC 3D accelerometer/magnetometer driver](https://doc.riot-os.org/group__drivers__lsm303dlhc.html)
 - the **gyroscope**: this measures the orientation of an object in space and can be used, for example, to determine the orientation of the screen of a tablet or a smartphone.  [L3G4200D](https://www.iot-lab.info/assets/misc/docs/iot-lab-m3/L3G4200D.pdf)
+	[L3G4200D gyroscope driver](https://doc.riot-os.org/group__drivers__l3g4200d.html)
+	
 
 #### Board - # Nordic [Nordic nRF52840DK · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/nordic-nrf52840dk/) -
 - temperature and humidity sensor - [HTS221](https://www.st.com/resource/en/datasheet/hts221.pdf)
+	[ST HTS221 digital Humidity Sensor driver](https://doc.riot-os.org/group__drivers__hts221.html)
 - an atmospheric pressure sensor  [LPS22HB](https://www.st.com/resource/en/datasheet/dm00140895.pdf)
+	[LPS331AP/LPS25HB/LPS22HB Pressure Sensors Driver](https://doc.riot-os.org/group__drivers__lpsxxx.html)
 - an accelerometer sensor  [LSM6DSL](https://www.st.com/resource/en/datasheet/lsm6dsl.pdf)
+	[LSM6DSL 3D accelerometer/gyroscope driver](https://doc.riot-os.org/group__drivers__lsm6dsl.html)
 - an accelerometer sensor  [LSM303AGR](https://www.st.com/resource/en/datasheet/lsm303agr.pdf)
-
-#### Zigduino - [Zigduino · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/zigduino/)
-- **Zigduino (atmega128rfa1)**: a basic Zigduino nodes with embedded sensors
-    - Primary serial port (console output): **57600 bauds**
-    - Sensors
-        - [Grove Temperature Humidity sensor](https://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/) (pin 14, A0)
-        - [Grove Light sensor](https://wiki.seeedstudio.com/Sensor_light/) (pin 15, A1)
-        - [Grove Loudness sensor](https://wiki.seeedstudio.com/Grove-Loudness_Sensor/) (pin 16, A2)
-        - [Grove PIR Motion sensor](https://wiki.seeedstudio.com/Grove-PIR_Motion_Sensor/) (pin 4, D4)
+	[LSM303AGR 3D accelerometer/magnetometer driver](https://doc.riot-os.org/group__drivers__lsm303agr.html)
 
 #### ST B-L475E-IOT01A - [ST B-L475E-IOT01A · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/st-b-l475e-iot01a/)
 
-- a temperature and humidity sensor  [HTS221](https://www.st.com/resource/en/datasheet/hts221.pdf)
+- temperature and humidity sensor - [HTS221](https://www.st.com/resource/en/datasheet/hts221.pdf)
+	[ST HTS221 digital Humidity Sensor driver](https://doc.riot-os.org/group__drivers__hts221.html)
 - an atmospheric pressure sensor  [LPS22HB](https://www.st.com/resource/en/datasheet/dm00140895.pdf)
+	[LPS331AP/LPS25HB/LPS22HB Pressure Sensors Driver](https://doc.riot-os.org/group__drivers__lpsxxx.html)
 - an accelerometer sensor  [LSM6DSL](https://www.st.com/resource/en/datasheet/lsm6dsl.pdf)
+	[LSM6DSL 3D accelerometer/gyroscope driver](https://doc.riot-os.org/group__drivers__lsm6dsl.html)
 
 
 ## Network Layer

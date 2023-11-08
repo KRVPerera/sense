@@ -37,6 +37,10 @@ End to end IOT system which collects sensor data and visualize on cloud
 
 ## Network Layer
 
+
+### Publish Subscriber channel - phase 2
+[MQTT · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/mqtt-broker/)
+
 ### Test server
 
 ### Deployment server

@@ -1,6 +1,13 @@
 # sense
 End to end IOT system which collects sensor data and visualize on cloud
 
+
+## Setup 
+[Run Script · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/run-script/)
+[Websocket client · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/websocket-client/)
+[Serial aggregator · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/serial-aggregator/)
+	- python script available
+
 ## Sensor Layer
 
 ### Sensors
@@ -37,7 +44,7 @@ End to end IOT system which collects sensor data and visualize on cloud
 
 ## Network Layer
 
-
+### Websocket 
 ### Publish Subscriber channel - phase 2
 [MQTT · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/mqtt-broker/)
 

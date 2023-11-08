@@ -5,7 +5,7 @@ APPLICATION = my_proejct
 BOARD ?= native
 
 # This has to be the absolute path to the RIOT base directory:
-RIOTBASE ?= ${RIOT_HOME}
+RIOTBASE ?= ../../external/RIOT
 
 # Uncomment these lines if you want to use platform support from external
 # repositories:

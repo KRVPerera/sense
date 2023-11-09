@@ -7,7 +7,8 @@ else
     echo "The environment variable IOT_LAB_FRONTEND_FQDN is not set."
 fi
 
+ARCH=nrf52840dk
 
-make BOARD=nrf52840dk -C tutorials_riotos/hello-world
-
+make BOARD=${ARCH} -C tutorials_riotos/hello-world
+cp tutorials_riotos/hello-world/bin/${ARCH}/hello-world.elf ~/shared/
 

@@ -103,7 +103,7 @@ Connecting to the serial port of m3 board by running `make IOTLAB_NODE=auto term
 Sample output:
 
 ```bash
-isl
+>isl
 isl
 Light value:    66 LUX
 ```
@@ -132,3 +132,7 @@ Gyro data [dps] - X:      0   Y:     -1   Z:      0
 Gyro data [dps] - X:      0   Y:     -1   Z:      0
 
 ```
+
+TODO
+=====
+- Refactor the code

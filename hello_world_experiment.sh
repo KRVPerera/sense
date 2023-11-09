@@ -16,6 +16,9 @@ make BOARD=${ARCH} -C tutorials_riotos/hello-world
 echo tutorials_riotos/hello-world/bin/${ARCH}/hello-world.elf
 cp tutorials_riotos/hello-world/bin/${ARCH}/hello-world.elf ~/shared/
 
+iotlab-profile del -n group12
+iotlab-profile addm3 -n group12 -voltage -current -power -period 8244 -avg 4
 ## submitting a job in iot test bed with the firmware it self
-iotlab-experiment submit -n hello_gp_12 -d 3 -l grenoble,m3,359-361,~/shared/hello-world.elf
+iotlab-experiment submit -n hello_gp_12 -d 3 -l grenoble,m3,359-361,~/shared/hello-world.elf,group12
+
 

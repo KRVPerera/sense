@@ -8,7 +8,7 @@ else
 fi
 
 #ARCH=nrf52840dk # not available widely in the test bed
-ARCH=iot_m3
+ARCH=iotlab-m3
 
 # sensor nodes 20,21,22, 359, 361, 362
 

@@ -6,13 +6,13 @@ This application is used to showcase how to interact with sensors avaible in the
 The IoT-LAB M3 board sensors:
 
 - lps331ap: a temperature and atmospheric pressure sensor
-    - temperature|pressure values will be read with the shell command `lps`
+    - temperature|pressure values will be read with the shell command `lps`.
 - l3g4200d: a gyroscope
-    - 
+    - Orientation values will be read with the shell command `l3g`
 - lsm303dlhc: an accelerometer and magnetometer
     - Values will be read continuesly 500ms with the shell command `lsm start`. And will stop with `lsm stop`.
 - isl29020: a light sensor
-    -
+    - Measures the light intensity in lux with the shell command `isl`.
 
 Usage
 =====
@@ -24,9 +24,9 @@ make
 make IOTLAB_NODE=auto flash
 make IOTLAB_NODE=auto term
 ```
- or
+ Alternatively,
 
- Run
+ Execute the below shell script with required execute permission. This script will flash the binary into the board and onnect to your device via a serial connection to opens up the riot shell.
 
  ```bash
  ./sensor.sh
@@ -44,7 +44,7 @@ choose your site(grenoble|lille|saclay|strasbourg)
 
 2. Wait for the experiment to be in the Running state:
 ```bash
-!iotlab-experiment wait --timeout 30 --cancel-on-timeout
+iotlab-experiment wait --timeout 30 --cancel-on-timeout
 ```
 
 3. Get the experiment nodes list:
@@ -96,3 +96,39 @@ Magnetometer x: -213 y: -76 z: -104
 > 
 ```
 
+3. Reading the light sensor 
+
+Connecting to the serial port of m3 board by running `make IOTLAB_NODE=auto term`. It will open up the RIOT shell.
+
+Sample output:
+
+```bash
+isl
+isl
+Light value:    66 LUX
+```
+
+4. Reading the gyroscope sensor
+
+Connecting to the serial port of m3 board by running `make IOTLAB_NODE=auto term`. It will open up the RIOT shell.
+
+Sample output:
+
+```bash
+main(): This is RIOT! (Version: 2022.01)
+> l3g
+l3g
+usage: l3g <start|stop>
+> l3g start
+l3g start
+Gyro data [dps] - X:      0   Y:     -1   Z:      0
+> Gyro data [dps] - X:      0   Y:     -1   Z:      0
+Gyro data [dps] - X:      0   Y:     -1   Z:      0
+Gyro data [dps] - X:      0   Y:      0   Z:      0
+Gyro data [dps] - X:      0   Y:     -1   Z:      0
+Gyro data [dps] - X:      0   Y:     -1   Z:      0
+Gyro data [dps] - X:      0   Y:     -1   Z:      0
+Gyro data [dps] - X:      0   Y:     -1   Z:      0
+Gyro data [dps] - X:      0   Y:     -1   Z:      0
+
+```

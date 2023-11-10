@@ -20,7 +20,9 @@ End to end IOT system which collects sensor data and visualize on cloud
 
 ## Setup 
 [Run Script · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/run-script/)
+
 [Websocket client · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/websocket-client/)
+
 [Serial aggregator · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/serial-aggregator/)
 	- python script available
 

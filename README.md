@@ -5,7 +5,7 @@
 # sense
 End to end IOT system which collects sensor data and visualize on cloud
 
-
+![High Level Architecture](./images/ArchitectureHighLevel.png)
 ## Setup 
 [Run Script · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/run-script/)
 
@@ -13,6 +13,9 @@ End to end IOT system which collects sensor data and visualize on cloud
 
 [Serial aggregator · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/serial-aggregator/)
 	- python script available
+
+![Node to Node](./images/node-to-node.jpeg)
+[[Building wearables that sense, think, and communicate: part 2](https://www.electronicspecifier.com/products/wearables/building-wearables-that-sense-think-and-communicate-part-2)](https://www.electronicspecifier.com/products/wearables/building-wearables-that-sense-think-and-communicate-part-2)
 
 ## Sensor Layer
 
@@ -53,6 +56,8 @@ End to end IOT system which collects sensor data and visualize on cloud
 
 
 ## Network Layer
+
+
 
 ### Websocket 
 ### Publish Subscriber channel - phase 2

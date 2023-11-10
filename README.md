@@ -1,5 +1,5 @@
 
-[[How to run hello world example]]
+[How to run hello world example](HowToRunHello.md)
 
 
 # sense

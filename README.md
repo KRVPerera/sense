@@ -14,9 +14,17 @@ End to end IOT system which collects sensor data and visualize on cloud
 [Serial aggregator · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/serial-aggregator/)
 	- python script available
 
+## IOT Connectivity - Feature Comparison
+Taken from the reference list of a slide in Communication Networks 1 - 521340S module in university of Oulu.
+
 ![Node to Node](./images/node-to-node.jpeg)
 [[Building wearables that sense, think, and communicate: part 2](https://www.electronicspecifier.com/products/wearables/building-wearables-that-sense-think-and-communicate-part-2)](https://www.electronicspecifier.com/products/wearables/building-wearables-that-sense-think-and-communicate-part-2)
 
+![Power of Bluetooth tech](./images/power_bluethooth_tech.jpg)
+[https://www.rfidjournal.com/rfid-powered-sensors-can-play-a-big-role-in-the-internet-of-things-2](https://www.rfidjournal.com/rfid-powered-sensors-can-play-a-big-role-in-the-internet-of-things-2)
+
+![Feature Comparison](./images/zbw4.webp)
+[https://www.slideshare.net/aviiandevil7/security-protocols-platform-for-wsn-based-medical-applications-37863943](https://www.slideshare.net/aviiandevil7/security-protocols-platform-for-wsn-based-medical-applications-37863943)
 ## Sensor Layer
 
 ### Sensors

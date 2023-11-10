@@ -10,6 +10,6 @@ USEMODULE += lsm303dlhc
 USEMODULE += isl29020
 USEMODULE += l3g4200d
 
-RIOTBASE ?= $(CURDIR)/../RIOT
+RIOTBASE ?= ../../external/RIOT
 
 include $(RIOTBASE)/Makefile.include

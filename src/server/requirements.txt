@@ -1,2 +1,2 @@
-aiocoap==0.4
+aiocoap
 boto3==1.17.98

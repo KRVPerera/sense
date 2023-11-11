@@ -23,4 +23,4 @@ iotlab-experiment submit -n senor-read-g12 -d 3 -l grenoble,m3,356,~/shared/sens
 iotlab-experiment wait --timeout 30 --cancel-on-timeout
 
 iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
-make IOTLAB_NODE=auto -C tutorials_riotos/sensor-m3  term
+make IOTLAB_NODE=auto -C tutorials_riotos/sensor-m3 term

@@ -22,5 +22,3 @@ iotlab-profile addm3 -n group12 -voltage -current -power -period 8244 -avg 4
 iotlab-experiment submit -n hello_gp_12 -d 3 -l grenoble,m3,361,~/shared/hello-world.elf,group12
 iotlab-experiment wait --timeout 30 --cancel-on-timeout
 iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
-make IOTLAB_NODE=auto term
-

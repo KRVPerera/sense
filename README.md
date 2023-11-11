@@ -12,7 +12,7 @@ End to end IOT system which collects sensor data and visualize on cloud
 ## Hardware
 
 ### Sensor Node 
-We are using IoT-Lab M3 type boards and **LPS331AP** sensor and **AT86RF231** wireless radio model is connected to two separate interfaces allowing us to access them simultaniously
+We are using IoT-Lab M3 type boards. We are currently focusing on **LPS331AP** sensor and **AT86RF231** wireless radio module. Both of them are connected to two separate interfaces allowing us to access them simultaneously. Sensors are accessed via I2c interface and wireless module via SPI.
 
  ![IOT test bed m3 architecture | 500](./images/m3-archi.png)
  [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/)

@@ -1,6 +1,6 @@
 import logging
 import asyncio
-
+import json
 from aiocoap import *
 import aiocoap
 
@@ -9,7 +9,8 @@ logging.basicConfig(level=logging.INFO)
 async def main():
     protocol = await Context.create_client_context()
 
-    request = Message(code=aiocoap.GET, uri='coap://172.17.0.2:5683/time')
+    payload = json.dumps({"input": 12}).encode("utf-8")
+    request = Message(code=aiocoap.POST, payload=payload, uri='coap://16.171.58.145:5683/temp')
 
     try:
         response = await protocol.request(request).response

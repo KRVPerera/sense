@@ -1,3 +1,5 @@
 [submodule "external/RIOT"]
 	path = external/RIOT
-	url = https://github.com/RIOT-OS/RIOT.git
+  url = https://github.com/RIOT-OS/RIOT.git
+  branch = 2020.10-branch
+	ignore = dirty

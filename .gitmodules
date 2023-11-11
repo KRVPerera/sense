@@ -1,3 +1,4 @@
 [submodule "external/RIOT"]
 	path = external/RIOT
 	url = https://github.com/RIOT-OS/RIOT.git
+	ignore = dirty

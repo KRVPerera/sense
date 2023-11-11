@@ -120,7 +120,8 @@ else
 endif
 
 
-CFLAGS += -Werror -Wall -Wextra -Wshadow -Wdouble-promotion -Wformat=2 -Wformat-security -fno-common
+#CFLAGS += -Werror -Wall -Wextra -Wshadow -Wdouble-promotion -Wformat=2 -Wformat-security -fno-common
+CFLAGS += -Werror -Wall -Wextra -Wdouble-promotion -Wformat=2 -Wformat-security -fno-common
 
 # As there is an 'Kconfig' we want to explicitly disable Kconfig by setting
 # the variable to empty

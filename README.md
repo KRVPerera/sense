@@ -9,13 +9,14 @@
 End to end IOT system which collects sensor data and visualize on cloud
 
 ![High Level Architecture](./images/ArchitectureHighLevel.png)
-## Setup 
-[Run Script · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/run-script/)
+## Hardware
 
-[Websocket client · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/websocket-client/)
+### Sensor Node 
+We are using IoT-Lab M3 type boards and **LPS331AP** sensor and **AT86RF231** wireless radio model is connected to two separate interfaces allowing us to access them simultaniously
 
-[Serial aggregator · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/serial-aggregator/)
-	- python script available
+ ![IOT test bed m3 architecture | 500](./images/m3-archi.png)
+ [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/)
+ 
 
 ## IOT Connectivity - Feature Comparison
 Taken from the reference list of a slide in Communication Networks 1 - 521340S module in university of Oulu.

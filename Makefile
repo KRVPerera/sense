@@ -6,3 +6,6 @@ hello:
 
 sensor-m3:
 	./sensor_read_experiment.sh
+
+stop:
+	iotlab-experiment stop

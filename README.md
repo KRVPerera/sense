@@ -1,6 +1,10 @@
 
 [How to run hello world example](HowToRunHello.md)
 
+<p align="center">
+  <img src="./images/logo_Logo.png" width="400/>
+</p>
+
 
 # sense
 End to end IOT system which collects sensor data and visualize on cloud

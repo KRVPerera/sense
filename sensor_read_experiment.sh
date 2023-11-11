@@ -26,4 +26,5 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
 
   iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
   make IOTLAB_NODE=auto -C tutorials_riotos/sensor-m3 term
+  iotlab-experiment stop
 fi

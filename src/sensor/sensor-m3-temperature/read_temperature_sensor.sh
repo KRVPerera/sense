@@ -27,4 +27,5 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
 
   iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
   make IOTLAB_NODE=auto term
+  iotlab-experiment stop
 fi

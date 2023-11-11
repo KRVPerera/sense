@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 async def main():
     protocol = await Context.create_client_context()
 
-    request = Message(code=aiocoap.GET, uri='coap://172.17.0.2:5683/')
+    request = Message(code=aiocoap.GET, uri='coap://172.17.0.2:5683/time')
 
     try:
         response = await protocol.request(request).response

@@ -33,7 +33,7 @@ static void *lpsxxx_thread(void *arg)
     printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
 
     mutex_unlock(&lps_lock);
-    ztimer_sleep(ZTIMER_SEC, 5);
+    ztimer_sleep(ZTIMER_MSEC, 5000);
   }
   return 0;
 }

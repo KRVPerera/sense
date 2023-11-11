@@ -12,17 +12,14 @@ ARCH=iotlab-m3
 
 # sensor nodes 20,21,22, 359, 361, 362
 
-make BOARD=${ARCH}
-echo bin/${ARCH}/gnrc_border_router.elf
+make BOARD=${ARCH} -C gnrc_border_router
+echo gnrc_border_router/bin/${ARCH}/gnrc_border_router.elf
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
-  cp bin/${ARCH}/gnrc_border_router.elf ~/shared/
-
-#  iotlab-profile del -n group12
-#  iotlab-profile addm3 -n group12 -voltage -current -power -period 8244 -avg 4
+  cp gnrc_border_router/bin/${ARCH}/gnrc_border_router.elf ~/shared/
 
   ## submitting a job in iot test bed with the firmware it self
-  iotlab-experiment submit -n senor-temp-read-g12 -d 3 -l grenoble,m3,362,~/shared/gnrc_border_router.elf
+  iotlab-experiment submit -n gnrc-border-router-gp12 -d 10 -l grenoble,m3,362,~/shared/gnrc_border_router.elf
   iotlab-experiment wait --timeout 30 --cancel-on-timeout
 
   iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes

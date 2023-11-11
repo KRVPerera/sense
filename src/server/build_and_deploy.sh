@@ -8,4 +8,4 @@ echo "==========================================================================
 
 docker build -t coap-server . 
 
-docker run -p 5683:5683 coap-server
+docker run --network host -p 5683:5683 coap-server

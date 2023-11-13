@@ -34,7 +34,7 @@ async def main():
     root.add_resource(['time'], TimeResource())
     root.add_resource(['temp'], temperature())
 
-    await aiocoap.Context.create_server_context(root, bind=('0.0.0.0', 5683))
+    await aiocoap.Context.create_server_context(root, bind=('::', 5683))
 
     # Run forever
     await asyncio.get_running_loop().create_future()

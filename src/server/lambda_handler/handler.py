@@ -1,5 +1,8 @@
+import json
+
 def lambda_handler(event, context):
-    return {
-        'statusCode': 200,
-        'body': 'Hello, AWS Lambda!'
-    }
+    print(event)
+    records = event['Records']
+
+    for record in records:
+        print(record['body'])

@@ -42,3 +42,12 @@ Then, look if there is an IoT Device with that Unique ID, if not, create it in t
 
 (TODO)
 
+### Grafana
+
+#### Please execute the following statements to configure grafana to start automatically using systemd
+ sudo /bin/systemctl daemon-reload
+ sudo /bin/systemctl enable grafana-server
+#### Starting grafana-server by executing
+ sudo /bin/systemctl start grafana-server
+
+ Grafana can be access through: `http://<public-ip>:3000/`

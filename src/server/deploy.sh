@@ -48,6 +48,12 @@ function deploy_lambda()
     sam deploy --template-file lambda_handler/template.yaml
 }
 
+function grafana_start()
+{
+	sudo /bin/systemctl daemon-reload
+ 	sudo /bin/systemctl enable grafana-server
+ 	sudo /bin/systemctl start grafana-server
+}
 
 if [ $mode == "lambda" ];then
     deploy_lambda
@@ -61,6 +67,7 @@ if [ $mode == "lambda" ];then
 fi
 
 if [ $mode == "server" ];then
+	grafana_start
     build_and_deploy_server
     if [[ $build_status == 'success' ]];then
 		print_title "successfully deployed the server and script is exited"
@@ -83,6 +90,7 @@ if [ $mode == "run-server" ];then
 fi
 
 if [ $mode == "all" ];then
+	grafana_start
     deploy_lambda
 	build_and_deploy_server
     if [[ $build_status == 'success' ]];then

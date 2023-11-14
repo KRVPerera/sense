@@ -51,7 +51,7 @@ function deploy_lambda()
 }
 
 
-if [ $mode == "deploy-lambda" ];then
+if [ $mode == "lambda" ];then
     deploy_lambda
     if [[ $build_status == 'success' ]];then
 		print_title "successfully deployed lambda function and script is exited"
@@ -62,7 +62,7 @@ if [ $mode == "deploy-lambda" ];then
 	fi
 fi
 
-if [ $mode == "deploy-server" ];then
+if [ $mode == "server" ];then
     build_and_deploy_server
     if [[ $build_status == 'success' ]];then
 		print_title "successfully deployed the server and script is exited"
@@ -74,7 +74,7 @@ if [ $mode == "deploy-server" ];then
 fi
 
 if [ $mode == "run-server" ];then
-    build_and_deploy_server
+    run_server
     if [[ $build_status == 'success' ]];then
 		print_title "successfully deployed the server and script is exited"
 		exit 0

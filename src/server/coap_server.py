@@ -1,12 +1,16 @@
 import datetime
 import logging
 import json
-
+import boto3
 import asyncio
 
 import aiocoap.resource as resource
 from aiocoap.numbers.contentformat import ContentFormat
 import aiocoap
+
+
+sqsClient = boto3.client('sqs', region_name='eu-north-1')
+sqsUrl = "https://sqs.eu-north-1.amazonaws.com/293814872100/iot-queue"
 
 # logging setup
 logging.basicConfig(level=logging.INFO)
@@ -22,8 +26,12 @@ class TimeResource(resource.ObservableResource):
 class temperature(resource.Resource):
     async def render_post(self, request):
         payload = json.loads(request.payload.decode('utf8'))
+        message = sqsClient.send_message(
+            QueueUrl = sqsUrl,
+            MessageBody = ("This was sent on: ")
+        )
         return aiocoap.Message(content_format=0,
-                payload=json.dumps({"status": payload['input']}).encode('utf8'))
+                payload=json.dumps({"status": 'ok'}).encode('utf8'))
 
 async def main():
     # Resource tree creation
@@ -34,7 +42,7 @@ async def main():
     root.add_resource(['time'], TimeResource())
     root.add_resource(['temp'], temperature())
 
-    await aiocoap.Context.create_server_context(root, bind=('::', 5683))
+    await aiocoap.Context.create_server_context(root, bind=('0.0.0.0', 5683))
 
     # Run forever
     await asyncio.get_running_loop().create_future()

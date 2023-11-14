@@ -33,7 +33,7 @@ class temperature(resource.Resource):
         return aiocoap.Message(content_format=0,
                 payload=json.dumps({"status": 'ok'}).encode('utf8'))
 
-class handshake(resourse.Resource):
+class handshake(resource.Resource):
     async def render_post(self, request):
         publicKey = json.loads(request.payload.decode('utf8'))
         message = sqsClient.send_message(

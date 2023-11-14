@@ -20,8 +20,10 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   cp gnrc_networking/bin/${ARCH}/gnrc_networking.elf ~/shared/
 
   ## submitting a job in iot test bed with the firmware it self
-  iotlab-experiment submit -n n2n-border-router-gp12 -d 10 -l grenoble,m3,28,~/shared/gnrc_border_router.elf
-  iotlab-experiment submit -n n2n-networking-node-gp12 -d 9 -l grenoble,m3,26,~/shared/gnrc_networking.elf
+  iotlab-experiment submit -n n2n-border-router-gp12 -d 30 -l grenoble,m3,28,~/shared/gnrc_border_router.elf
+  iotlab-experiment wait --timeout 30 --cancel-on-timeout
+  iotlab-experiment submit -n n2n-networking-node-gp12 -d 30 -l grenoble,m3,26,~/shared/gnrc_networking.elf
+  iotlab-experiment wait --timeout 30 --cancel-on-timeout --state 
   sudo ethos_uhcpd.py m3-28 tap7 2001:660:3207:04c7::1/64
   #iotlab-experiment stop
 

@@ -28,10 +28,20 @@ class temperature(resource.Resource):
         payload = json.loads(request.payload.decode('utf8'))
         message = sqsClient.send_message(
             QueueUrl = sqsUrl,
-            MessageBody = ("This was sent on: ")
+            MessageBody = (json.dumps(payload))
         )
         return aiocoap.Message(content_format=0,
                 payload=json.dumps({"status": 'ok'}).encode('utf8'))
+
+class handshake(resourse.Resource):
+    async def render_post(self, request):
+        publicKey = json.loads(request.payload.decode('utf8'))
+        message = sqsClient.send_message(
+            QueueUrl = sqsUrl,
+            MessageBody = (json.dumps(payload))
+        )
+        return aiocoap.Message(content_format=0,
+                payload=json.dumps({"serverPublickKey": '88748437', 'status': 'ok'}).encode('utf8'))
 
 async def main():
     # Resource tree creation
@@ -41,6 +51,7 @@ async def main():
             resource.WKCResource(root.get_resources_as_linkheader))
     root.add_resource(['time'], TimeResource())
     root.add_resource(['temp'], temperature())
+    root.add_resource(['handshake'], handshake())
 
     await aiocoap.Context.create_server_context(root, bind=('0.0.0.0', 5683))
 

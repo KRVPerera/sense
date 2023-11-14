@@ -34,14 +34,12 @@ function build_and_deploy_server()
     docker build -t coap-server . 
 
     docker run -v ~/.aws/credentials:/root/.aws/credentials \
-            -e AWS_REGION=your_region \
             --network host -p 5683:5683 coap-server 
 }
 
 function run_server()
 {
     docker run -v ~/.aws/credentials:/root/.aws/credentials \
-            -e AWS_REGION=your_region \
             --network host -p 5683:5683 coap-server 
 }
 

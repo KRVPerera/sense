@@ -12,8 +12,8 @@ ARCH=iotlab-m3
 
 # sensor nodes 20,21,22, 359, 361, 362
 
-make BOARD=${ARCH} -C gnrc_border_router
-make BOARD=${ARCH} -C gnrc_border_networking
+make ETHOS_BAUDRATE=500000 DEFAULT_CHANNEL=23 BOARD=${ARCH} -C gnrc_border_router
+make ETHOS_BAUDRATE=500000 DEFAULT_CHANNEL=23 BOARD=${ARCH} -C gnrc_border_networking
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   cp gnrc_border_router/bin/${ARCH}/gnrc_border_router.elf ~/shared/

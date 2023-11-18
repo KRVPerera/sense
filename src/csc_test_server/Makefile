@@ -1,4 +1,4 @@
-test:
+telnet_tcp:
 	telnet 86.50.252.174 23455
 
 start:

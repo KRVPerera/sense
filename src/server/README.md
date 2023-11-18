@@ -5,16 +5,19 @@ SENSE server acts as the cloud solution of the project. It will listens to the C
 
 This contains simple-to-deploy set of micro services which can funnel CoAP data into AWS EC2 instance.
 
+### Example view of Visualizer
+
+![Visualizer](../../images/visualizer.png)
+
 ### Overview of Data & Technology Flow
 
 1. Data will ingest via CoAP into an EC2 Instance with a Static IPv6 address.
-2. A python based script via Docker is run as a CoAP listener that spits the CoAP data into an SQS queue. 
-3. A Lambda reads from that SQS queue and creates/updates dynamodb database (TODO)
-4. Grafana(TODO)
+2. A python based script via Docker is run as a CoAP listener that spits the CoAP data into an InfluxDB database. 
+3. Grafana is integrated with InfluxDB database and visualize the stats
 
 ### Usage
 
-Use the `.deploy.sh` shell script to deploy and run the server components. script snables to change the modes and build and run different components of the stack.
+All the commands are written in shell scripts. Use the `.deploy.sh` shell script to deploy and run the server components. script snables to change the modes and build and run different components of the stack.
 
 command:
 ```./deploy.sh --mode <mode-selection>```
@@ -42,3 +45,12 @@ Then, look if there is an IoT Device with that Unique ID, if not, create it in t
 
 (TODO)
 
+### Grafana
+
+#### Please execute the following statements to configure grafana to start automatically using systemd
+ sudo /bin/systemctl daemon-reload
+ sudo /bin/systemctl enable grafana-server
+#### Starting grafana-server by executing
+ sudo /bin/systemctl start grafana-server
+
+ Grafana can be access through: `http://<public-ip>:3000/`

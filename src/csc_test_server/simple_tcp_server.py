@@ -3,13 +3,13 @@ import socket
 
 warning_message = (
     "⚠️ Unauthorized Access Detected ⚠️\n"
-    "---------------------------------\n"
+    "------------------------------------------------------------------------\n"
     "Hello there! It appears you're trying to connect to a restricted server.\n"
     "Unfortunately, your access credentials do not match our records.\n\n"
     "Please contact the system administrator if you believe this is an error.\n"
     "Your connection attempt has been logged. Have a great day!\n\n"
     "Only Group 12 students can use this!\n"
-    "---------------------------------\n"
+    "------------------------------------------------------------------------\n"
     "🔒 Secure Server 🔒"
 )
 

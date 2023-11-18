@@ -17,4 +17,4 @@ restart:
 	sudo systemctl restart tcp_server.service
 
 testflask:
-	curl http://127.0.0.1:5001/messages
+	curl http://86.50.252.174:5001/messages

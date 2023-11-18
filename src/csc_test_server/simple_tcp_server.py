@@ -17,7 +17,7 @@ warning_message = (
     "🔒 Secure Server 🔒"
 )
 
-max_messages = 2  # Maximum number of messages to store
+max_messages = 100  # Maximum number of messages to store
 sequence = 0
 
 # Function to Manage Message List Size

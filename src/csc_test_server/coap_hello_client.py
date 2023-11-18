@@ -4,7 +4,7 @@ from aiocoap import *
 async def main():
     protocol = await Context.create_client_context()
 
-    request = Message(code=GET, uri='coap://localhost/hello')
+    request = Message(code=GET, uri='coap://86.50.252.174/hello')
     
     try:
         response = await protocol.request(request).response

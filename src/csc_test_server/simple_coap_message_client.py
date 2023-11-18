@@ -5,7 +5,7 @@ async def main():
     protocol = await Context.create_client_context()
 
     payload = b"This is a test message"
-    request = Message(code=POST, payload=payload, uri='coap://localhost/message')
+    request = Message(code=POST, payload=payload, uri='coap://86.50.252.174/message')
     
     try:
         response = await protocol.request(request).response

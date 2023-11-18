@@ -1,0 +1,11 @@
+[Unit]
+Description=Python TCP Server
+After=network.target
+
+[Service]
+User=your_username
+ExecStart=/usr/bin/python3 /home/ubuntu/server/simple_tcp_server.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

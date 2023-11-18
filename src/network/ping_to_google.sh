@@ -12,8 +12,8 @@ ARCH=iotlab-m3
 
 # sensor nodes 20,21,22, 359, 361, 362
 
-make BOARD=${ARCH} -C gnrc_border_router
-make BOARD=${ARCH} -C gnrc_border_networking
+make ETHOS_BAUDRATE=500000 DEFAULT_CHANNEL=23 BOARD=${ARCH} -C gnrc_border_router
+make ETHOS_BAUDRATE=500000 DEFAULT_CHANNEL=23 BOARD=${ARCH} -C gnrc_networking
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   cp gnrc_border_router/bin/${ARCH}/gnrc_border_router.elf ~/shared/
@@ -34,7 +34,7 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   iotlab-experiment wait --timeout 30 --cancel-on-timeout -i $n_node_job_id --state Running
 
   # create tap interface in background
-  sudo ethos_uhcpd.py m3-28 tap7 2001:660:5307:30ff::1/64 &
+  sudo ethos_uhcpd.py m3-28 tap7 2001:660:3207:04c7::1/64 &
 
   # sleep sometime to allow interface to be created
   sleep 5

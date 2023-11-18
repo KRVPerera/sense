@@ -33,7 +33,8 @@ function build_and_deploy_server()
 {
     docker build -t coap-server . 
 
-    docker run -v ~/.aws/credentials:/root/.aws/credentials \
+    docker run \
+			-v ~/.aws/credentials:/root/.aws/credentials \
             --network host -p 5683:5683 coap-server 
 }
 
@@ -55,25 +56,31 @@ function grafana_start()
  	sudo /bin/systemctl start grafana-server
 }
 
+function influxdb_start()
+{
+	sudo service influxdb start
+}
+
 if [ $mode == "lambda" ];then
     deploy_lambda
     if [[ $build_status == 'success' ]];then
-		print_title "successfully deployed lambda function and script is exited"
+		echo "successfully deployed lambda function and script is exited"
 		exit 0
 	else
-		print_title "deploy failed"
+		echo "deploy failed"
 		exit -1
 	fi
 fi
 
 if [ $mode == "server" ];then
 	grafana_start
+	influxdb_start
     build_and_deploy_server
     if [[ $build_status == 'success' ]];then
-		print_title "successfully deployed the server and script is exited"
+		echo "successfully deployed the server and script is exited"
 		exit 0
 	else
-		print_title "deploy failed"
+		echo "deploy failed"
 		exit -1
 	fi
 fi
@@ -81,23 +88,25 @@ fi
 if [ $mode == "run-server" ];then
     run_server
     if [[ $build_status == 'success' ]];then
-		print_title "successfully deployed the server and script is exited"
+		echo "successfully deployed the server and script is exited"
 		exit 0
 	else
-		print_title "deploy failed"
+		echo "deploy failed"
 		exit -1
 	fi
 fi
 
 if [ $mode == "all" ];then
 	grafana_start
+	influxdb_start
+	grafana_start
     deploy_lambda
 	build_and_deploy_server
     if [[ $build_status == 'success' ]];then
-		print_title "successfully deployed the system and script is exited"
+		echo "successfully deployed the system and script is exited"
 		exit 0
 	else
-		print_title "deploy failed"
+		echo "deploy failed"
 		exit -1
 	fi
 fi

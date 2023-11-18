@@ -9,3 +9,6 @@ sensor-m3:
 
 stop:
 	iotlab-experiment stop
+
+checktcp:
+	telnet 86.50.252.174 23455

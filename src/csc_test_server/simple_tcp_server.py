@@ -1,5 +1,9 @@
 import socket
+import threading
+from flask import Flask, jsonify
 
+app = Flask(__name__)
+messages = []  # List to store messages from TCP clients
 
 warning_message = (
     "⚠️ Unauthorized Access Detected ⚠️\n"
@@ -13,47 +17,57 @@ warning_message = (
     "🔒 Secure Server 🔒"
 )
 
+max_messages = 2  # Maximum number of messages to store
+sequence = 0
 
-# Create a socket object
-server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+# Function to Manage Message List Size
+def manage_messages():
+    global sequence
+    if len(messages) > max_messages:
+        del messages[:max_messages//2]  # Delete the first 10 messages
+        sequence = 0
 
-# Define the host and port
-host = '0.0.0.0'  # Localhost
-port = 23455        # Choose a port that is free
+# TCP Server Logic
+def tcp_server():
+    global sequence
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server_socket.bind(('0.0.0.0', 23455))  # TCP Server Port
+    server_socket.listen(5)
 
-# Bind to the port
-server_socket.bind((host, port))
-
-# Listen for incoming connections
-server_socket.listen(5)
-
-print(f"Server listening on {host}:{port}")
-
-# Keep the server running
-try:
     while True:
-        # Accept a new connection
         client_socket, addr = server_socket.accept()
         print(f"Connected to {addr}")
-        client_socket.send(warning_message.encode())
+
+        client_socket.send(warning_message.encode())  # Send warning message
 
         try:
-            client_socket.send(b'\n\nWhat is your message : ')
+            client_socket.send(b'\n\nWhat is your message: ')
             message = client_socket.recv(1024)
             if not message:
                 print("No message received. Closing connection.")
             else:
-                print(f"Message from {addr}: {message.decode()}")
-                # Send a response (optional)
-                client_socket.send(b'Your message was received.\n')
+                decoded_message = message.decode()
+                sequence += 1
+                print(f"Message from {addr}: {decoded_message}")
+                formatted_message = f"#{sequence}: {decoded_message}"
+                messages.append(formatted_message)  # Store the received message
+                manage_messages()
         except socket.timeout:
             print(f"Timeout waiting for a message from {addr}.")
         except Exception as e:
             print(f"Error occurred: {e}")
 
-        # Close the client connection
         client_socket.close()
-except KeyboardInterrupt:
-    print("\nServer is shutting down.")
-    server_socket.close()
+
+# Flask App Route to Get Messages
+@app.route('/messages', methods=['GET'])
+def get_messages():
+    return jsonify(messages)
+
+# Running TCP Server in a Thread
+threading.Thread(target=tcp_server, daemon=True).start()
+
+# Flask App Execution
+if __name__ == '__main__':
+    app.run(debug=True, port=5001, use_reloader=False)  # Flask Server Port

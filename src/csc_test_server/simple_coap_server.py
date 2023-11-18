@@ -23,7 +23,7 @@ def main():
     root = resource.Site()
     root.add_resource(['hello'], BasicResource())
     root.add_resource(['message'], MessageResource())
-    asyncio.Task(Context.create_server_context(root))
+    asyncio.create_task(Context.create_server_context(root, bind=('0.0.0.0', 5683)))
     logger.info("CoAP server started")
     asyncio.get_event_loop().run_forever()
 

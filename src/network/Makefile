@@ -18,3 +18,7 @@ stop:
 con_node2:
 	nc m3-361 20000
 
+
+test_coap:
+	./coap_test.sh
+

@@ -12,6 +12,9 @@ check_interfaces:
 tap7:
 	sudo ethos_uhcpd.py m3-362 tap0 2001:660:3207:04c7::1/64
 
-
 stop:
 	iotlab-experiment stop
+
+con_node2:
+	nc m3-361 20000
+

@@ -7,7 +7,8 @@ warning_message = (
     "Hello there! It appears you're trying to connect to a restricted server.\n"
     "Unfortunately, your access credentials do not match our records.\n\n"
     "Please contact the system administrator if you believe this is an error.\n"
-    "Your connection attempt has been logged. Have a great day!\n"
+    "Your connection attempt has been logged. Have a great day!\n\n"
+    "Only Group 12 students can use this!\n"
     "---------------------------------\n"
     "🔒 Secure Server 🔒"
 )
@@ -38,7 +39,7 @@ try:
         client_socket.send(warning_message.encode())
 
         try:
-            client_socket.send(b'What is your message : ')
+            client_socket.send(b'\n\nWhat is your message : ')
             message = client_socket.recv(1024)
             if not message:
                 print("No message received. Closing connection.")

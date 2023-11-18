@@ -1,7 +1,7 @@
 SENSE Server
 ============
 
-SENSE server acts as the cloud solution of the project. It will listens to the CoAP data and write it into the database. 
+Cloud implementation of the project. The server will listens to the CoAP data and write it into the database and visualize it. 
 
 This contains simple-to-deploy set of micro services which can funnel CoAP data into AWS EC2 instance.
 

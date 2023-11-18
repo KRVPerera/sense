@@ -18,3 +18,12 @@ restart:
 
 flask:
 	curl http://86.50.252.174:5001/messages
+
+coap_server:
+	python simple_coap_server.py
+
+coap_test_hello_get:
+	python coap_hello_client.py
+
+coap_test_message_put:
+	python simple_coap_message_client.py

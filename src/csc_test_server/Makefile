@@ -4,6 +4,9 @@ test:
 start:
 	sudo systemctl start tcp_server.service
 
+stop:
+	sudo systemctl stop tcp_server.service
+
 status:
 	sudo systemctl status tcp_server.service
 

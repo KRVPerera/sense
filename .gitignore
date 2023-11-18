@@ -420,3 +420,4 @@ flycheck_*.el
 
 bin
 
+stopper.sh

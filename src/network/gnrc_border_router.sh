@@ -9,6 +9,7 @@ fi
 
 #ARCH=nrf52840dk # not available widely in the test bed
 ARCH=iotlab-m3
+NODE=362
 
 # sensor nodes 20,21,22, 359, 361, 362
 
@@ -19,10 +20,10 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   cp gnrc_border_router/bin/${ARCH}/gnrc_border_router.elf ~/shared/
 
   ## submitting a job in iot test bed with the firmware it self
-  iotlab-experiment submit -n gnrc-border-router-gp12 -d 10 -l grenoble,m3,362,~/shared/gnrc_border_router.elf
+  iotlab-experiment submit -n gnrc-border-router-gp12 -d 60 -l grenoble,m3,$NODE,~/shared/gnrc_border_router.elf
   iotlab-experiment wait --timeout 30 --cancel-on-timeout
 
   iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
-  sudo ethos_uhcpd.py m3-362 tap7 2001:660:5307:30ff::1/64
+  sudo ethos_uhcpd.py m3-362 tap7 2001:660:5307:3108::1/64
   #iotlab-experiment stop
 fi

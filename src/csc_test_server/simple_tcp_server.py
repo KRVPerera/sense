@@ -15,6 +15,7 @@ warning_message = (
 
 # Create a socket object
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 # Define the host and port
 host = '0.0.0.0'  # Localhost
@@ -36,10 +37,19 @@ try:
         print(f"Connected to {addr}")
         client_socket.send(warning_message.encode())
 
-        message = client_socket.recv(1024)  # Adjust buffer size as needed
-        print(f"Message from {addr}: {message.decode()}")
-
-        client_socket.send(b'Your message was received.\n')
+        try:
+            client_socket.send(b'What is your message : ')
+            message = client_socket.recv(1024)
+            if not message:
+                print("No message received. Closing connection.")
+            else:
+                print(f"Message from {addr}: {message.decode()}")
+                # Send a response (optional)
+                client_socket.send(b'Your message was received.\n')
+        except socket.timeout:
+            print(f"Timeout waiting for a message from {addr}.")
+        except Exception as e:
+            print(f"Error occurred: {e}")
 
         # Close the client connection
         client_socket.close()

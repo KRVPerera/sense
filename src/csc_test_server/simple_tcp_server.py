@@ -1,8 +1,12 @@
 import socket
 import threading
 from flask import Flask, jsonify
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 messages = []  # List to store messages from TCP clients
 
 warning_message = (
@@ -62,6 +66,7 @@ def tcp_server():
 
 # Flask App Route to Get Messages
 @app.route('/messages', methods=['GET'])
+@cross_origin()
 def get_messages():
     return jsonify(messages)
 

@@ -3,13 +3,14 @@ import asyncio
 import json
 from aiocoap import *
 import aiocoap
+from random import randint
 
 logging.basicConfig(level=logging.INFO)
 
 async def main():
     protocol = await Context.create_client_context()
 
-    payload = json.dumps({'temp': [1,5,3,5], 'pressure': [3894, 399, 90.55, "oh yey ojaye"]}).encode("utf-8")
+    payload = json.dumps({'temperature': randint(1, 100)}).encode("utf-8")
     request = Message(code=aiocoap.POST, payload=payload, uri='coap://[2a05:d016:1bb:3e00:2fbe:1fb4:63f9:eb4b]:5683/temp')
 
     try:

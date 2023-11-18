@@ -8,6 +8,8 @@ import aiocoap.resource as resource
 from aiocoap.numbers.contentformat import ContentFormat
 import aiocoap
 
+from database import client, getInfluxDB, sendInfluxdb
+from configuration import TEMPERATURE
 
 sqsClient = boto3.client('sqs', region_name='eu-north-1')
 sqsUrl = "https://sqs.eu-north-1.amazonaws.com/293814872100/iot-queue"
@@ -30,8 +32,9 @@ class temperature(resource.Resource):
             QueueUrl = sqsUrl,
             MessageBody = (json.dumps(payload))
         )
+        sendInfluxdb(payload['temperature'], TEMPERATURE)
         return aiocoap.Message(content_format=0,
-                payload=json.dumps({"status": 'ok'}).encode('utf8'))
+                payload=json.dumps({"status": "ok"}).encode('utf8'))
 
 class handshake(resource.Resource):
     async def render_post(self, request):

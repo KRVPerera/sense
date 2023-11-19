@@ -41,9 +41,10 @@ static ssize_t _temperature_handler(coap_pkt_t* pkt, uint8_t *buf, size_t len, c
     return reply_len;
 }
 
-NANOCOAP_RESOURCE(temperature) {
-  .path = "/temperature", .methods = COAP_GET, .handler = _temperature_handler,
-};
+// NANOCOAP_RESOURCE(temperature) {
+//   .path = "/temperature", .methods = COAP_GET, .handler = _temperature_handler,
+//   .path = "/board", .methods = COAP_GET, .handler = _board_handler,
+// };
 
 int main(void)
 {

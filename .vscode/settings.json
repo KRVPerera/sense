@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "nanocoap_sock.h": "c"
+        "nanocoap_sock.h": "c",
+        "lpsxxx_params.h": "c"
     }
 }

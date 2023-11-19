@@ -1,26 +1,19 @@
 #!/usr/bin/env bash
-#
+
+source ${SENSE_SCRIPTS_HOME}/setup_env.sh
+
+make BOARD=${ARCH} -C ${COAP_CLIENT_HOME}
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
-  source /opt/riot.source
-else
-  echo "[ERROR] The environment variable IOT_LAB_FRONTEND_FQDN is not set."
-fi
-
-#ARCH=nrf52840dk # not available widely in the test bed
-ARCH=iotlab-m3
-NODE=359
-
-# sensor nodes 20,21,22, 359, 361, 362
-
-make BOARD=${ARCH} -C gcoap
-echo gcoap/bin/${ARCH}/group_12_coap_client.elf
-
-if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
-  cp gcoap/bin/${ARCH}/group_12_coap_client.elf ~/shared/
+  echo "cp ${COAP_CLIENT_HOME}/bin/${ARCH}/${COAP_CLIENT_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}"
+  cp ${COAP_CLIENT_HOME}/bin/${ARCH}/${COAP_CLIENT_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}
 
   ## submitting a job in iot test bed with the firmware it self
-  iotlab-experiment submit -n coap-client-gp12 -d 1 -l grenoble,m3,$NODE,~/shared/group_12_coap_client.elf
-  iotlab-experiment wait --timeout 30 --cancel-on-timeout
+  coap_client_job_json=$(iotlab-experiment submit -n ${COAP_CLIENT_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${COAP_CLIENT_NODE},${SENSE_FIRMWARE_HOME}/${COAP_CLIENT_EXE_NAME}.elf)
+  coap_client_job_id=$(echo $coap_client_job_json | jq '.id')
+  
+  iotlab-experiment wait --timeout ${JOB_WAIT_TIMEOUT} --cancel-on-timeout -i $coap_client_job_id --state Running
   iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
+
+  make IOTLAB_NODE=m3-${COAP_CLIENT_NODE} term
 fi

@@ -1,0 +1,5 @@
+{
+    "files.associations": {
+        "nanocoap_sock.h": "c"
+    }
+}

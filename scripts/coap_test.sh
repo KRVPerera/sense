@@ -21,8 +21,12 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   iotlab-experiment wait --timeout ${JOB_WAIT_TIMEOUT} --cancel-on-timeout -i $coap_client_job_id --state Running
   iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
 
-  echo "aiocoap-client coap://[2001:660:3207:4c1:1711:6b10:65fd:bd36]/riot/board
-   iotlab-m3"
+  echo "aiocoap-client coap://[2001:660:3207:4c1:1711:6b10:65fd:bd36]/riot/board"
+  echo "coap info"
+  echo "coap get [2001:660:5307:3107:a436:ee73:926e:840c]:5683 /.well-known/core"
+  echo "coap get 192.168.2.135:5683 /.well-known/core"
+  echo "coap get example.com:5683 /.well-known/core # with sock dns"
+
   nc m3-${COAP_CLIENT_NODE} 20000
 
   iotlab-experiment stop -i $coap_client_job_id

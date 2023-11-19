@@ -47,14 +47,16 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   iotlab-experiment wait --timeout ${JOB_WAIT_TIMEOUT} --cancel-on-timeout -i $n_node_job_id --state Running
 
   echo "Create tap interface ${TAP_INTERFACE}"
-  sudo ethos_uhcpd.py m3-${BORDER_ROUTER_NODE} ${TAP_INTERFACE} ${BORDER_ROUTER_IP} &
+  echo "nib neigh"
+  sudo ethos_uhcpd.py m3-${BORDER_ROUTER_NODE} ${TAP_INTERFACE} ${BORDER_ROUTER_IP}
 
   # sleep sometime to allow interface to be created
   echo "I am sleeping for few seconds..."
   sleep 5
 
-  echo "nib neigh"
-  nc m3-${BORDER_ROUTER_NODE} 20000
+  iotlab-experiment stop -i $n_node_job_id"
+  sleep 5
+  iotlab-experiment stop -i $border_router_job_id"
 fi
 
 

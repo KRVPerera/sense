@@ -11,10 +11,9 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
     TARGET_DIR="${SENSE_HOME}/scripts"
     SCRIPTS=scripts
     # Check if the symbolic link does not exist
-    if [ ! -L "${HOME}/shared/$SCRIPTS" ]; then
+    if [ ! -d "${HOME}/shared/$SCRIPTS" ]; then
         # Create the symbolic link
-        mkdir -p "${HOME}/shared/${SCRIPTS}"
-        ln -s "$TARGET_DIR" "${HOME}/shared/${SCRIPTS}"
+        ln -s "$TARGET_DIR" "${HOME}/shared/"
     fi
 fi
 

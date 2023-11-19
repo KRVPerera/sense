@@ -23,14 +23,16 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
 
   # submit border router job and save job id
   echo "Submit job to node ${BORDER_ROUTER_NODE}"
+  echo "iotlab-experiment submit -n ${BORDER_ROUTER_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${BORDER_ROUTER_NODE},${SENSE_FIRMWARE_HOME}/${BORDER_ROUTER_EXE_NAME}.elf"
   border_router_job_json=$(iotlab-experiment submit -n ${BORDER_ROUTER_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${BORDER_ROUTER_NODE},${SENSE_FIRMWARE_HOME}/${BORDER_ROUTER_EXE_NAME}.elf)
   border_router_job_id=$(echo $border_router_job_json | jq '.id')
-  
+
   # wait for border router to start
   iotlab-experiment wait --timeout ${JOB_WAIT_TIMEOUT} --cancel-on-timeout -i $border_router_job_id --state Running
 
   # submit network router node job and save job id
   echo "Submit job to node ${COAP_SERVER_NODE}"
+  echo "iotlab-experiment submit -n ${COAP_SERVER_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${COAP_SERVER_NODE},${SENSE_FIRMWARE_HOME}/${COAP_SERVER_EXE_NAME}.elf"
   n_json=$(iotlab-experiment submit -n ${COAP_SERVER_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${COAP_SERVER_NODE},${SENSE_FIRMWARE_HOME}/${COAP_SERVER_EXE_NAME}.elf)
   n_node_job_id=$(echo $n_json | jq '.id')
 
@@ -41,6 +43,7 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   echo "iotlab-experiment stop -i $border_router_job_id" >> ${SENSE_STOPPERS_HOME}/coap_server.sh
 
   # wait for network node to start
+  echo "iotlab-experiment wait --timeout ${JOB_WAIT_TIMEOUT} --cancel-on-timeout -i $n_node_job_id --state Running"
   iotlab-experiment wait --timeout ${JOB_WAIT_TIMEOUT} --cancel-on-timeout -i $n_node_job_id --state Running
 
   echo "Create tap interface ${TAP_INTERFACE}"

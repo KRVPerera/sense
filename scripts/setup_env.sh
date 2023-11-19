@@ -5,7 +5,7 @@ export DEFAULT_CHANNEL=23
 export ETHOS_BAUDRATE=500000
 export TAP_INTERFACE=tap7
 # this is seconds
-export JOB_WAIT_TIMEOUT=30
+export JOB_WAIT_TIMEOUT=60
 export EXPERIMENT_TIME=10
 
 # https://www.iot-lab.info/legacy/tutorials/understand-ipv6-subnetting-on-the-fit-iot-lab-testbed/index.html

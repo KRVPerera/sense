@@ -52,6 +52,9 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   # sleep sometime to allow interface to be created
   echo "I am sleeping for few seconds..."
   sleep 5
+
+  echo "nib neigh"
+  nc m3-${BORDER_ROUTER_NODE} 20000
 fi
 
 

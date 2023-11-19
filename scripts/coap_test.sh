@@ -26,6 +26,7 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   echo "coap get [2001:660:5307:3107:a436:ee73:926e:840c]:5683 /.well-known/core"
   echo "coap get 192.168.2.135:5683 /.well-known/core"
   echo "coap get example.com:5683 /.well-known/core # with sock dns"
+  echo "coap get [2001:660:5307:3107:a436:ee73:926e:840c]:5683 /temperature"
 
   nc m3-${COAP_CLIENT_NODE} 20000
 

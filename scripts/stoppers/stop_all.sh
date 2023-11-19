@@ -6,6 +6,7 @@ CURRENT_SCRIPT=$(basename "$0")
 # Navigate to the directory
 cd $SENSE_STOPPERS_HOME
 
+echo "Starting"
 for script in *.sh; do
     # Skip the script if it is the current script
     if [ "$script" != "$CURRENT_SCRIPT" ]; then
@@ -17,3 +18,5 @@ for script in *.sh; do
         rm "$script"
     fi
 done
+
+echo "done"

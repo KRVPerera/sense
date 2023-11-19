@@ -49,6 +49,7 @@ static void *lpsxxx_thread(void *arg)
 int main(void)
 {
   lpsxxx_init(&lpsxxx, &lpsxxx_params[0]);
+  ztimer_sleep(ZTIMER_MSEC, 1000);
 
   thread_create(lps331ap_stack, sizeof(lps331ap_stack), THREAD_PRIORITY_MAIN - 1,
       0, lpsxxx_thread, NULL, "lps331p");

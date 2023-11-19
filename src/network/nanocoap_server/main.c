@@ -27,19 +27,19 @@
 #define MAIN_QUEUE_SIZE     (8)
 static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 
-static ssize_t _temperature_handler(coap_pkt_t* pkt, uint8_t *buf, size_t len, coap_request_ctx_t *context __attribute__((unused)))
-{
-    // Implement your logic for handling GET request
-    puts("GET request received");
+// static ssize_t _temperature_handler(coap_pkt_t* pkt, uint8_t *buf, size_t len, coap_request_ctx_t *context __attribute__((unused)))
+// {
+//     // Implement your logic for handling GET request
+//     puts("GET request received");
 
-    // You can also read the request data from 'pkt' if needed
+//     // You can also read the request data from 'pkt' if needed
 
-    // Prepare the response
-    const char *response_msg = "This is the response to your GET request";
-    ssize_t reply_len = coap_reply_simple(pkt, COAP_CODE_CONTENT, buf, len, COAP_FORMAT_TEXT, (uint8_t *)response_msg, strlen(response_msg));
+//     // Prepare the response
+//     const char *response_msg = "This is the response to your GET request";
+//     ssize_t reply_len = coap_reply_simple(pkt, COAP_CODE_CONTENT, buf, len, COAP_FORMAT_TEXT, (uint8_t *)response_msg, strlen(response_msg));
 
-    return reply_len;
-}
+//     return reply_len;
+// }
 
 // NANOCOAP_RESOURCE(temperature) {
 //   .path = "/temperature", .methods = COAP_GET, .handler = _temperature_handler,

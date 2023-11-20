@@ -13,7 +13,7 @@ stop_all:
 test_coap_server:
 	aiocoap-client coap://[2001:660:5307:3107:a4a9:dc28:5c45:38a9]/riot/board iotlab-m3
 
-# run border router and network node, you get a shell to the netwrk node can ping
+# run border router and network node, you get a shell to the network node where you can ping public ipv6 addresses
 ping_to_google:
 	./scripts/ping_to_google.sh
 

@@ -13,20 +13,29 @@ stop_all:
 test_coap_server:
 	aiocoap-client coap://[2001:660:5307:3107:a4a9:dc28:5c45:38a9]/riot/board iotlab-m3
 
+# run border router and network node, you get a shell to the netwrk node can ping
 ping_to_google:
 	./scripts/ping_to_google.sh
 
+# run border router node
 gnrc_border_router:
 	./scripts/gnrc_border_router.sh
 
+# run border router and coap server in the same network
 coap_server:
 	./scripts/coap_server.sh
 
+# run coap_server in separate shell
 coap_test:
 	./scripts/coap_test.sh
 
+# Current test carried out after running coap_server in separate shell
+coap_client_test:
+	./scripts/coap_client_test.sh
+
+# same as about shortenned work for faster dev
 coap:
-	./scripts/coap_client.sh
+	./scripts/coap_client_test.sh
 
 clean_all: clean
 	./scripts/clean_all.sh

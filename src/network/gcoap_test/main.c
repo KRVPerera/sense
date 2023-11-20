@@ -69,7 +69,7 @@ void send_coap_get_request(void)
     /* Prepare the CoAP request */
     coap_pkt_t pdu;
     gcoap_req_init(&pdu, _req_buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/.well-known/core");
-    size_t len = gcoap_finish(&pdu, 0, COAP_FORMAT_TEXT);
+    size_t len = coap_opt_finish(&pdu, 0);
 
     /* Send the request */
     gcoap_req_send(_req_buf, len, &remote, _resp_handler, NULL);

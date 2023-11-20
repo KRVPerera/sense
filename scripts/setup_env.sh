@@ -5,6 +5,7 @@ export COAP_SERVER_NODE=328
 export GNRC_NETWORKING_NODE=326
 export COAP_CLIENT_NODE=327
 export SENSOR_NODE=324
+export COAP_CLIENT_TEST_NODE=325
 
 # https://www.iot-lab.info/legacy/tutorials/understand-ipv6-subnetting-on-the-fit-iot-lab-testbed/index.html
 export BORDER_ROUTER_IP=2001:660:5307:3107::1/64
@@ -43,6 +44,10 @@ export COAP_SERVER_HOME=${SENSE_HOME}/src/network/${COAP_SERVER_FOLDER_NAME}
 export COAP_CLIENT_FOLDER_NAME=gcoap
 export COAP_CLIENT_EXE_NAME=${COAP_CLIENT_FOLDER_NAME}_gp12
 export COAP_CLIENT_HOME=${SENSE_HOME}/src/network/${COAP_CLIENT_FOLDER_NAME}
+
+export COAP_CLIENT_TEST_FOLDER_NAME=gcoap_test
+export COAP_CLIENT_TEST_EXE_NAME=${COAP_CLIENT_TEST_FOLDER_NAME}_gp12
+export COAP_CLIENT_TEST_HOME=${SENSE_HOME}/src/network/${COAP_CLIENT_TEST_FOLDER_NAME}
 
 export SENSOR_READ_FOLDER_NAME=sensor-m3-temperature
 export SENSOR_READ_EXE_NAME=${SENSOR_READ_FOLDER_NAME}_gp12

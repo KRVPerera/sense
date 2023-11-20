@@ -7,7 +7,15 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
 fi
 
 build_wireless_firmware ${BORDER_ROUTER_HOME}
+build_status=$?
+if [ $build_status -ne 0 ]; then
+    exit $build_status
+fi
 build_wireless_firmware ${COAP_SERVER_HOME}
+build_status=$?
+if [ $build_status -ne 0 ]; then
+    exit $build_status
+fi
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   echo "Copy firmware files to shared"

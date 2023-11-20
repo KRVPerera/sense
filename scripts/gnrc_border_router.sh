@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 source ${SENSE_SCRIPTS_HOME}/setup_env.sh
 
 build_wireless_firmware ${BORDER_ROUTER_HOME}
@@ -21,5 +20,5 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
 
   create_tap_interface "${BORDER_ROUTER_NODE}"
 
-  #iotlab-experiment stop
+  stop_jobs $border_router_job_id
 fi

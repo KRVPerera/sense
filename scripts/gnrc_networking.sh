@@ -1,26 +1,18 @@
 #!/usr/bin/env bash
-#
+
+source ${SENSE_SCRIPTS_HOME}/setup_env.sh
+
+build_wireless_firmware ${GNRC_NETWORKING_HOME}
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
-  source /opt/riot.source
-else
-  echo "[ERROR] The environment variable IOT_LAB_FRONTEND_FQDN is not set."
-fi
+  cp ${GNRC_NETWORKING_HOME}/bin/${ARCH}/${GNRC_NETWORKING_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}
 
-#ARCH=nrf52840dk # not available widely in the test bed
-ARCH=iotlab-m3
-NODE=361
-# sensor nodes 20,21,22, 359, 361, 362
+  n_json=$(iotlab-experiment submit -n ${GNRC_NETWORKING_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${GNRC_NETWORKING_NODE},${SENSE_FIRMWARE_HOME}/${GNRC_NETWORKING_EXE_NAME}.elf)
+  n_node_job_id=$(echo $n_json | jq '.id')
 
-make BOARD=${ARCH} -C gnrc_networking
-echo gnrc_networking/bin/${ARCH}/gnrc_networking.elf
+  wait_for_job "${n_node_job_id}"
 
-if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
-  cp gnrc_networking/bin/${ARCH}/gnrc_networking.elf ~/shared/
+  nc m3-${GNRC_NETWORKING_NODE} 20000
 
-  ## submitting a job in iot test bed with the firmware it self
-  iotlab-experiment submit -n gnrc_networking_gp12 -d 5 -l grenoble,m3,$NODE,~/shared/gnrc_networking.elf
-  iotlab-experiment wait --timeout 30 --cancel-on-timeout
-
-  iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
+  stop_jobs "${n_node_job_id}"
 fi

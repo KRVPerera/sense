@@ -30,7 +30,7 @@ static void *lpsxxx_thread(void *arg)
     int16_t temp = 0;
     lpsxxx_read_temp(&lpsxxx, &temp);
 
-    if (lpsxxx_read_temp(&lpsxxx, &temp)	!= LPSXXX_OK) {
+    if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
       printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
     }
 

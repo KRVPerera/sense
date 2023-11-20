@@ -19,7 +19,7 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   cp bin/${ARCH}/sensor_temperature.elf ~/shared/
 
   iotlab-profile del -n group12
-  iotlab-profile addm3 -n group12 -voltage -current -power -period 8244 -avg 32
+  iotlab-profile addm3 -n group12 -voltage -current -power -period 8244 -avg 64   ## choose avg from 1, 4, 16, 64, 128, 256, 512, 1024
 
   ## submitting a job in iot test bed with the firmware it self
   n_json=$(iotlab-experiment submit -n senor-temp-read-g12 -d 3 -l grenoble,m3,356,~/shared/sensor_temperature.elf,group12)

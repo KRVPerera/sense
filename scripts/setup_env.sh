@@ -127,6 +127,19 @@ build_wireless_firmware() {
     echo "Build firmware ${firmware_source_folder}"
     echo "make ETHOS_BAUDRATE=${ETHOS_BAUDRATE} DEFAULT_CHANNEL=${DEFAULT_CHANNEL} BOARD=${ARCH} -C ${firmware_source_folder}"
     make ETHOS_BAUDRATE="${ETHOS_BAUDRATE}" DEFAULT_CHANNEL="${DEFAULT_CHANNEL}" BOARD="${ARCH}" -C "${firmware_source_folder}"
+
+    # Capture the exit status of the make command
+    local status=$?
+
+    # Optionally, you can echo the status for logging or debugging purposes
+    if [ $status -eq 0 ]; then
+        echo "Build succeeded"
+    else
+        echo "Build failed with exit code $status"
+    fi
+
+    # Return the exit status
+    return $status
 }
 
 build_firmware() {
@@ -135,4 +148,16 @@ build_firmware() {
     echo "Build firmware ${firmware_source_folder}"
     echo "make BOARD=${ARCH} -C ${firmware_source_folder}"
     make BOARD="${ARCH}" -C "${firmware_source_folder}"
+
+    ocal status=$?
+
+    # Optionally, you can echo the status for logging or debugging purposes
+    if [ $status -eq 0 ]; then
+        echo "Build succeeded"
+    else
+        echo "Build failed with exit code $status"
+    fi
+
+    # Return the exit status
+    return $status
 }

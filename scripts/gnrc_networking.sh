@@ -10,6 +10,8 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   n_json=$(iotlab-experiment submit -n ${GNRC_NETWORKING_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${GNRC_NETWORKING_NODE},${SENSE_FIRMWARE_HOME}/${GNRC_NETWORKING_EXE_NAME}.elf)
   n_node_job_id=$(echo $n_json | jq '.id')
 
+  create_stopper_script $n_node_job_id
+
   wait_for_job "${n_node_job_id}"
 
   nc m3-${GNRC_NETWORKING_NODE} 20000

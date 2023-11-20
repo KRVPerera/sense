@@ -18,7 +18,6 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
 fi
 
 
-
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
     export SENSE_SCRIPTS_HOME="${HOME}/shared/${SCRIPTS}"
     export SENSE_STOPPERS_HOME="${SENSE_SCRIPTS_HOME}/stoppers"

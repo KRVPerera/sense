@@ -18,7 +18,7 @@ typedef struct {
 static data_t data;
 
 static lpsxxx_t lpsxxx;
-static mutex_t lps_lock = MUTEX_INIT;
+// static mutex_t lps_lock = MUTEX_INIT;
 
 
 // Read the lps331p temperature sensor

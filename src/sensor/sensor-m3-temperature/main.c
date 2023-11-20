@@ -27,14 +27,17 @@ static void *lpsxxx_thread(void *arg)
 
     mutex_lock(&lps_lock);
 
-
     int16_t temp = 0;
     lpsxxx_read_temp(&lpsxxx, &temp);
-    printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
+
+    if (lpsxxx_read_temp(&lpsxxx, &temp)	!= LPSXXX_OK) {
+      printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
+    }
 
     mutex_unlock(&lps_lock);
     ztimer_sleep(ZTIMER_MSEC, 5000);
   }
+  
   return 0;
 }
 

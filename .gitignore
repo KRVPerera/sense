@@ -421,3 +421,4 @@ flycheck_*.el
 bin
 
 stopper.sh
+scripts/stoppers/*_stopper.sh

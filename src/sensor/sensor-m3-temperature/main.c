@@ -48,7 +48,18 @@ static void *lpsxxx_thread(void *arg)
 
 int main(void)
 {
-  if (lpsxxx_init(&lpsxxx, &lpsxxx_params[0]) != LPSXXX_OK) {
+
+  lpsxxx_params_t paramts = {
+    .i2c  = lpsxxx_params[0].i2c,  \
+    .addr = lpsxxx_params[0].addr, \
+    .rate = LPSXXX_RATE_1HZ 
+  };
+
+  // LPSXXX_RATE_7HZ = 5,        /**< sample with 7Hz, default */
+  //   LPSXXX_RATE_12HZ5 = 6,      /**< sample with 12.5Hz */
+  //   LPSXXX_RATE_25HZ = 7
+
+  if (lpsxxx_init(&lpsxxx, &paramts) != LPSXXX_OK) {
       puts("Sensor initialization failed");
       return 1;
   }

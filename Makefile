@@ -20,10 +20,13 @@ gnrc_border_router:
 	./scripts/gnrc_border_router.sh
 
 coap_server:
-	./scripts/coap_test.sh
+	./scripts/coap_server.sh
 
 coap_test:
-	./scripts/coap_server.sh
+	./scripts/coap_test.sh
+
+coap:
+	./scripts/coap_client.sh
 
 clean_all: clean
 	./scripts/clean_all.sh

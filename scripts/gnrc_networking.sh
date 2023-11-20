@@ -3,6 +3,10 @@
 source ${SENSE_SCRIPTS_HOME}/setup_env.sh
 
 build_wireless_firmware ${GNRC_NETWORKING_HOME}
+build_status=$?
+if [ $build_status -ne 0 ]; then
+    exit $build_status
+fi
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   cp ${GNRC_NETWORKING_HOME}/bin/${ARCH}/${GNRC_NETWORKING_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}

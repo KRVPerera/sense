@@ -1,30 +1,24 @@
 #!/usr/bin/env bash
-#
+
+source ${SENSE_SCRIPTS_HOME}/setup_env.sh
+
+build_wireless_firmware ${SENSOR_READ_HOME}
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
-  source /opt/riot.source
-else
-  echo "[ERROR] The environment variable IOT_LAB_FRONTEND_FQDN is not set."
-fi
-
-#ARCH=nrf52840dk # not available widely in the test bed
-ARCH=iotlab-m3
-
-# sensor nodes 20,21,22, 359, 361, 362
-
-make BOARD=${ARCH} -C tutorials_riotos/sensor-m3
-echo tutorials_riotos/sensor-m3/bin/${ARCH}/sensors.elf
-
-if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
-  cp tutorials_riotos/sensor-m3/bin/${ARCH}/sensors.elf ~/shared/
+  cp ${SENSOR_READ_HOME}/bin/${ARCH}/${SENSOR_READ_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}
 
   iotlab-profile del -n group12
   iotlab-profile addm3 -n group12 -voltage -current -power -period 8244 -avg 4
-  ## submitting a job in iot test bed with the firmware it self
-  iotlab-experiment submit -n senor-read-g12 -d 3 -l grenoble,m3,356,~/shared/sensors.elf,group12
-  iotlab-experiment wait --timeout 30 --cancel-on-timeout
 
-  iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
-  make IOTLAB_NODE=auto -C tutorials_riotos/sensor-m3 term
-  iotlab-experiment stop
+  n_json=$(iotlab-experiment submit -n ${SENSOR_READ_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${SENSOR_NODE},${SENSE_FIRMWARE_HOME}/${SENSOR_READ_EXE_NAME}.elf,group12)
+  n_node_job_id=$(echo $n_json | jq '.id')
+
+  create_stopper_script $n_node_job_id
+
+  wait_for_job "${n_node_job_id}"
+
+  echo "nc m3-${SENSOR_NODE} 20000"
+  nc m3-${SENSOR_NODE} 20000
+
+  stop_jobs "${n_node_job_id}"
 fi

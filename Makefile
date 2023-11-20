@@ -1,7 +1,7 @@
 hello:
 	./hello_world_experiment.sh
 
-sensor-m3:
+run_sensor:
 	./sensor_read_experiment.sh
 
 stop:
@@ -20,4 +20,13 @@ gnrc_border_router:
 	./scripts/gnrc_border_router.sh
 
 coap_server:
+	./scripts/coap_test.sh
+
+coap_test:
 	./scripts/coap_server.sh
+
+clean_all: clean
+	./scripts/clean_all.sh
+
+clean:
+	rm ~/shared/firmware/*.elf

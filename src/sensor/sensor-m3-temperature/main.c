@@ -48,7 +48,16 @@ static void *lpsxxx_thread(void *arg)
 
 int main(void)
 {
-  lpsxxx_init(&lpsxxx, &lpsxxx_params[0]);
+  if (lpsxxx_init(&lpsxxx, &lpsxxx_params[0]) != LPSXXX_OK) {
+      puts("Sensor initialization failed");
+      return 1;
+  }
+
+  if (lpsxxx_enable(&lpsxxx)	!= LPSXXX_OK) {
+    puts("Sensor enable failed");
+    return 1;
+  }
+
   ztimer_sleep(ZTIMER_MSEC, 1000);
 
   thread_create(lps331ap_stack, sizeof(lps331ap_stack), THREAD_PRIORITY_MAIN - 1,

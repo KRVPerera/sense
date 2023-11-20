@@ -7,6 +7,9 @@ BOARD ?= iotlab-m3
 # This has to be the absolute path to the RIOT base directory:
 RIOTBASE ?= ../../external/RIOT
 
+USEMODULE += shell
+USEMODULE += shell_cmds_default
+
 # Comment this out to disable code in RIOT that does safety checking
 # which is not needed in a production environment but helps in the
 # development process:

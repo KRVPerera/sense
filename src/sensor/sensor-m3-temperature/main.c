@@ -38,7 +38,7 @@ static void *lpsxxx_thread(void *arg)
 
     if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
       // printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
-      size_t p = sprintf(data.buffer, "Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
+      sprintf(data.buffer, "Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
     }
 
     mutex_unlock(&data.lock);

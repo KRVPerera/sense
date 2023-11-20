@@ -14,7 +14,7 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   iotlab-profile del -n group12
   iotlab-profile addm3 -n group12 -voltage -current -power -period 8244 -avg 4
 
-  n_json=$(iotlab-experiment submit -n ${SENSOR_READ_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${SENSOR_NODE},${SENSE_FIRMWARE_HOME}/${SENSOR_READ_EXE_NAME}.elf,group12)
+  n_json=$(iotlab-experiment submit -n ${SENSOR_READ_EXE_NAME} -d 1 -l grenoble,m3,${SENSOR_NODE},${SENSE_FIRMWARE_HOME}/${SENSOR_READ_EXE_NAME}.elf,group12)
   n_node_job_id=$(echo $n_json | jq '.id')
 
   create_stopper_script $n_node_job_id

@@ -22,12 +22,12 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   iotlab-profile addm3 -n group12 -voltage -current -power -period 8244 -avg 64   ## choose avg from 1, 4, 16, 64, 128, 256, 512, 1024
 
   ## submitting a job in iot test bed with the firmware it self
-  n_json=$(iotlab-experiment submit -n senor-temp-read-g12 -d 3 -l grenoble,m3,356,~/shared/sensor_temperature.elf,group12)
+  iotlab-experiment submit -n senor-temp-read-g12 -d 3 -l grenoble,m3,356,~/shared/sensor_temperature.elf,group12
   iotlab-experiment wait --timeout 30 --cancel-on-timeout
 
-  n_node_job_id=$(echo $n_json | jq '.id')
+  # n_node_job_id=$(echo $n_json | jq '.id')
 
   iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
   make IOTLAB_NODE=auto term
-  iotlab-experiment stop -i $n_node_job_id
+  iotlab-experiment stop
 fi

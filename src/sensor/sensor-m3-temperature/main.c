@@ -11,6 +11,12 @@
 #include "lpsxxx.h"
 #include "lpsxxx_params.h"
 
+typedef struct {
+    char buffer[128];
+    mutex_t lock;
+} data_t;
+static data_t data;
+
 static lpsxxx_t lpsxxx;
 static mutex_t lps_lock = MUTEX_INIT;
 
@@ -25,16 +31,17 @@ static void *lpsxxx_thread(void *arg)
 
   while(1) {
 
-    mutex_lock(&lps_lock);
+    mutex_lock(&data.lock);
 
     int16_t temp = 0;
     lpsxxx_read_temp(&lpsxxx, &temp);
 
     if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
-      printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
+      // printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
+      sprintf(data.buffer, "Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
     }
 
-    mutex_unlock(&lps_lock);
+    mutex_unlock(&data.lock);
     ztimer_sleep(ZTIMER_MSEC, 5000);
   }
   
@@ -76,6 +83,15 @@ int main(void)
 
   thread_create(lps331ap_stack, sizeof(lps331ap_stack), THREAD_PRIORITY_MAIN - 1,
       0, lpsxxx_thread, NULL, "lps331p");
+
+  while (1) {
+    /* safely read the content of the buffer here */
+    mutex_lock(&data.lock);
+    printf("%s\n", data.buffer);
+    mutex_unlock(&data.lock);
+
+    ztimer_sleep(ZTIMER_MSEC, 30000);
+  }
 
   //char line_buf[SHELL_DEFAULT_BUFSIZE];
   //shell_run(commands, line_buf, SHELL_DEFAULT_BUFSIZE);

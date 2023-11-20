@@ -38,7 +38,7 @@ static void *lpsxxx_thread(void *arg)
 
     if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
       // printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
-      sprintf(data.buffer, "Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
+      size_t p = sprintf(data.buffer, "Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
     }
 
     mutex_unlock(&data.lock);
@@ -87,7 +87,7 @@ int main(void)
   while (1) {
     /* safely read the content of the buffer here */
     mutex_lock(&data.lock);
-    printf("%s\n", data.buffer);
+    printf("Hello: %s\n", data.buffer);
     mutex_unlock(&data.lock);
 
     ztimer_sleep(ZTIMER_MSEC, 30000);

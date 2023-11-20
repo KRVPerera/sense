@@ -68,7 +68,7 @@ create_stopper_script() {
 
     for job_id in "$@"; do
         echo "JOB_STATE=\$(iotlab-experiment wait --timeout 30 --cancel-on-timeout -i ${job_id} --state Running,Finishing,Terminated,Stopped,Error)" >> "${stopper_path}"
-        echo "if [ \"\$JOB_STATE\" = \"Running\" ]; then" >> "${stopper_path}"
+        echo "if [ \"\$JOB_STATE\" = '\"Running\"' ]; then" >> "${stopper_path}"
         echo "    echo \"Stopping Job ID ${job_id}\"" >> "${stopper_path}"
         echo "    iotlab-experiment stop -i ${job_id}" >> "${stopper_path}"
         echo "else" >> "${stopper_path}"
@@ -120,8 +120,19 @@ create_tap_interface_bg() {
 
 stop_jobs() {
     for job_id in "$@"; do
-        echo "iotlab-experiment stop -i ${job_id}"
-        iotlab-experiment stop -i "${job_id}"
+        # Check the state of the job
+        JOB_STATE=$(iotlab-experiment wait --timeout 30 --cancel-on-timeout -i ${job_id} --state Running,Terminated,Stopped,Error)
+
+        echo "Job ID ${job_id} State: $JOB_STATE"
+
+        # Stop the job only if it is in 'Running' state
+        if [ "$JOB_STATE" = '"Running"' ]; then
+            echo "Stopping Job ID ${job_id}"
+            iotlab-experiment stop -i ${job_id}
+        else
+            echo "Job ID ${job_id} is not in 'Running' state. Current state: $JOB_STATE"
+        fi
+
         sleep 1
     done
 }

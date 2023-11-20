@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "nanocoap_sock.h": "c",
-        "lpsxxx_params.h": "c"
+        "lpsxxx_params.h": "c",
+        "shell.h": "c",
+        "gcoap_example.h": "c"
     }
 }

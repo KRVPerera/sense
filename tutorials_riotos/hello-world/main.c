@@ -1,35 +1,24 @@
-/*
- * Copyright (C) 2014 Freie Universität Berlin
- *
- * This file is subject to the terms and conditions of the GNU Lesser
- * General Public License v2.1. See the file LICENSE in the top level
- * directory for more details.
- */
-
-/**
- * @ingroup     examples
- * @{
- *
- * @file
- * @brief       Hello World application
- *
- * @author      Kaspar Schleiser <kaspar@schleiser.de>
- * @author      Ludwig Knüpfer <ludwig.knuepfer@fu-berlin.de>
- *
- * @}
- */
-
 #include <stdio.h>
+#include "ztimer.h"
 
 int main(void)
 {
-    puts("Hello World!");
-    puts("##########################################");
-    puts("####### This is group 12 talking #########");
-    puts("##########################################");
+    int sequence = 0;
+    while (1)
+    {
+        puts("");
+        puts("#-------------------------------------------------------#");
+        printf("#----- This is group 12 talking Hello world - (%4d)  --#\n", sequence);
+        puts("#-------------------------------------------------------#\n");
 
-    printf("You are running RIOT on a(n) %s board.\n", RIOT_BOARD);
-    printf("This board features a(n) %s MCU.\n", RIOT_MCU);
-    
+        printf("You are running RIOT on a(n) %s board.\n", RIOT_BOARD);
+        printf("This board features a(n) %s MCU.\n", RIOT_MCU);
+        sequence += 1;
+        if (sequence > 1000) {
+            sequence = 0;
+        }
+        ztimer_sleep(ZTIMER_MSEC, 1000);
+    }
+
     return 0;
 }

@@ -1,22 +1,15 @@
 #!/usr/bin/env bash
 
-# Store the name of the current script
-CURRENT_SCRIPT=$(basename "$0")
-
-# Navigate to the directory
-cd $SENSE_STOPPERS_HOME
-
 echo "Starting"
-for script in *.sh; do
-    # Skip the script if it is the current script
-    if [ "$script" != "$CURRENT_SCRIPT" ]; then
-        echo "Running $script"
-        bash "$script"
+output=$(iotlab-experiment get -l --state Running)
 
-        # Delete the script after running
-        echo "Deleting $script"
-        rm "$script"
-    fi
+ids=$(echo "$output" | jq '.items[].id')
+
+# Iterate over each ID and stop the corresponding job
+for job_id in $ids; do
+    echo "Stopping Job ID ${job_id}"
+    iotlab-experiment stop -i ${job_id}
+    echo "Stopped job with ID: $job_id"
 done
 
 echo "done"

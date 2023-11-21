@@ -9,8 +9,9 @@ fi
 
 build_firmware ${SENSE_HOME}/tutorials_riotos/hello-world
 echo tutorials_riotos/hello-world/bin/${ARCH}/hello-world.elf
-
 NODE=361
+
+exit 0
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   cp tutorials_riotos/hello-world/bin/${ARCH}/hello-world.elf ${SENSE_FIRMWARE_HOME}

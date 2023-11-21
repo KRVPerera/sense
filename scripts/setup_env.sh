@@ -139,7 +139,12 @@ stop_jobs() {
 
 
 build_wireless_firmware() {
+
     local firmware_source_folder="$1"
+    if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
+        echo "No need to build"
+        return 0  # Exit the function successfully
+    fi
 
     echo "Build firmware ${firmware_source_folder}"
     echo "make ETHOS_BAUDRATE=${ETHOS_BAUDRATE} DEFAULT_CHANNEL=${DEFAULT_CHANNEL} BOARD=${ARCH} -C ${firmware_source_folder}"
@@ -161,10 +166,14 @@ build_wireless_firmware() {
 
 build_firmware() {
     local firmware_source_folder="$1"
+    if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
+        echo "No need to build"
+        return 0  # Exit the function successfully
+    fi
 
     echo "Build firmware ${firmware_source_folder}"
     echo "make BOARD=${ARCH} -C ${firmware_source_folder}"
-    make BOARD="${ARCH}" -C "${firmware_source_folder}"
+    make BOARD="${ARCH}" -C "${firmware_source_folder}" clean all
 
     local status=$?
 
@@ -177,4 +186,25 @@ build_firmware() {
 
     # Return the exit status
     return $status
+}
+
+is_first_file_newer() {
+    local first_file="$1"
+    local second_file="$2"
+
+    if [[ ! -e "$first_file" ]] || [[ ! -e "$second_file" ]]; then
+        echo "One or both files do not exist."
+        echo "$first_file"
+        echo "$second_file"
+        return 2  # Return 2 for error due to non-existent files
+    fi
+
+    local first_file_mod_time=$(stat -c %Y "$first_file")
+    local second_file_mod_time=$(stat -c %Y "$second_file")
+
+    if [[ $first_file_mod_time -gt $second_file_mod_time ]]; then
+        return 0  # First file is newer
+    elif [[ $first_file_mod_time -le $second_file_mod_time ]]; then
+        return 1  # First file is equal or older
+    fi
 }

@@ -42,3 +42,4 @@ clean_all: clean
 
 clean:
 	rm ~/shared/firmware/*.elf
+	find ./src -type d -name bin -exec rm -rf {} +

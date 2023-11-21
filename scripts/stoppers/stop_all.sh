@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 echo "Starting"
-output=$(iotlab-experiment get -l --state Running)
+experiment_output=$(iotlab-experiment get -e)
 
-ids=$(echo "$output" | jq '.items[].id')
+id_list=$(echo "$experiment_output" | jq '.Running[]')
 
 # Iterate over each ID and stop the corresponding job
-for job_id in $ids; do
+for job_id in $id_list; do
     echo "Stopping Job ID ${job_id}"
     iotlab-experiment stop -i ${job_id}
     echo "Stopped job with ID: $job_id"

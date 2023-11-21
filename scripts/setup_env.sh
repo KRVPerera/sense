@@ -166,7 +166,7 @@ build_firmware() {
     echo "make BOARD=${ARCH} -C ${firmware_source_folder}"
     make BOARD="${ARCH}" -C "${firmware_source_folder}"
 
-    ocal status=$?
+    local status=$?
 
     # Optionally, you can echo the status for logging or debugging purposes
     if [ $status -eq 0 ]; then

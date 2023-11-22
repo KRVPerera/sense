@@ -3,16 +3,16 @@
 
 #define MAIN_QUEUE_SIZE (4)
 
-typedef enum resource_path {
+enum resource_path {
     TEMP,
     TIME,
     CORE,
     BOARD,
     HELLO,
-    RIOT_VERSION,
+    RIOT_V,
     SHA_256,
     NUM_RESOURCES // Always keep this last
-} resource_path;
+};
 
 /* server setup in rios os gcoap_server
 /.well-known/core: returns the list of available resources on the server. This is part of the CoAP specifications. 
@@ -34,7 +34,7 @@ const char* resource_paths[NUM_RESOURCES] = {
     [CORE] = "/.well-known/core",
     [BOARD] = "/riot/board",  // returns the name of the board running the server. It works only with GET requests.
     [HELLO] = "/echo/hello",
-    [RIOT_VERSION] = "/riot/ver",
+    [RIOT_V] = "/riot/ver",
     [SHA_256] = "/sha256",
 };
 

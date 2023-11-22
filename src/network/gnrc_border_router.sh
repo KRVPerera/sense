@@ -23,6 +23,6 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   iotlab-experiment wait --timeout 30 --cancel-on-timeout
 
   iotlab-experiment --jmespath="items[*].network_address | sort(@)" get --nodes
-  sudo ethos_uhcpd.py m3-362 tap7 2001:660:3207:04c7::1/64
+  sudo ethos_uhcpd.py m3-362 tap7 2001:660:5307:30ff::1/64
   #iotlab-experiment stop
 fi

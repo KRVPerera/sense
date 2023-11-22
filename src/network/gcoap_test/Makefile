@@ -1,4 +1,6 @@
-# Default Makefile, for host native GNRC-based networking
+# Default Makefile, for host native GNRC-based networking - edited by Rukshan
+CFLAGS += -Werror -Wall -Wextra -Wdouble-promotion -Wformat=2 -Wformat-security -fno-common
+#CFLAGS += -Werror -Wall -Wextra -Wshadow -Wdouble-promotion -Wformat=2 -Wformat-security -fno-common
 
 # name of your application
 APPLICATION = gcoap_test_gp12
@@ -8,6 +10,9 @@ BOARD ?= iotlab-m3
 
 # This has to be the absolute path to the RIOT base directory:
 RIOTBASE ?= $(CURDIR)/../../../external/RIOT
+
+# Using timer to let the threads sleep
+USEMODULE += ztimer_msec
 
 # Include packages that pull up and auto-init the link layer.
 # NOTE: 6LoWPAN will be included if IEEE802.15.4 devices are present
@@ -23,7 +28,7 @@ USEMODULE += gnrc_icmpv6_echo
 
 USEMODULE += nanocoap_sock
 USEMODULE += nanocoap_resources
-USEMODULE += ztimer_msec
+
 # use GNRC by default
 LWIP_IPV4 ?= 0
 LWIP_IPV6 ?= 0
@@ -89,19 +94,23 @@ ifeq (1,$(USE_ZEP))
   endif
 endif
 
+GCOAP_AMAZON_SERVER_IP=${COAP_SERVER_IP}
+CFLAGS += -DGCOAP_AMAZON_SERVER_IP='"${GCOAP_AMAZON_SERVER_IP}"'
+
 include $(RIOTBASE)/Makefile.include
 
 # For now this goes after the inclusion of Makefile.include so Kconfig symbols
 # are available. Only set configuration via CFLAGS if Kconfig is not being used
 # for this module.
+# https://doc.riot-os.org/group__net__nanocoap__conf.html
 ifndef CONFIG_KCONFIG_MODULE_GCOAP
 ## Uncomment to redefine port, for example use 61616 for RFC 6282 UDP compression.
 #GCOAP_PORT = 5683
 #CFLAGS += -DCONFIG_GCOAP_PORT=$(GCOAP_PORT)
 
 ## Uncomment to redefine request token length, max 8.
-#GCOAP_TOKENLEN = 2
-#CFLAGS += -DCONFIG_GCOAP_TOKENLEN=$(GCOAP_TOKENLEN)
+GCOAP_TOKENLEN = 2
+CFLAGS += -DCONFIG_GCOAP_TOKENLEN=$(GCOAP_TOKENLEN)
 
 # Increase from default for confirmable block2 follow-on requests
 GCOAP_RESEND_BUFS_MAX ?= 2

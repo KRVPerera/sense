@@ -167,6 +167,34 @@ build_wireless_firmware() {
     return $status
 }
 
+build_wireless_firmware_cached() {
+
+    local firmware_source_folder="$1"
+    local exe_name="$2"
+
+    if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/application_${exe_name}" "${firmware_source_folder}/main.c"; then
+        echo "No need to build"
+        return 0  # Exit the function successfully
+    fi
+
+    echo "Build firmware ${firmware_source_folder}"
+    echo "make ETHOS_BAUDRATE=${ETHOS_BAUDRATE} DEFAULT_CHANNEL=${DEFAULT_CHANNEL} BOARD=${ARCH} -C ${firmware_source_folder}"
+    make ETHOS_BAUDRATE="${ETHOS_BAUDRATE}" DEFAULT_CHANNEL="${DEFAULT_CHANNEL}" BOARD="${ARCH}" -C "${firmware_source_folder}"
+
+    # Capture the exit status of the make command
+    local status=$?
+
+    # Optionally, you can echo the status for logging or debugging purposes
+    if [ $status -eq 0 ]; then
+        echo "Build succeeded"
+    else
+        echo "Build failed with exit code $status"
+    fi
+
+    # Return the exit status
+    return $status
+}
+
 build_firmware() {
     local firmware_source_folder="$1"
     # if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then

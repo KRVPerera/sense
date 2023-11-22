@@ -9,13 +9,13 @@ fi
 BORDER_ROUTER_NODE=28 # border router
 GNRC_NETWORKING_NODE=26
 
-build_wireless_firmware ${BORDER_ROUTER_HOME}
+build_wireless_firmware_cached ${BORDER_ROUTER_HOME} ${BORDER_ROUTER_EXE_NAME}
 build_status=$?
 if [ $build_status -ne 0 ]; then
     exit $build_status
 fi
 
-build_wireless_firmware ${GNRC_NETWORKING_HOME}
+build_wireless_firmware_cached ${GNRC_NETWORKING_HOME} ${GNRC_NETWORKING_EXE_NAME}
 build_status=$?
 if [ $build_status -ne 0 ]; then
     exit $build_status

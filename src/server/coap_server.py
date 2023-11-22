@@ -1,7 +1,6 @@
 import datetime
 import logging
 import json
-import boto3
 import asyncio
 
 import aiocoap.resource as resource
@@ -11,8 +10,7 @@ import aiocoap
 from database import client, getInfluxDB, sendInfluxdb
 from configuration import TEMPERATURE
 
-sqsClient = boto3.client('sqs', region_name='eu-north-1')
-sqsUrl = "https://sqs.eu-north-1.amazonaws.com/293814872100/iot-queue"
+from decoder import decodeTemperature
 
 # logging setup
 logging.basicConfig(level=logging.INFO)
@@ -28,23 +26,11 @@ class TimeResource(resource.ObservableResource):
 class temperature(resource.Resource):
     async def render_post(self, request):
         payload = json.loads(request.payload.decode('utf8'))
-        message = sqsClient.send_message(
-            QueueUrl = sqsUrl,
-            MessageBody = (json.dumps(payload))
-        )
-        sendInfluxdb(payload['temperature'], TEMPERATURE)
+        print(payload)
+        decodedValues = decodeTemperature(payload['temperature'])
+        sendInfluxdb(decodedValues)
         return aiocoap.Message(content_format=0,
                 payload=json.dumps({"status": "ok"}).encode('utf8'))
-
-class handshake(resource.Resource):
-    async def render_post(self, request):
-        publicKey = json.loads(request.payload.decode('utf8'))
-        message = sqsClient.send_message(
-            QueueUrl = sqsUrl,
-            MessageBody = (json.dumps(payload))
-        )
-        return aiocoap.Message(content_format=0,
-                payload=json.dumps({"serverPublickKey": '88748437', 'status': 'ok'}).encode('utf8'))
 
 async def main():
     # Resource tree creation
@@ -54,7 +40,6 @@ async def main():
             resource.WKCResource(root.get_resources_as_linkheader))
     root.add_resource(['time'], TimeResource())
     root.add_resource(['temp'], temperature())
-    root.add_resource(['handshake'], handshake())
 
     await aiocoap.Context.create_server_context(root, bind=('::', 5683))
 

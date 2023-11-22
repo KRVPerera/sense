@@ -6,23 +6,27 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   source /opt/riot.source
 fi
 
-make BOARD=${ARCH} -C tutorials_riotos/hello-world
+build_firmware ${SENSE_HOME}/tutorials_riotos/hello-world
+build_status=$?
+if [ $build_status -ne 0 ]; then
+    exit $build_status
+fi
 echo tutorials_riotos/hello-world/bin/${ARCH}/hello-world.elf
-
-NODE=361
+NODE=100
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
-  cp tutorials_riotos/hello-world/bin/${ARCH}/hello-world.elf ~/shared/firmware
+  cp tutorials_riotos/hello-world/bin/${ARCH}/hello-world.elf ${SENSE_FIRMWARE_HOME}
 
-  n_json=$(iotlab-experiment submit -n hello_gp_12 -d 1 -l grenoble,m3,${NODE},~/shared/firmware/hello-world.elf)
+  n_json=$(iotlab-experiment submit -n hello_gp_12 -d 5 -l grenoble,m3,${NODE},${SENSE_FIRMWARE_HOME}/hello-world.elf)
   n_node_job_id=$(echo $n_json | jq '.id')
 
   create_stopper_script $n_node_job_id
   wait_for_job "${n_node_job_id}"
 
+  echo "$ nc m3-${NODE} 20000"
   echo "$ help"
   echo "$ restart"
   nc m3-${NODE} 20000
-  stop_jobs "${n_node_job_id}"
 
+  stop_jobs "${n_node_job_id}"
 fi

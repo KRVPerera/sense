@@ -12,7 +12,7 @@ async def main():
     protocol = await Context.create_client_context()
     count =0
     while (count < 200):
-        payload = json.dumps({'temperature': randint(1, 100)}).encode("utf-8")
+        payload = json.dumps({'temperature': "5,34,1,35,0"}).encode("utf-8")
         request = Message(code=aiocoap.POST, payload=payload, uri='coap://[2a05:d016:1bb:3e00:2fbe:1fb4:63f9:eb4b]:5683/temp')
         try:
             response = await protocol.request(request).response

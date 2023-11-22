@@ -23,7 +23,7 @@ USEMODULE += gnrc_icmpv6_echo
 
 USEMODULE += nanocoap_sock
 USEMODULE += nanocoap_resources
-
+USEMODULE += ztimer_msec
 # use GNRC by default
 LWIP_IPV4 ?= 0
 LWIP_IPV6 ?= 0

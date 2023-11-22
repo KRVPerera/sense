@@ -27,7 +27,7 @@ mode-selection
 2. `lambda` - to build and deploy the lambda function
 3. `all` - to build the whole system
 
-### Code explained
+<!-- ### Code explained
 
 1. CoAP data [ingester](./coap_server.py), written in python and Docker will stream the input data direclty into a SQS queue.
 This ingestor will do no data validation in any way. It will inform the use that the data is received, This does support the CoAP .well-known/core feature set at its basics.
@@ -38,7 +38,7 @@ This ingestor will do no data validation in any way. It will inform the use that
 First, look at the sequence number and the device id and verify.
 Then, look if there is an IoT Device with that Unique ID, if not, create it in the database.
 
-5. Then finally, any properties from the data packet part will be pushed as metrics into the database and hence will be displayed in Grafana visualizer.
+5. Then finally, any properties from the data packet part will be pushed as metrics into the database and hence will be displayed in Grafana visualizer. -->
 
 
 ### Encryption in transit and device authentication
@@ -46,11 +46,11 @@ Then, look if there is an IoT Device with that Unique ID, if not, create it in t
 (TODO)
 
 ### Grafana
-
+<!-- 
 #### Please execute the following statements to configure grafana to start automatically using systemd
  sudo /bin/systemctl daemon-reload
  sudo /bin/systemctl enable grafana-server
 #### Starting grafana-server by executing
- sudo /bin/systemctl start grafana-server
+ sudo /bin/systemctl start grafana-server -->
 
  Grafana can be access through: `http://<public-ip>:3000/`

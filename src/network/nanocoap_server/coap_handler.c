@@ -189,8 +189,8 @@ NANOCOAP_RESOURCE(ver) {
 NANOCOAP_RESOURCE(sha256) {
     .path = "/sha256", .methods = COAP_POST, .handler = _sha256_handler
 };
-NANOCOAP_RESOURCE(sha256) {
-    .path = "/time", .methods = COAP_POST, .handler = _sha256_handler
+NANOCOAP_RESOURCE(time) {
+    .path = "/time", .methods = COAP_POST, .handler = _riot_time_handler
 };
 
 /* we can also include the fileserver module */

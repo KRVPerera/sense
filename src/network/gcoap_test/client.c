@@ -50,9 +50,28 @@ static char proxy_uri[64];
  * start a new request (with a new path) until any blockwise transfer
  * completes or times out. */
 #define _LAST_REQ_PATH_MAX (64)
+static char *server_ip = GCOAP_AMAZON_SERVER_IP;
 static char _last_req_path[_LAST_REQ_PATH_MAX];
 
+
 uint16_t req_count = 0;
+
+/* Buffer for the request */
+static uint8_t _req_buf[CONFIG_GCOAP_PDU_BUF_SIZE];
+
+const char* resource_paths[NUM_RESOURCES] = {
+    [TEMP] = "/temperature",
+    [TIME] = "/time",
+    [CORE] = "/.well-known/core",
+    [BOARD] = "/riot/board",  // returns the name of the board running the server. It works only with GET requests.
+    [HELLO] = "/echo/hello",
+    [RIOT_V] = "/riot/ver",
+    [SHA_256] = "/sha256",
+};
+
+const char* get_resource_path(resource_path path) {
+    return resource_paths[path];
+}
 
 /*
  * Response callback.
@@ -182,6 +201,141 @@ static int _print_usage(char **argv)
 {
     printf("usage: %s <get|post|put|ping|proxy|info>\n", argv[0]);
     return 1;
+}
+
+void send_coap_get_request(resource_path path)
+{
+    sock_udp_ep_t remote;
+    ipv6_addr_t addr;
+
+    /* Parse the destination address */
+    ipv6_addr_from_str(&addr, server_ip);
+    remote.family = AF_INET6;
+    remote.port = 5683;
+    memcpy(&remote.addr.ipv6[0], &addr.u8[0], sizeof(addr.u8));
+
+    /* Prepare the CoAP request */
+    coap_pkt_t pdu;
+    gcoap_req_init(&pdu, _req_buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, get_resource_path(path));
+    size_t len = coap_opt_finish(&pdu, 0);
+
+    /* Send the request */
+    gcoap_req_send(_req_buf, len, &remote, _resp_handler, NULL);
+}
+
+
+int gcoap_cli_cmd_2(resource_path path)
+{
+    uint8_t buf[CONFIG_GCOAP_PDU_BUF_SIZE];
+    coap_pkt_t pdu;
+    ssize_t pdu_len;
+
+    // Define the remote endpoint
+    sock_udp_ep_t remote = {
+        .family = AF_INET6,
+        .port = 5683
+    };
+
+    // coap_hdr_set_type(pdu.hdr, COAP_TYPE_CON);
+
+    // Convert string to IPv6 address
+    ipv6_addr_t addr;
+    if (!ipv6_addr_from_str(&addr, server_ip)) {
+        printf("Error: Invalid IPv6 address\n");
+        return -1;
+    }
+    memcpy(remote.addr.ipv6, &addr, sizeof(addr));
+    printf("IPv6 Address set for CoAP request\n");
+
+    // Initialize the CoAP request
+    gcoap_req_init(&pdu, buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, get_resource_path(path));
+    printf("CoAP request initialized\n");
+
+    // Complete the CoAP PDU and get the length
+    pdu_len = coap_opt_finish(&pdu, COAP_OPT_FINISH_NONE);
+
+    if (pdu_len <= 0) {
+        printf("Error: PDU preparation failed\n");
+        return -1;
+    }
+    printf("PDU prepared, length: %d\n", pdu_len);
+
+    // Send the CoAP GET request
+    if (gcoap_req_send(buf, pdu_len, &remote, _resp_handler, NULL) <= 0) {
+        printf("Error: Sending CoAP request failed\n");
+        return -1;
+    }
+    printf("CoAP request sent successfully\n");
+
+    return 0;
+}
+
+int gcoap_post(char* msg)
+{
+    uint8_t buf[CONFIG_GCOAP_PDU_BUF_SIZE];
+    coap_pkt_t pdu;
+    ssize_t pdu_len;
+    size_t len;
+
+    // Define the remote endpoint
+    sock_udp_ep_t remote = {
+        .family = AF_INET6,
+        .port = 5683
+    };
+
+
+    // Convert string to IPv6 address
+    ipv6_addr_t addr;
+    if (!ipv6_addr_from_str(&addr, server_ip)) {
+        printf("Error: Invalid IPv6 address\n");
+        return -1;
+    }
+    memcpy(remote.addr.ipv6, &addr, sizeof(addr));
+    printf("IPv6 Address set for CoAP request\n");
+
+    // Initialize the CoAP request
+    gcoap_req_init(&pdu, buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/time");
+    printf("CoAP request initialized\n");
+
+    ssize_t uri_len = strlen(GCOAP_AMAZON_SERVER_IP) + 3;
+
+    coap_hdr_set_type(pdu.hdr, COAP_TYPE_CON);
+    memset(_last_req_path, 0, _LAST_REQ_PATH_MAX);
+    if (uri_len < _LAST_REQ_PATH_MAX) {
+        //memcpy(_last_req_path, server_ip, uri_len);
+        snprintf(_last_req_path, uri_len, "[%s]", GCOAP_AMAZON_SERVER_IP);
+    }
+
+    // format message
+    coap_opt_add_format(&pdu, COAP_FORMAT_TEXT);
+    pdu_len = coap_opt_finish(&pdu, COAP_OPT_FINISH_PAYLOAD);
+    len = pdu_len;
+    size_t paylen = strlen(msg);
+
+    if (pdu.payload_len >= paylen) {
+        memcpy(pdu.payload, msg, paylen);
+        len += paylen;
+    }
+    else {
+        puts("gcoap_cli: msg buffer too small");
+        return 1;
+    }
+
+    if (pdu_len <= 0) {
+        printf("Error: PDU preparation failed\n");
+        return -1;
+    }
+    printf("PDU prepared, length: %d\n", pdu_len);
+    printf("sending msg ID %u, %u bytes\n", coap_get_id(&pdu), (unsigned) len);
+
+    // Send the CoAP GET request
+    if (gcoap_req_send(buf, pdu_len, &remote, _resp_handler, NULL) <= 0) {
+        printf("Error: Sending CoAP request failed\n");
+        return -1;
+    }
+    printf("CoAP request sent successfully\n");
+
+    return 0;
 }
 
 int gcoap_cli_cmd(int argc, char **argv)

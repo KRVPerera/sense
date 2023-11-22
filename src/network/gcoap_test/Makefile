@@ -11,6 +11,8 @@ BOARD ?= iotlab-m3
 # This has to be the absolute path to the RIOT base directory:
 RIOTBASE ?= $(CURDIR)/../../../external/RIOT
 
+#DIRS += $(CURDIR)/.
+
 # Using timer to let the threads sleep
 USEMODULE += ztimer_msec
 
@@ -111,6 +113,8 @@ ifndef CONFIG_KCONFIG_MODULE_GCOAP
 ## Uncomment to redefine request token length, max 8.
 GCOAP_TOKENLEN = 2
 CFLAGS += -DCONFIG_GCOAP_TOKENLEN=$(GCOAP_TOKENLEN)
+
+
 
 # Increase from default for confirmable block2 follow-on requests
 GCOAP_RESEND_BUFS_MAX ?= 2

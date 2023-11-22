@@ -144,10 +144,10 @@ stop_jobs() {
 build_wireless_firmware() {
 
     local firmware_source_folder="$1"
-    if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
-        echo "No need to build"
-        return 0  # Exit the function successfully
-    fi
+    # if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
+    #     echo "No need to build"
+    #     return 0  # Exit the function successfully
+    # fi
 
     echo "Build firmware ${firmware_source_folder}"
     echo "make ETHOS_BAUDRATE=${ETHOS_BAUDRATE} DEFAULT_CHANNEL=${DEFAULT_CHANNEL} BOARD=${ARCH} -C ${firmware_source_folder}"
@@ -169,10 +169,10 @@ build_wireless_firmware() {
 
 build_firmware() {
     local firmware_source_folder="$1"
-    if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
-        echo "No need to build"
-        return 0  # Exit the function successfully
-    fi
+    # if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
+    #     echo "No need to build"
+    #     return 0  # Exit the function successfully
+    # fi
 
     echo "Build firmware ${firmware_source_folder}"
     echo "make BOARD=${ARCH} -C ${firmware_source_folder}"

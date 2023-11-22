@@ -7,6 +7,9 @@ export COAP_CLIENT_NODE=327
 export SENSOR_NODE=324
 export COAP_CLIENT_TEST_NODE=325
 
+# comment this out in production
+export COAP_SERVER_IP="2001:660:5307:3107:a4a9:dc28:5c45:38a9"
+
 # https://www.iot-lab.info/legacy/tutorials/understand-ipv6-subnetting-on-the-fit-iot-lab-testbed/index.html
 export BORDER_ROUTER_IP=2001:660:5307:3107::1/64
 # export BORDER_ROUTER_IP=2001:660:5307:3108::1/64
@@ -68,7 +71,7 @@ create_stopper_script() {
 
     for job_id in "$@"; do
         echo "JOB_STATE=\$(iotlab-experiment wait --timeout 30 --cancel-on-timeout -i ${job_id} --state Running,Finishing,Terminated,Stopped,Error)" >> "${stopper_path}"
-        echo "if [ \"\$JOB_STATE\" = \"Running\" ]; then" >> "${stopper_path}"
+        echo "if [ \"\$JOB_STATE\" = '\"Running\"' ]; then" >> "${stopper_path}"
         echo "    echo \"Stopping Job ID ${job_id}\"" >> "${stopper_path}"
         echo "    iotlab-experiment stop -i ${job_id}" >> "${stopper_path}"
         echo "else" >> "${stopper_path}"
@@ -120,15 +123,31 @@ create_tap_interface_bg() {
 
 stop_jobs() {
     for job_id in "$@"; do
-        echo "iotlab-experiment stop -i ${job_id}"
-        iotlab-experiment stop -i "${job_id}"
+        # Check the state of the job
+        JOB_STATE=$(iotlab-experiment wait --timeout 30 --cancel-on-timeout -i ${job_id} --state Running,Terminated,Stopped,Error)
+
+        echo "Job ID ${job_id} State: $JOB_STATE"
+
+        # Stop the job only if it is in 'Running' state
+        if [ "$JOB_STATE" = '"Running"' ]; then
+            echo "Stopping Job ID ${job_id}"
+            iotlab-experiment stop -i ${job_id}
+        else
+            echo "Job ID ${job_id} is not in 'Running' state. Current state: $JOB_STATE"
+        fi
+
         sleep 1
     done
 }
 
 
 build_wireless_firmware() {
+
     local firmware_source_folder="$1"
+    if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
+        echo "No need to build"
+        return 0  # Exit the function successfully
+    fi
 
     echo "Build firmware ${firmware_source_folder}"
     echo "make ETHOS_BAUDRATE=${ETHOS_BAUDRATE} DEFAULT_CHANNEL=${DEFAULT_CHANNEL} BOARD=${ARCH} -C ${firmware_source_folder}"
@@ -150,12 +169,16 @@ build_wireless_firmware() {
 
 build_firmware() {
     local firmware_source_folder="$1"
+    if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
+        echo "No need to build"
+        return 0  # Exit the function successfully
+    fi
 
     echo "Build firmware ${firmware_source_folder}"
     echo "make BOARD=${ARCH} -C ${firmware_source_folder}"
-    make BOARD="${ARCH}" -C "${firmware_source_folder}"
+    make BOARD="${ARCH}" -C "${firmware_source_folder}" clean all
 
-    ocal status=$?
+    local status=$?
 
     # Optionally, you can echo the status for logging or debugging purposes
     if [ $status -eq 0 ]; then
@@ -166,4 +189,25 @@ build_firmware() {
 
     # Return the exit status
     return $status
+}
+
+is_first_file_newer() {
+    local first_file="$1"
+    local second_file="$2"
+
+    if [[ ! -e "$first_file" ]] || [[ ! -e "$second_file" ]]; then
+        echo "One or both files do not exist."
+        echo "$first_file"
+        echo "$second_file"
+        return 2  # Return 2 for error due to non-existent files
+    fi
+
+    local first_file_mod_time=$(stat -c %Y "$first_file")
+    local second_file_mod_time=$(stat -c %Y "$second_file")
+
+    if [[ $first_file_mod_time -gt $second_file_mod_time ]]; then
+        return 0  # First file is newer
+    elif [[ $first_file_mod_time -le $second_file_mod_time ]]; then
+        return 1  # First file is equal or older
+    fi
 }

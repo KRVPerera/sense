@@ -3,6 +3,11 @@
         "nanocoap_sock.h": "c",
         "lpsxxx_params.h": "c",
         "shell.h": "c",
-        "gcoap_example.h": "c"
+        "gcoap_example.h": "c",
+        "string.h": "c",
+        "util.h": "c"
+    },
+    "files.watcherExclude": {
+        "**/external/**": true
     }
 }

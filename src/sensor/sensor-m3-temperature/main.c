@@ -12,9 +12,10 @@
 #include "lpsxxx_params.h"
 
 typedef struct {
-    char buffer[128];
-    mutex_t lock;
+  char buffer[128];
+  int16_t tempList[5];
 } data_t;
+
 static data_t data;
 
 static lpsxxx_t lpsxxx;
@@ -49,30 +50,6 @@ int temp_sensor_write_res_conf(const lpsxxx_t *dev, uint8_t value)
   return write_register_value(dev, LPSXXX_REG_RES_CONF, value);
 }
 
-// Read the lps331p temperature sensor
-/* stack memory allocated for the lpsxxx_handler thread */
-static char lps331ap_stack[THREAD_STACKSIZE_DEFAULT];
-
-static void *lpsxxx_thread(void *arg)
-{
-  (void)arg; // avoid a compiler warning
-
-  while (1)
-  {
-
-    mutex_lock(&data.lock);
-
-    int16_t temp = 0;
-    if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
-      sprintf(data.buffer, "Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
-    }
-
-    mutex_unlock(&data.lock);
-    ztimer_sleep(ZTIMER_MSEC, 5000);
-  }
-
-  return 0;
-}
 
 int temp_sensor_reset(void)
 {
@@ -128,16 +105,53 @@ int main(void)
     return 1;
   }
 
-  thread_create(lps331ap_stack, sizeof(lps331ap_stack), THREAD_PRIORITY_MAIN - 1,
-                0, lpsxxx_thread, NULL, "lps331p");
+  int16_t avg_temp = 0; 
+  int counter = 0;
+  int array_length = 0;
 
   while (1) {
-    /* safely read the content of the buffer here */
-    mutex_lock(&data.lock);
-    printf("Hello: %s\n", data.buffer);
-    mutex_unlock(&data.lock);
+    
+    int16_t temp = 0;
+    lpsxxx_read_temp(&lpsxxx, &temp);
 
-    ztimer_sleep(ZTIMER_MSEC, 30000);
+    if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
+      // printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
+
+      if (array_length < 4) {
+        data.tempList[array_length++] = temp;
+      }
+      else {
+        data.tempList[array_length++] = temp;
+        int32_t sum = 0;
+        int numElements = array_length;
+        // printf("No of ele: %i\n", numElements);
+        for (int i = 0; i < numElements; i++) {
+          sum += (int32_t)data.tempList[i];
+          // printf("Temp List: %i.%u°C\n", (data.tempList[i] / 100), (data.tempList[i] % 100));
+        }
+
+        // printf("Sum: %li\n", sum);
+
+        avg_temp = sum / numElements;
+
+        char temp_str[10];
+        sprintf(temp_str, "%i.%u,", (avg_temp / 100), (avg_temp % 100));
+        // printf("Temp Str: %s°C\n", temp_str);
+        strcat(data.buffer, temp_str);
+
+        for (int i = 0; i < array_length - 1; ++i) {
+            data.tempList[i] = data.tempList[i + 1];
+        }
+        array_length--;
+        counter++;
+      }
+    }
+    if (counter == 10) {
+      printf("Data: %s\n", data.buffer);
+      memset(data.buffer, 0, sizeof(data.buffer));
+      counter = 0;
+    }
+    ztimer_sleep(ZTIMER_MSEC, 1000);
   }
 
   return 0;

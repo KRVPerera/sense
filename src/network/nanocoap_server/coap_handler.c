@@ -44,6 +44,14 @@ static ssize_t _riot_board_handler(coap_pkt_t *pkt, uint8_t *buf, size_t len, co
             COAP_FORMAT_TEXT, (uint8_t*)RIOT_BOARD, strlen(RIOT_BOARD));
 }
 
+
+static ssize_t _riot_time_handler(coap_pkt_t *pkt, uint8_t *buf, size_t len, coap_request_ctx_t *context)
+{
+    (void)context;
+    return coap_reply_simple(pkt, COAP_CODE_205, buf, len,
+            COAP_FORMAT_TEXT, (uint8_t*)RIOT_BOARD, strlen(RIOT_BOARD));
+}
+
 static ssize_t _riot_block2_handler(coap_pkt_t *pkt, uint8_t *buf, size_t len, coap_request_ctx_t *context)
 {
     (void)context;
@@ -180,6 +188,9 @@ NANOCOAP_RESOURCE(ver) {
 };
 NANOCOAP_RESOURCE(sha256) {
     .path = "/sha256", .methods = COAP_POST, .handler = _sha256_handler
+};
+NANOCOAP_RESOURCE(sha256) {
+    .path = "/time", .methods = COAP_POST, .handler = _sha256_handler
 };
 
 /* we can also include the fileserver module */

@@ -8,7 +8,7 @@
 # sense
 End to end IOT system which collects sensor data and visualize on cloud
 
-![High Level Architecture](./images/ArchitectureHighLevel.png)
+![High Level Architecture](./images/Architecture.png)
 ## Hardware
 
 ### Sensor Node 

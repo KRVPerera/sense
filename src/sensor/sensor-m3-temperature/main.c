@@ -158,7 +158,7 @@ int main(void)
         // printf("Temp Str: %s°C\n", temp_str);
         strcat(data.buffer, temp_str);
 
-        parity = calculate_odd_parity(avg_temp)
+        parity = calculate_odd_parity(avg_temp);
         sprintf(parity_bit, "%i,", parity);
         // printf("Temp Str: %s°C\n", temp_str);
         strcat(data.buffer, parity_bit);

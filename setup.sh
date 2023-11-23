@@ -11,13 +11,14 @@ SCRIPTS=scripts
 
 export SENSE_FIRMWARE_HOME="${SENSE_HOME}/bin"
 
-
 if [ ! -d "$SENSE_FIRMWARE_HOME" ]; then
     mkdir -p "$SENSE_FIRMWARE_HOME"
 fi
 
-TARGET_DIR="${SENSE_HOME}/scripts"
-ln -s "$TARGET_DIR" "${SENSE_FIRMWARE_HOME}"
+if [ ! -d "${SENSE_FIRMWARE_HOME}/$SCRIPTS" ]; then
+    TARGET_DIR="${SENSE_HOME}/scripts"
+    ln -s "$TARGET_DIR" "${SENSE_FIRMWARE_HOME}"
+fi
 
 export SENSE_SCRIPTS_HOME="${SENSE_FIRMWARE_HOME}/${SCRIPTS}"
 export SENSE_STOPPERS_HOME="${SENSE_SCRIPTS_HOME}/stoppers"

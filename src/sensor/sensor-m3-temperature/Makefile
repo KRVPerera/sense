@@ -9,6 +9,7 @@ USEMODULE += ztimer_msec
 USEMODULE += ztimer_sec
 USEMODULE += ztimer_no_periph_rtt
 USEMODULE += lps331ap
+USEMODULE += math
 
 # CFLAGS += -Werror -Wall -Wextra -Wshadow -Wdouble-promotion -Wformat=2 -Wformat-security -Wundef -fno-common
 

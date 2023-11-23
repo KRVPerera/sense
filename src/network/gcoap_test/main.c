@@ -58,7 +58,7 @@ static void *coap_server_connect(void *arg)
 
     mutex_lock(&data_lock);
 
-    send_coap_get_request(GET_TOPIC);
+    send_coap_get_request(CORE);
 
     mutex_unlock(&data_lock);
     

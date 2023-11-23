@@ -73,8 +73,6 @@ extern uint16_t req_count;  /**< Counts requests sent by CLI. */
  */
 int gcoap_cli_cmd(int argc, char **argv);
 
-
-int gcoap_cli_cmd_2(resource_path path);
 void send_coap_get_request(resource_path path);
 
 /**

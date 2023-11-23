@@ -14,10 +14,6 @@ USEMODULE += xtimer
 # CFLAGS += -Werror -Wall -Wextra -Wshadow -Wdouble-promotion -Wformat=2 -Wformat-security -Wundef -fno-common
 
 CFLAGS += -Werror -Wall -Wextra -Wshadow -Wdouble-promotion -Wformat=2 -Wformat-security -fno-common
-CFLAGS += -DDEVELHELP
-CFLAGS += -DAUOT_INIT_LED0
-
-FEAURES_REQUIRED += periph_timer
 
 RIOTBASE ?= ../../../external/RIOT
 

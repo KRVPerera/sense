@@ -130,8 +130,6 @@ int main(void)
   while (1) {
     
     int16_t temp = 0;
-    lpsxxx_read_temp(&lpsxxx, &temp);
-
     if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
       printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
 

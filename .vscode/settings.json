@@ -6,7 +6,8 @@
         "gcoap_example.h": "c",
         "string.h": "c",
         "util.h": "c",
-        "debug.h": "c"
+        "debug.h": "c",
+        "lpsxxx.h": "c"
     },
     "files.watcherExclude": {
         "**/external/**": true

@@ -295,16 +295,13 @@ int gcoap_post(char* msg, resource_path path)
     DEBUG_PRINT("IPv6 Address set for CoAP request\n");
 
     // Initialize the CoAP request
-    gcoap_req_init(&pdu, buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/time");
+    gcoap_req_init(&pdu, buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_POST, uri);
     DEBUG_PRINT("CoAP request initialized\n");
-
-    ssize_t uri_len = strlen(GCOAP_AMAZON_SERVER_IP) + 3;
-
     coap_hdr_set_type(pdu.hdr, COAP_TYPE_CON);
+
     memset(_last_req_path, 0, _LAST_REQ_PATH_MAX);
     if (uri_len < _LAST_REQ_PATH_MAX) {
-        //memcpy(_last_req_path, server_ip, uri_len);
-        snprintf(_last_req_path, uri_len, "[%s]", GCOAP_AMAZON_SERVER_IP);
+       memcpy(_last_req_path, uri, uri_len);
     }
 
     // format message
@@ -326,15 +323,19 @@ int gcoap_post(char* msg, resource_path path)
         printf("Error: PDU preparation failed\n");
         return -1;
     }
-    printf("PDU prepared, length: %d\n", pdu_len);
-    printf("sending msg ID %u, %u bytes\n", coap_get_id(&pdu), (unsigned) len);
+    DEBUG_PRINT("PDU prepared, length: %d\n", pdu_len);
+    DEBUG_PRINT("sending msg ID %u, %u bytes\n", coap_get_id(&pdu), (unsigned) len);
 
-    // Send the CoAP GET request
-    if (gcoap_req_send(buf, pdu_len, &remote, _resp_handler, NULL) <= 0) {
-        printf("Error: Sending CoAP request failed\n");
-        return -1;
+    size_t ip_length = strlen(GCOAP_AMAZON_SERVER_IP) + 1;
+    char ip_add[ip_length];
+
+    // Constructing the string
+    snprintf(ip_add, ip_length, "%s", GCOAP_AMAZON_SERVER_IP);
+
+    if (!_send(&buf[0], len, ip_add)) {
+        puts("gcoap_cli: msg send failed");
     }
-    printf("CoAP request sent successfully\n");
+    DEBUG_PRINT("CoAP request sent successfully\n");
 
     return 0;
 }

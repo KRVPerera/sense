@@ -11,8 +11,8 @@
 #include "lpsxxx.h"
 #include "lpsxxx_params.h"
 
-#define ENABLE_DEBUG 0
 #include "debug.h"
+#define ENABLE_DEBUG 0
 
 typedef struct {
   char buffer[128];

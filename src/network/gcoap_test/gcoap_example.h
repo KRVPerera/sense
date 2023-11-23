@@ -74,6 +74,7 @@ extern uint16_t req_count;  /**< Counts requests sent by CLI. */
 int gcoap_cli_cmd(int argc, char **argv);
 
 void send_coap_get_request(resource_path path);
+int gcoap_post(char* msg, resource_path path);
 
 /**
  * @brief   Registers the CoAP resources exposed in the example app

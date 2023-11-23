@@ -124,6 +124,7 @@ int main(void)
   int16_t avg_temp = 0; 
   int counter = 0;
   int array_length = 0;
+  int parity;
 
   while (1) {
     
@@ -152,11 +153,13 @@ int main(void)
 
         char temp_str[10];
         char parity_bit[2];
+
         sprintf(temp_str, "%i,", avg_temp);
         // printf("Temp Str: %s°C\n", temp_str);
         strcat(data.buffer, temp_str);
 
-        sprintf(parity_bit, "%i,", calculate_odd_parity(avg_temp));
+        parity = calculate_odd_parity(avg_temp)
+        sprintf(parity_bit, "%i,", parity);
         // printf("Temp Str: %s°C\n", temp_str);
         strcat(data.buffer, parity_bit);
 

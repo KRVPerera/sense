@@ -8,7 +8,7 @@ export SENSOR_NODE=324
 export COAP_CLIENT_TEST_NODE=325
 
 # comment this out in production
-export COAP_SERVER_IP="2001:660:5307:3107:a4a9:dc28:5c45:38a9"
+export COAP_SERVER_IP="[2001:660:5307:3107:a4a9:dc28:5c45:38a9]:5683"
 
 # https://www.iot-lab.info/legacy/tutorials/understand-ipv6-subnetting-on-the-fit-iot-lab-testbed/index.html
 export BORDER_ROUTER_IP=2001:660:5307:3107::1/64

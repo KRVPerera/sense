@@ -121,7 +121,7 @@ int main(void)
     return 1;
   }
 
-  int16_t avg_temp = 0; 
+  // int16_t avg_temp = 0; 
   int counter = 0;
   int array_length = 0;
   int parity;
@@ -132,7 +132,7 @@ int main(void)
     lpsxxx_read_temp(&lpsxxx, &temp);
 
     if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
-      // printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
+      printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
 
       if (array_length < 4) {
         data.tempList[array_length++] = temp;
@@ -149,16 +149,21 @@ int main(void)
 
         // printf("Sum: %li\n", sum);
 
-        avg_temp = sum / numElements;
+        // avg_temp = sum / numElements;
+
+        double avg_temp = (double)sum / numElements;
+
+        // Round to the nearest integer
+        int16_t rounded_avg_temp = (int16_t)round(avg_temp);
 
         char temp_str[10];
         char parity_bit[4];
 
-        sprintf(temp_str, "%i,", avg_temp);
+        sprintf(temp_str, "%i,", rounded_avg_temp);
         // printf("Temp Str: %s°C\n", temp_str);
         strcat(data.buffer, temp_str);
 
-        parity = calculate_odd_parity(avg_temp);
+        parity = calculate_odd_parity(rounded_avg_temp);
         sprintf(parity_bit, "%i,", parity);
         // printf("Temp Str: %s°C\n", temp_str);
         strcat(data.buffer, parity_bit);

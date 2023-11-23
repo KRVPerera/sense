@@ -4,6 +4,9 @@ hello:
 run_sensor:
 	./sensor_read_experiment.sh
 
+sense:
+	./scripts/sensor-connected.sh
+
 stop:
 	iotlab-experiment stop
 

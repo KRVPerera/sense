@@ -144,10 +144,12 @@ stop_jobs() {
 build_wireless_firmware() {
 
     local firmware_source_folder="$1"
-    # if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
-    #     echo "No need to build"
-    #     return 0  # Exit the function successfully
-    # fi
+    local exe_name="$2"
+
+    if are_files_new "${firmware_source_folder}/bin/${ARCH}/application_${exe_name}" "${firmware_source_folder}"; then
+        echo "No need to build"
+        return 0  # Exit the function successfully
+    fi
 
     echo "Build firmware ${firmware_source_folder}"
     echo "make ETHOS_BAUDRATE=${ETHOS_BAUDRATE} DEFAULT_CHANNEL=${DEFAULT_CHANNEL} BOARD=${ARCH} -C ${firmware_source_folder}"
@@ -172,7 +174,7 @@ build_wireless_firmware_cached() {
     local firmware_source_folder="$1"
     local exe_name="$2"
 
-    if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/application_${exe_name}" "${firmware_source_folder}/main.c"; then
+    if are_files_new "${firmware_source_folder}/bin/${ARCH}/application_${exe_name}" "${firmware_source_folder}"; then
         echo "No need to build"
         return 0  # Exit the function successfully
     fi
@@ -197,10 +199,11 @@ build_wireless_firmware_cached() {
 
 build_firmware() {
     local firmware_source_folder="$1"
-    # if is_first_file_newer "${firmware_source_folder}/bin/${ARCH}/core" "${firmware_source_folder}/main.c"; then
-    #     echo "No need to build"
-    #     return 0  # Exit the function successfully
-    # fi
+    local exe_name="$2"
+    if are_files_new "${firmware_source_folder}/bin/${ARCH}/application_${exe_name}" "${firmware_source_folder}"; then
+        echo "No need to build"
+        return 0  # Exit the function successfully
+    fi
 
     echo "Build firmware ${firmware_source_folder}"
     echo "make BOARD=${ARCH} -C ${firmware_source_folder}"
@@ -238,4 +241,38 @@ is_first_file_newer() {
     elif [[ $first_file_mod_time -le $second_file_mod_time ]]; then
         return 1  # First file is equal or older
     fi
+}
+
+
+are_files_new() {
+    local first_file="$1"
+    local directory="$2"
+
+    if [[ ! -e "$first_file" ]]; then
+        echo "The first file does not exist."
+        return 2  # Return 2 for error due to non-existent first file
+    fi
+
+    if [[ ! -d "$directory" ]]; then
+        echo "The provided directory does not exist."
+        return 2  # Return 2 for error due to non-existent directory
+    fi
+
+    local first_file_mod_time=$(stat -c %Y "$first_file")
+    local newer_found=0
+
+    # Iterate over .c and .h files in the directory
+    for file in "$directory"/*.{c,h}; do
+        if [[ -e $file ]]; then
+            local file_mod_time=$(stat -c %Y "$file")
+            if [[ $first_file_mod_time -le $file_mod_time ]]; then
+                echo "$first_file"
+                echo "$file"
+                return 1
+                break
+            fi
+        fi
+    done
+
+    return 0
 }

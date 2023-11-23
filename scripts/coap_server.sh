@@ -11,7 +11,7 @@ build_status=$?
 if [ $build_status -ne 0 ]; then
     exit $build_status
 fi
-build_wireless_firmware ${COAP_SERVER_HOME}
+build_wireless_firmware ${COAP_SERVER_HOME} ${COAP_SERVER_EXE_NAME}
 build_status=$?
 if [ $build_status -ne 0 ]; then
     exit $build_status
@@ -24,7 +24,6 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   
   cp ${BORDER_ROUTER_HOME}/bin/${ARCH}/${BORDER_ROUTER_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}
   cp ${COAP_SERVER_HOME}/bin/${ARCH}/${COAP_SERVER_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}
-  exit 0
   # submit border router job and save job id
   border_router_job_id=$(submit_border_router_job "${BORDER_ROUTER_NODE}")
 

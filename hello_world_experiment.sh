@@ -6,7 +6,7 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   source /opt/riot.source
 fi
 
-build_firmware ${SENSE_HOME}/tutorials_riotos/hello-world
+build_firmware ${SENSE_HOME}/tutorials_riotos/hello-world hello-world
 build_status=$?
 if [ $build_status -ne 0 ]; then
     exit $build_status

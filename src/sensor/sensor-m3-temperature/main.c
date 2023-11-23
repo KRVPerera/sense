@@ -151,7 +151,7 @@ int main(void)
         avg_temp = sum / numElements;
 
         char temp_str[10];
-        char parity_bit[1];
+        char parity_bit[2];
         sprintf(temp_str, "%i,", avg_temp);
         // printf("Temp Str: %s°C\n", temp_str);
         strcat(data.buffer, temp_str);

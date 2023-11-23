@@ -50,7 +50,8 @@ static char proxy_uri[64];
  * start a new request (with a new path) until any blockwise transfer
  * completes or times out. */
 #define _LAST_REQ_PATH_MAX (64)
-static char *server_ip = GCOAP_AMAZON_SERVER_IP;
+static char *server_ip_f = GCOAP_AMAZON_SERVER_IP;
+static char *server_ip = GCOAP_AMAZON_SERVER_IP_ONLY;
 static char _last_req_path[_LAST_REQ_PATH_MAX];
 
 
@@ -230,8 +231,8 @@ void send_coap_get_request(resource_path path)
 
     /* Parse the destination address */
     if (!ipv6_addr_from_str(&addr, server_ip)) {
-        printf("Error: Invalid IPv6 address\n");
-        return -1;
+        printf("Error: Invalid IPv6 address : %s\n", server_ip);
+        return;
     }
 
     memcpy(remote.addr.ipv6, &addr, sizeof(addr));
@@ -258,11 +259,11 @@ void send_coap_get_request(resource_path path)
     gcoap_req_send(_req_buf, len, &remote, _resp_handler, NULL);
 
 
-    size_t ip_length = strlen(GCOAP_AMAZON_SERVER_IP) + 1;
+    size_t ip_length = strlen(server_ip_f) + 1;
     char ip_add[ip_length];
 
     // Constructing the string
-    snprintf(ip_add, ip_length, "%s", GCOAP_AMAZON_SERVER_IP);
+    snprintf(ip_add, ip_length, "%s", server_ip_f);
 
     if (!_send(&buf[0], len, ip_add)) {
         puts("gcoap_cli: msg send failed");
@@ -326,11 +327,11 @@ int gcoap_post(char* msg, resource_path path)
     DEBUG_PRINT("PDU prepared, length: %d\n", pdu_len);
     DEBUG_PRINT("sending msg ID %u, %u bytes\n", coap_get_id(&pdu), (unsigned) len);
 
-    size_t ip_length = strlen(GCOAP_AMAZON_SERVER_IP) + 1;
+    size_t ip_length = strlen(server_ip_f) + 1;
     char ip_add[ip_length];
 
     // Constructing the string
-    snprintf(ip_add, ip_length, "%s", GCOAP_AMAZON_SERVER_IP);
+    snprintf(ip_add, ip_length, "%s", server_ip_f);
 
     if (!_send(&buf[0], len, ip_add)) {
         puts("gcoap_cli: msg send failed");

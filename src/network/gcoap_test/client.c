@@ -263,53 +263,6 @@ void send_coap_get_request(resource_path path)
     }
 }
 
-
-int gcoap_cli_cmd_2(resource_path path)
-{
-    uint8_t buf[CONFIG_GCOAP_PDU_BUF_SIZE];
-    coap_pkt_t pdu;
-    ssize_t pdu_len;
-
-    // Define the remote endpoint
-    sock_udp_ep_t remote = {
-        .family = AF_INET6,
-        .port = 5683
-    };
-
-    // coap_hdr_set_type(pdu.hdr, COAP_TYPE_CON);
-
-    // Convert string to IPv6 address
-    ipv6_addr_t addr;
-    if (!ipv6_addr_from_str(&addr, server_ip)) {
-        printf("Error: Invalid IPv6 address\n");
-        return -1;
-    }
-    memcpy(remote.addr.ipv6, &addr, sizeof(addr));
-    printf("IPv6 Address set for CoAP request\n");
-
-    // Initialize the CoAP request
-    gcoap_req_init(&pdu, buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, get_resource_path(path));
-    printf("CoAP request initialized\n");
-
-    // Complete the CoAP PDU and get the length
-    pdu_len = coap_opt_finish(&pdu, COAP_OPT_FINISH_NONE);
-
-    if (pdu_len <= 0) {
-        printf("Error: PDU preparation failed\n");
-        return -1;
-    }
-    printf("PDU prepared, length: %d\n", pdu_len);
-
-    // Send the CoAP GET request
-    if (gcoap_req_send(buf, pdu_len, &remote, _resp_handler, NULL) <= 0) {
-        printf("Error: Sending CoAP request failed\n");
-        return -1;
-    }
-    printf("CoAP request sent successfully\n");
-
-    return 0;
-}
-
 int gcoap_post(char* msg)
 {
     uint8_t buf[CONFIG_GCOAP_PDU_BUF_SIZE];

@@ -69,8 +69,22 @@ const char* resource_paths[NUM_RESOURCES] = {
     [SHA_256] = "/sha256",
 };
 
+int resource_paths_len[NUM_RESOURCES] = {
+    [TEMP] = 13,
+    [TIME] = 6,
+    [CORE] = 18,
+    [BOARD] = 12,  // returns the name of the board running the server. It works only with GET requests.
+    [HELLO] = 12,
+    [RIOT_V] = 10,
+    [SHA_256] = 8,
+};
+
 const char* get_resource_path(resource_path path) {
     return resource_paths[path];
+}
+
+int get_resource_path_len(resource_path path) {
+    return resource_paths_len[path];
 }
 
 /*
@@ -208,6 +222,9 @@ void send_coap_get_request(resource_path path)
     sock_udp_ep_t remote;
     ipv6_addr_t addr;
 
+    int uri_len = get_resource_path_len(path);
+    const char *uri = get_resource_path(path);
+
     /* Parse the destination address */
     ipv6_addr_from_str(&addr, server_ip);
     remote.family = AF_INET6;
@@ -215,12 +232,35 @@ void send_coap_get_request(resource_path path)
     memcpy(&remote.addr.ipv6[0], &addr.u8[0], sizeof(addr.u8));
 
     /* Prepare the CoAP request */
+    uint8_t buf[CONFIG_GCOAP_PDU_BUF_SIZE];
     coap_pkt_t pdu;
-    gcoap_req_init(&pdu, _req_buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, get_resource_path(path));
-    size_t len = coap_opt_finish(&pdu, 0);
+    gcoap_req_init(&pdu, &buf[0], CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, uri);
+    coap_hdr_set_type(pdu.hdr, COAP_TYPE_CON);
+
+
+    memset(_last_req_path, 0, _LAST_REQ_PATH_MAX);
+    if (uri_len < _LAST_REQ_PATH_MAX) {
+        memcpy(_last_req_path, uri, uri_len);
+    }
+
+    size_t len = coap_opt_finish(&pdu, COAP_OPT_FINISH_NONE);
+
+    printf("gcoap_get: sending msg ID %u, %u bytes\n", coap_get_id(&pdu),
+               (unsigned) len);
 
     /* Send the request */
     gcoap_req_send(_req_buf, len, &remote, _resp_handler, NULL);
+
+
+    size_t ip_length = strlen(GCOAP_AMAZON_SERVER_IP);
+    char ip_add[ip_length];
+
+    // Constructing the string
+    snprintf(ip_add, ip_length, "[%s]", GCOAP_AMAZON_SERVER_IP);
+
+    if (!_send(&buf[0], len, ip_add)) {
+        puts("gcoap_cli: msg send failed");
+    }
 }
 
 

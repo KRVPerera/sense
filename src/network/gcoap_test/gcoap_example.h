@@ -61,6 +61,7 @@ typedef enum resource_path {
 
 
 const char* get_resource_path(resource_path path);
+int get_resource_path_len(resource_path path);
 
 extern uint16_t req_count;  /**< Counts requests sent by CLI. */
 

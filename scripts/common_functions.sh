@@ -244,6 +244,6 @@ extract_ip() {
     local ip
 
     # Extracting IP address, assuming it ends 6 characters before the end
-    ip="${server_ip:0:${#server_ip}-6}"
+    ip="${server_ip:1:${#server_ip}-7}"
     echo "$ip"
 }

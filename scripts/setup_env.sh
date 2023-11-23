@@ -5,7 +5,7 @@ export COAP_SERVER_NODE=328
 export GNRC_NETWORKING_NODE=326
 export COAP_CLIENT_NODE=327
 export SENSOR_NODE=324
-export SENSOR_CONNECTED_NODE=323
+export SENSOR_CONNECTED_NODE=320
 export COAP_CLIENT_TEST_NODE=325
 
 # comment this out in production
@@ -267,7 +267,7 @@ are_files_new() {
     local newer_found=0
 
     # Iterate over .c and .h files in the directory
-    for file in "$directory"/*.{c,h}; do
+    for file in "$directory"/*.{c,h} "$directory/Makefile"; do
         if [[ -e $file ]]; then
             local file_mod_time=$(stat -c %Y "$file")
             if [[ $first_file_mod_time -le $file_mod_time ]]; then

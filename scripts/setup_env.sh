@@ -5,6 +5,7 @@ export COAP_SERVER_NODE=328
 export GNRC_NETWORKING_NODE=326
 export COAP_CLIENT_NODE=327
 export SENSOR_NODE=324
+export SENSOR_CONNECTED_NODE=323
 export COAP_CLIENT_TEST_NODE=325
 
 # comment this out in production
@@ -55,6 +56,10 @@ export COAP_CLIENT_TEST_HOME=${SENSE_HOME}/src/network/${COAP_CLIENT_TEST_FOLDER
 export SENSOR_READ_FOLDER_NAME=sensor-m3-temperature
 export SENSOR_READ_EXE_NAME=${SENSOR_READ_FOLDER_NAME}_gp12
 export SENSOR_READ_HOME=${SENSE_HOME}/src/sensor/${SENSOR_READ_FOLDER_NAME}
+
+export SENSOR_CONNECTED_FOLDER_NAME=sensor-connected
+export SENSOR_CONNECTED_EXE_NAME=${SENSOR_CONNECTED_FOLDER_NAME}_gp12
+export SENSOR_CONNECTED_HOME=${SENSE_HOME}/src/sensor/${SENSOR_CONNECTED_FOLDER_NAME}
 
 #SENSE_SCRIPTS_HOME="${SENSE_HOME}/${SCRIPTS}"
 #SENSE_STOPPERS_HOME="${SENSE_SCRIPTS_HOME}/stoppers"
@@ -153,7 +158,7 @@ build_wireless_firmware() {
 
     echo "Build firmware ${firmware_source_folder}"
     echo "make ETHOS_BAUDRATE=${ETHOS_BAUDRATE} DEFAULT_CHANNEL=${DEFAULT_CHANNEL} BOARD=${ARCH} -C ${firmware_source_folder}"
-    make ETHOS_BAUDRATE="${ETHOS_BAUDRATE}" DEFAULT_CHANNEL="${DEFAULT_CHANNEL}" BOARD="${ARCH}" -C "${firmware_source_folder}"
+    make ETHOS_BAUDRATE="${ETHOS_BAUDRATE}" DEFAULT_CHANNEL="${DEFAULT_CHANNEL}"  -C "${firmware_source_folder}"
 
     # Capture the exit status of the make command
     local status=$?

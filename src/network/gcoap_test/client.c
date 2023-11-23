@@ -35,7 +35,7 @@
 
 #include "gcoap_example.h"
 
-#define ENABLE_DEBUG 0
+#define ENABLE_DEBUG 1
 #include "debug.h"
 
 #if IS_USED(MODULE_GCOAP_DTLS)
@@ -219,17 +219,23 @@ static int _print_usage(char **argv)
 
 void send_coap_get_request(resource_path path)
 {
-    sock_udp_ep_t remote;
     ipv6_addr_t addr;
+    sock_udp_ep_t remote = {
+        .family = AF_INET6,
+        .port = 5683
+    };
 
     int uri_len = get_resource_path_len(path);
     const char *uri = get_resource_path(path);
 
     /* Parse the destination address */
-    ipv6_addr_from_str(&addr, server_ip);
-    remote.family = AF_INET6;
-    remote.port = 5683;
-    memcpy(&remote.addr.ipv6[0], &addr.u8[0], sizeof(addr.u8));
+    if (!ipv6_addr_from_str(&addr, server_ip)) {
+        printf("Error: Invalid IPv6 address\n");
+        return -1;
+    }
+
+    memcpy(remote.addr.ipv6, &addr, sizeof(addr));
+    printf("IPv6 Address set for CoAP request\n");
 
     /* Prepare the CoAP request */
     uint8_t buf[CONFIG_GCOAP_PDU_BUF_SIZE];
@@ -263,7 +269,7 @@ void send_coap_get_request(resource_path path)
     }
 }
 
-int gcoap_post(char* msg)
+int gcoap_post(char* msg, resource_path path)
 {
     uint8_t buf[CONFIG_GCOAP_PDU_BUF_SIZE];
     coap_pkt_t pdu;
@@ -276,6 +282,8 @@ int gcoap_post(char* msg)
         .port = 5683
     };
 
+    int uri_len = get_resource_path_len(path);
+    const char *uri = get_resource_path(path);
 
     // Convert string to IPv6 address
     ipv6_addr_t addr;
@@ -284,11 +292,11 @@ int gcoap_post(char* msg)
         return -1;
     }
     memcpy(remote.addr.ipv6, &addr, sizeof(addr));
-    printf("IPv6 Address set for CoAP request\n");
+    DEBUG_PRINT("IPv6 Address set for CoAP request\n");
 
     // Initialize the CoAP request
     gcoap_req_init(&pdu, buf, CONFIG_GCOAP_PDU_BUF_SIZE, COAP_METHOD_GET, "/time");
-    printf("CoAP request initialized\n");
+    DEBUG_PRINT("CoAP request initialized\n");
 
     ssize_t uri_len = strlen(GCOAP_AMAZON_SERVER_IP) + 3;
 

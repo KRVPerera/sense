@@ -12,6 +12,9 @@
 #include "lpsxxx.h"
 #include "lpsxxx_params.h"
 
+#define ENABLE_DEBUG 1
+#include "debug.h"
+
 typedef struct {
   char buffer[128];
   int16_t tempList[5];
@@ -131,7 +134,7 @@ int main(void)
     
     int16_t temp = 0;
     if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
-      printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
+      DEBUG_PRINT("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
 
       if (array_length < 4) {
         data.tempList[array_length++] = temp;
@@ -175,7 +178,7 @@ int main(void)
       }
     }
     if (counter == 10) {
-      printf("Data: %s\n", data.buffer);
+      DEBUG_PRINT("Data: %s\n", data.buffer);
       memset(data.buffer, 0, sizeof(data.buffer));
       counter = 0;
     }

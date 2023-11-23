@@ -5,12 +5,14 @@
 
 #include "thread.h"
 #include "ztimer.h"
-#include "shell.h"
 
 #include "mutex.h"
 
 #include "lpsxxx.h"
 #include "lpsxxx_params.h"
+
+#define ENABLE_DEBUG 0
+#include "debug.h"
 
 typedef struct {
   char buffer[128];
@@ -174,7 +176,7 @@ int main(void)
       }
     }
     if (counter == 10) {
-      printf("Data: %s\n", data.buffer);
+      DEBUG_PRINT("Data: %s\n", data.buffer);
       memset(data.buffer, 0, sizeof(data.buffer));
       counter = 0;
     }

@@ -58,13 +58,10 @@ static void *coap_server_connect(void *arg)
 
     mutex_lock(&data_lock);
 
-    gcoap_cli_cmd_2(GET_TOPIC);
-
-    ztimer_sleep(ZTIMER_MSEC, 1000);
-
     send_coap_get_request(GET_TOPIC);
 
     mutex_unlock(&data_lock);
+    
     ztimer_sleep(ZTIMER_MSEC, 5000);
   }
   

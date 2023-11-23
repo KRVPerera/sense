@@ -252,11 +252,11 @@ void send_coap_get_request(resource_path path)
     gcoap_req_send(_req_buf, len, &remote, _resp_handler, NULL);
 
 
-    size_t ip_length = strlen(GCOAP_AMAZON_SERVER_IP);
+    size_t ip_length = strlen(GCOAP_AMAZON_SERVER_IP) + 1;
     char ip_add[ip_length];
 
     // Constructing the string
-    snprintf(ip_add, ip_length, "[%s]", GCOAP_AMAZON_SERVER_IP);
+    snprintf(ip_add, ip_length, "%s", GCOAP_AMAZON_SERVER_IP);
 
     if (!_send(&buf[0], len, ip_add)) {
         puts("gcoap_cli: msg send failed");

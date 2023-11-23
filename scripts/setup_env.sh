@@ -151,7 +151,7 @@ build_wireless_firmware() {
     local firmware_source_folder="$1"
     local exe_name="$2"
 
-    if are_files_new "${firmware_source_folder}/bin/${ARCH}/application_${exe_name}" "${firmware_source_folder}"; then
+    if are_files_new "${firmware_source_folder}/bin/${ARCH}/${exe_name}.elf" "${firmware_source_folder}"; then
         echo "No need to build"
         return 0  # Exit the function successfully
     fi
@@ -179,7 +179,7 @@ build_wireless_firmware_cached() {
     local firmware_source_folder="$1"
     local exe_name="$2"
 
-    if are_files_new "${firmware_source_folder}/bin/${ARCH}/application_${exe_name}" "${firmware_source_folder}"; then
+    if are_files_new "${firmware_source_folder}/bin/${ARCH}/${exe_name}.elf" "${firmware_source_folder}"; then
         echo "No need to build"
         return 0  # Exit the function successfully
     fi
@@ -205,7 +205,7 @@ build_wireless_firmware_cached() {
 build_firmware() {
     local firmware_source_folder="$1"
     local exe_name="$2"
-    if are_files_new "${firmware_source_folder}/bin/${ARCH}/application_${exe_name}" "${firmware_source_folder}"; then
+    if are_files_new "${firmware_source_folder}/bin/${ARCH}/${exe_name}.elf" "${firmware_source_folder}"; then
         echo "No need to build"
         return 0  # Exit the function successfully
     fi

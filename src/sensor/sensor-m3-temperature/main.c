@@ -98,6 +98,22 @@ int temp_sensor_reset(void)
   return 1;
 }
 
+int calculate_odd_parity(int num) {
+    int parityBit = 0;
+    int count = 0;  // To count the number of set bits
+
+    // Count the number of set bits (1-bits) in the given number
+    while (num) {
+        count += num & 1;  // Increment count if rightmost bit is set
+        num >>= 1;  // Right shift num to check the next bit
+    }
+
+    // Set parityBit to 1 if the count of set bits is even, else 0
+    parityBit = (count % 2 == 0) ? 1 : 0;
+
+    return parityBit;
+}
+
 int main(void)
 {
   if (temp_sensor_reset() == 0) {
@@ -135,9 +151,14 @@ int main(void)
         avg_temp = sum / numElements;
 
         char temp_str[10];
-        sprintf(temp_str, "%i.%u,", (avg_temp / 100), (avg_temp % 100));
+        char parity_bit[1];
+        sprintf(temp_str, "%i,", avg_temp);
         // printf("Temp Str: %s°C\n", temp_str);
         strcat(data.buffer, temp_str);
+
+        sprintf(parity_bit, "%i,", calculate_odd_parity(avg_temp));
+        // printf("Temp Str: %s°C\n", temp_str);
+        strcat(data.buffer, parity_bit);
 
         for (int i = 0; i < array_length - 1; ++i) {
             data.tempList[i] = data.tempList[i + 1];

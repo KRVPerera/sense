@@ -2,7 +2,7 @@
 
 source ${SENSE_SCRIPTS_HOME}/setup_env.sh
 
-build_wireless_firmware ${COAP_CLIENT_HOME}
+build_wireless_firmware ${COAP_CLIENT_HOME} ${COAP_CLIENT_EXE_NAME}
 build_status=$?
 if [ $build_status -ne 0 ]; then
     exit $build_status

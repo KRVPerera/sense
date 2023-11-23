@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+source setup.sh
 source ${SENSE_SCRIPTS_HOME}/setup_env.sh
 
 build_wireless_firmware ${COAP_CLIENT_HOME} ${COAP_CLIENT_EXE_NAME}

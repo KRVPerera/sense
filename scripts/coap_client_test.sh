@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
+source setup.sh
 source ${SENSE_SCRIPTS_HOME}/setup_env.sh
 
-build_wireless_firmware ${COAP_CLIENT_TEST_HOME} ${COAP_CLIENT_TEST_EXE_NAME}
+build_wireless_firmware_forced ${COAP_CLIENT_TEST_HOME} ${COAP_CLIENT_TEST_EXE_NAME}
 build_status=$?
 if [ $build_status -ne 0 ]; then
     exit $build_status

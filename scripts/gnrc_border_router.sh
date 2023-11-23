@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+source setup.sh
 source ${SENSE_SCRIPTS_HOME}/setup_env.sh
 
 build_wireless_firmware_cached ${BORDER_ROUTER_HOME} ${BORDER_ROUTER_EXE_NAME}

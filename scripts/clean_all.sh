@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+source setup.sh
 source ${SENSE_SCRIPTS_HOME}/setup_env.sh
 
 make BOARD=${ARCH} -C ${BORDER_ROUTER_HOME} clean

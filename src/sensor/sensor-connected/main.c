@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 #include "thread.h"
 #include "ztimer.h"
@@ -98,6 +99,22 @@ int temp_sensor_reset(void)
   return 1;
 }
 
+int calculate_odd_parity(int num) {
+    int parityBit = 0;
+    int count = 0;  // To count the number of set bits
+
+    // Count the number of set bits (1-bits) in the given number
+    while (num) {
+        count += num & 1;  // Increment count if rightmost bit is set
+        num >>= 1;  // Right shift num to check the next bit
+    }
+
+    // Set parityBit to 1 if the count of set bits is even, else 0
+    parityBit = (count % 2 == 0) ? 1 : 0;
+
+    return parityBit;
+}
+
 int main(void)
 {
   if (temp_sensor_reset() == 0) {
@@ -105,17 +122,15 @@ int main(void)
     return 1;
   }
 
-  int16_t avg_temp = 0; 
+  // int16_t avg_temp = 0; 
   int counter = 0;
   int array_length = 0;
+  int parity;
 
   while (1) {
     
     int16_t temp = 0;
-    lpsxxx_read_temp(&lpsxxx, &temp);
-
     if (lpsxxx_read_temp(&lpsxxx, &temp) == LPSXXX_OK) {
-      // printf("Temperature: %i.%u°C\n", (temp / 100), (temp % 100));
 
       if (array_length < 4) {
         data.tempList[array_length++] = temp;
@@ -132,12 +147,24 @@ int main(void)
 
         // printf("Sum: %li\n", sum);
 
-        avg_temp = sum / numElements;
+        // avg_temp = sum / numElements;
+
+        double avg_temp = (double)sum / numElements;
+
+        // Round to the nearest integer
+        int16_t rounded_avg_temp = (int16_t)round(avg_temp);
 
         char temp_str[10];
-        sprintf(temp_str, "%i.%u,", (avg_temp / 100), (avg_temp % 100));
+        char parity_bit[4];
+
+        sprintf(temp_str, "%i,", rounded_avg_temp);
         // printf("Temp Str: %s°C\n", temp_str);
         strcat(data.buffer, temp_str);
+
+        parity = calculate_odd_parity(rounded_avg_temp);
+        sprintf(parity_bit, "%i,", parity);
+        // printf("Temp Str: %s°C\n", temp_str);
+        strcat(data.buffer, parity_bit);
 
         for (int i = 0; i < array_length - 1; ++i) {
             data.tempList[i] = data.tempList[i + 1];

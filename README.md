@@ -104,3 +104,37 @@ More details about sensor layer is here : [Network](./docs/NETWORK,md)
 [Constrained Application Protocol - Wikipedia](https://en.wikipedia.org/wiki/Constrained_Application_Protocol)
 
 [What is CoAP](https://www.radware.com/security/ddos-knowledge-center/ddospedia/coap/)
+
+
+
+## Data Layer
+
+- InfluxDB is a TSDB (time series) type NoSQL databse
+
+- Grafana time series
+
+- Parity fail handling by interpolation
+
+- 
+
+                                                                                                                   ([back to top](#readme-top))
+
+##### References
+
+[NoSQL Database | InfluxData](https://www.influxdata.com/glossary/nosql-database/)
+
+   
+
+## Security
+
+- Although we have not focused on this aspect. CoAP protocol it self support secure communication over DTLS by exchanging ECDSA certificates. It is easy to setup.
+
+- For testing purposes we have opened all the source IPv6 addresses in Influx database. but we need to add inbound rules only to allow our CoAP client IPs to reach the server.
+
+- We have made sure only the relevant port for CoAP is open in the server.
+
+- Parity bit serves as data corruption detection. But we can go for CRC like more advance algorithms.
+
+- Data is not encrypted. Even when you use DTLS still from application layer your server and node can decide on a encryption mechanism to secure the data further.
+
+                                                                                                                   ([back to top](#readme-top))

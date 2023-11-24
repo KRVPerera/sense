@@ -35,8 +35,15 @@ export COAP_SERVER_IP_ONLY=$(extract_ip "$COAP_SERVER_IP")
 echo ${COAP_SERVER_IP_ONLY}
 
 
+# Site		subnets	from			to
+# Grenoble	128	2001:660:5307:3100::/64	2001:660:5307:317f::/64
+# Lille		128	2001:660:4403:0480::/64	2001:660:4403:04ff::/64
+# Paris		128	2001:660:330f:a280::/64	2001:660:330f:a2ff::/64
+# Saclay	64	2001:660:3207:04c0::/64	2001:660:3207:04ff::/64
+# Strasbourg	32	2001:660:4701:f0a0::/64	2001:660:4701:f0bf::/64
+
 # https://www.iot-lab.info/legacy/tutorials/understand-ipv6-subnetting-on-the-fit-iot-lab-testbed/index.html
-export BORDER_ROUTER_IP=2001:660:4403:0497::1/64
+export BORDER_ROUTER_IP=2001:660:330f:a293::1/64 # paris
 # export BORDER_ROUTER_IP=2001:660:5307:3108::1/64
 # export BORDER_ROUTER_IP=2001:660:5307:3109::1/64
 # export BORDER_ROUTER_IP=2001:660:5307:3110::1/64

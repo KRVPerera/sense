@@ -243,7 +243,7 @@ are_files_new() {
     local newer_found=0
 
     # Iterate over .c and .h files in the directory
-    for file in "$directory"/*.{c,h} "$directory/Makefile"; do
+    for file in "$directory"/*.{c,h} "$directory/Makefile" "${SENSE_SCRIPTS_HOME}/setup_env.sh" ; do
         if [[ -e $file ]]; then
             local file_mod_time=$(stat -c %Y "$file")
             if [[ $first_file_mod_time -le $file_mod_time ]]; then

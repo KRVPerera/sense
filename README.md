@@ -67,7 +67,7 @@ More details about sensor layer is here :  [Sensor](./docs/SENSOR,md)
 
 - We using M3 boards pressure sensors built in temperature sensor to read temperature data
 
-- Sensor is setup to resolution configuration of 32.
+- Sensor is setup to temperature resolution configuration 101. To Further reduce noise and increase precision by internal averaging. (AVGT2, AVGT1, ABGT0) - 101
 
 - We use **SMA** (Simple Moving Average) technique to reduce noise in the data
 

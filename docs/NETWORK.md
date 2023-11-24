@@ -2,6 +2,8 @@
 
 Our project uses IPv6 (TCP/IP) stack for connectivity between nodes and connectivity to our server which handles most of the data.
 
+ diagram, 
+
 ## Simple Architecture
 
 ```mermaid
@@ -23,7 +25,13 @@ graph LR;
 
 - We send each in ´Confirmable´ mode
 
-- 
+How CoAP impo
+
+Retransmission
+
+Why CoAP
+
+    server/client
 
 ## References
 

@@ -82,3 +82,23 @@ More details about sensor layer is here :  [Sensor](./docs/SENSOR,md)
 ## Network Layer
 
 More details about sensor layer is here : [Network](./docs/NETWORK,md)
+
+- We use CoAP request response style application layer protocol.
+
+- CoAP is a **low overhead** protocol designed for **constrained** network nodes.
+
+- It **Confirmable** mode message communication with server that we use which gets a `ACK` response from the server.
+
+- It provides **re transmission** to mitigate packet loss during transmission. It has a 
+
+- Runs on UDP protocol reducing overhead on nodes.
+
+- Since it runs on UDP it can intermittently connect and disconnect which by nature of IOT nodes
+
+
+
+#### References
+
+[Constrained Application Protocol - Wikipedia](https://en.wikipedia.org/wiki/Constrained_Application_Protocol)
+
+[What is CoAP](https://www.radware.com/security/ddos-knowledge-center/ddospedia/coap/)

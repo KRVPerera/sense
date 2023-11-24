@@ -28,7 +28,7 @@ printf "%-25s %s\n" "SITE:" "$SENSE_SITE"
 # comment this out in production
 if [ -z "$COAP_SERVER_IP" ]; then
     # If not set, then export it with the specified value
-    export COAP_SERVER_IP="[2001:660:5307:3107:a4a9:dc28:5c45:38a9]:5683"
+    export COAP_SERVER_IP="[2001:660:4403:497:a417:1216:7ea7:9acb]:5683"
     echo "COAP_SERVER_IP : ${COAP_SERVER_IP}"
 fi
 export COAP_SERVER_IP_ONLY=$(extract_ip "$COAP_SERVER_IP")

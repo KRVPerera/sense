@@ -31,7 +31,6 @@ if [ -z "$COAP_SERVER_IP" ]; then
     export COAP_SERVER_IP="[2001:660:4403:497:a417:1216:7ea7:9acb]:5683"
 fi
 export COAP_SERVER_IP_ONLY=$(extract_ip "$COAP_SERVER_IP")
-echo ${COAP_SERVER_IP_ONLY}
 
 
 # Site		subnets	from			to

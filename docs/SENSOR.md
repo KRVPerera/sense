@@ -141,7 +141,31 @@ Sensor needed some setup to work properly. In IOT test bed examples they initial
     }
   ```
   
-  ![Sensor Reset](./images/sensor_reset.png)
+  ![Sensor Reset](../images/sensor_reset.png)
+
+  - **Temperature Resolution**
+  Resolution is set to 16 (AVGT2 AVGT1 AVGT0 100) to set the precision of temperature data according to our application.
+
+  This reduces noise by internal averaging. Maximum value is not needed for us. It consumes more power.
+  
+  ```c
+    // 0x40 -- 01000000
+    // AVGT2 AVGT1 AVGT0 100 --  Nr. internal average : 16
+    if (temp_sensor_write_res_conf(&lpsxxx, 0x40) != LPSXXX_OK)
+    {
+      puts("Sensor enable failed");
+      return 0;
+    }
+  ```
+
+![Res conf](../images/res_conf.png)
+![Res conf 1](../images/res_temp1.png)
+
+  - **Wait for sensor to stabalize**
+  
+  ```c
+     ztimer_sleep(ZTIMER_MSEC, 5000);
+  ```
 
 - Helper functions
 
@@ -172,5 +196,5 @@ int temp_sensor_write_res_conf(const lpsxxx_t *dev, uint8_t value)
 }
 ```
 
-##### References
-- Sensor data sheet
+### References
+- https://www.iot-lab.info/assets/misc/docs/iot-lab-m3/LPS331AP.pdf

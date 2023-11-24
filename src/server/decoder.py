@@ -2,8 +2,7 @@ import struct
 
 def decodeTemperature(message):
     data_out = []
-    message = list(map(float, message[:-1].strip().split(',')))
-    print(message)
+    message = list(map(int, message[:-1].strip().split(',')))
     for i in range(0, len(message), 2):
         value, parity = message[i], message[i + 1]
         if (parityCheck(value, parity)):

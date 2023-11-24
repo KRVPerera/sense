@@ -2,22 +2,38 @@
 
 source ${SENSE_SCRIPTS_HOME}/common_functions.sh
 
-export BORDER_ROUTER_NODE=329 # border router
-export COAP_SERVER_NODE=328
-export GNRC_NETWORKING_NODE=326
-export COAP_CLIENT_NODE=327
-export SENSOR_NODE=324
-export SENSOR_CONNECTED_NODE=320
-export COAP_CLIENT_TEST_NODE=325
+export BORDER_ROUTER_NODE=60 # Border router
+
+# Incrementally set other variables based on BORDER_ROUTER_NODE
+export COAP_SERVER_NODE=$((BORDER_ROUTER_NODE + 1))
+export SENSOR_CONNECTED_NODE=$((BORDER_ROUTER_NODE + 2))
+export GNRC_NETWORKING_NODE=$((BORDER_ROUTER_NODE + 3))
+export COAP_CLIENT_NODE=$((BORDER_ROUTER_NODE + 4))
+export SENSOR_NODE=$((BORDER_ROUTER_NODE + 5))
+export COAP_CLIENT_TEST_NODE=$((BORDER_ROUTER_NODE + 6))
+
+printf "%-25s %s\n" "BORDER_ROUTER_NODE:" "$BORDER_ROUTER_NODE"
+printf "%-25s %s\n" "COAP_SERVER_NODE:" "$COAP_SERVER_NODE"
+printf "%-25s %s\n" "SENSOR_CONNECTED_NODE:" "$SENSOR_CONNECTED_NODE"
+printf "%-25s %s\n" "GNRC_NETWORKING_NODE:" "$GNRC_NETWORKING_NODE"
+printf "%-25s %s\n" "COAP_CLIENT_NODE:" "$COAP_CLIENT_NODE"
+printf "%-25s %s\n" "SENSOR_NODE:" "$SENSOR_NODE"
+printf "%-25s %s\n" "COAP_CLIENT_TEST_NODE:" "$COAP_CLIENT_TEST_NODE"
+
+export SENSE_SITE=paris
 
 # comment this out in production
-export COAP_SERVER_IP="[2001:660:5307:3107:a4a9:dc28:5c45:38a9]:5683"
+if [ -z "$COAP_SERVER_IP" ]; then
+    # If not set, then export it with the specified value
+    export COAP_SERVER_IP="[2001:660:5307:3107:a4a9:dc28:5c45:38a9]:5683"
+    echo "COAP_SERVER_IP : ${COAP_SERVER_IP}"
+fi
 export COAP_SERVER_IP_ONLY=$(extract_ip "$COAP_SERVER_IP")
 echo ${COAP_SERVER_IP_ONLY}
 
 
 # https://www.iot-lab.info/legacy/tutorials/understand-ipv6-subnetting-on-the-fit-iot-lab-testbed/index.html
-export BORDER_ROUTER_IP=2001:660:5307:3107::1/64
+export BORDER_ROUTER_IP=2001:660:4403:0497::1/64
 # export BORDER_ROUTER_IP=2001:660:5307:3108::1/64
 # export BORDER_ROUTER_IP=2001:660:5307:3109::1/64
 # export BORDER_ROUTER_IP=2001:660:5307:3110::1/64
@@ -25,7 +41,7 @@ export BORDER_ROUTER_IP=2001:660:5307:3107::1/64
 export ARCH=iotlab-m3
 
 # values are from 11-26
-export DEFAULT_CHANNEL=23
+export DEFAULT_CHANNEL=22
 # export DEFAULT_CHANNEL=13
 
 export ETHOS_BAUDRATE=500000

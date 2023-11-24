@@ -59,7 +59,7 @@ uint16_t req_count = 0;
 // static uint8_t _req_buf[CONFIG_GCOAP_PDU_BUF_SIZE];
 
 const char* resource_paths[NUM_RESOURCES] = {
-    [TEMP] = "/temperature",
+    [TEMP] = "/temp",
     [TIME] = "/time",
     [CORE] = "/.well-known/core",
     [BOARD] = "/riot/board",  // returns the name of the board running the server. It works only with GET requests.

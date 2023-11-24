@@ -89,15 +89,17 @@ More details about sensor layer is here : [Network](./docs/NETWORK,md)
 
 - It **Confirmable** mode message communication with server that we use which gets a `ACK` response from the server.
 
-- It provides **re transmission** to mitigate packet loss during transmission. It has a 
+- It provides **re transmission** to mitigate packet loss during transmission. It has a 16 bit message id to help this.
 
 - Runs on UDP protocol reducing overhead on nodes.
 
 - Since it runs on UDP it can intermittently connect and disconnect which by nature of IOT nodes
 
-
+                                                                                                                   ([back to top](#readme-top))
 
 #### References
+
+[The Constrained Application Protocol (CoAP)](https://datatracker.ietf.org/doc/html/rfc7252)
 
 [Constrained Application Protocol - Wikipedia](https://en.wikipedia.org/wiki/Constrained_Application_Protocol)
 

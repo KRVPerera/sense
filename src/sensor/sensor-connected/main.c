@@ -24,8 +24,9 @@
 
 #include "gcoap_example.h"
 
+#define ENABLE_DEBUG 1
 #include "debug.h"
-#define ENABLE_DEBUG 0
+
 
 typedef struct {
   char buffer[128];

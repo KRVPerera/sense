@@ -28,8 +28,8 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
 
   # submit network router node job and save job id
   echo "Submit job to node ${COAP_SERVER_NODE}"
-  echo "iotlab-experiment submit -n ${COAP_SERVER_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${COAP_SERVER_NODE},${SENSE_FIRMWARE_HOME}/${COAP_SERVER_EXE_NAME}.elf"
-  n_json=$(iotlab-experiment submit -n ${COAP_SERVER_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${COAP_SERVER_NODE},${SENSE_FIRMWARE_HOME}/${COAP_SERVER_EXE_NAME}.elf)
+  echo "iotlab-experiment submit -n ${COAP_SERVER_EXE_NAME} -d ${EXPERIMENT_TIME} -l ${SENSE_SITE},m3,${COAP_SERVER_NODE},${SENSE_FIRMWARE_HOME}/${COAP_SERVER_EXE_NAME}.elf"
+  n_json=$(iotlab-experiment submit -n ${COAP_SERVER_EXE_NAME} -d ${EXPERIMENT_TIME} -l ${SENSE_SITE},m3,${COAP_SERVER_NODE},${SENSE_FIRMWARE_HOME}/${COAP_SERVER_EXE_NAME}.elf)
   n_node_job_id=$(echo $n_json | jq '.id')
 
   create_stopper_script $n_node_job_id $border_router_job_id

@@ -14,7 +14,7 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   cp ${COAP_CLIENT_TEST_HOME}/bin/${ARCH}/${COAP_CLIENT_TEST_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}
 
   ## submitting a job in iot test bed with the firmware it self
-  coap_client_job_json=$(iotlab-experiment submit -n ${COAP_CLIENT_TEST_EXE_NAME} -d ${EXPERIMENT_TIME} -l grenoble,m3,${COAP_CLIENT_TEST_NODE},${SENSE_FIRMWARE_HOME}/${COAP_CLIENT_TEST_EXE_NAME}.elf)
+  coap_client_job_json=$(iotlab-experiment submit -n ${COAP_CLIENT_TEST_EXE_NAME} -d ${EXPERIMENT_TIME} -l ${SENSE_SITE},m3,${COAP_CLIENT_TEST_NODE},${SENSE_FIRMWARE_HOME}/${COAP_CLIENT_TEST_EXE_NAME}.elf)
   coap_client_job_id=$(echo $coap_client_job_json | jq '.id')
 
   create_stopper_script $coap_client_job_id

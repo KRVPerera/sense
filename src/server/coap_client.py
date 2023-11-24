@@ -15,7 +15,7 @@ async def main():
     count =0
     while (count < 200):
         randString = ",".join([setParity(round(random.uniform(35.0, 38.0), 2)) for i in range(5)])
-        payload = json.dumps({'temperature': randString + ','}).encode("utf-8")
+        payload = (randString + ',').encode("utf-8")
         request = Message(code=aiocoap.POST, payload=payload , uri='coap://[2a05:d016:1bb:3e00:2fbe:1fb4:63f9:eb4b]:5683/temp')
         try:
             response = await protocol.request(request).response

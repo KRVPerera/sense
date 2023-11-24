@@ -1,6 +1,25 @@
 #!/usr/bin/env bash
 
-repo=`pwd | rev | cut -d '/' -f 1 |rev`
+function help() {
+    echo "Usage: $0 [OPTIONS]"
+    echo "Build and deploy script for CoAP server with optional services."
+
+    echo -e "\nOptions:"
+    echo "  --mode MODE   Set the deployment mode. Default: 'all'."
+    echo "                Available modes:"
+    echo "                  - all    : Build and deploy server, start Grafana, and InfluxDB."
+    echo "                  - server : Build and deploy server only."
+
+    echo -e "\n  -h, --help    Display this help message."
+
+    echo -e "\nExample:"
+    echo "  $0 --mode server  # Build and deploy the server only."
+
+    echo -e "\nNote:"
+    echo "  - Grafana and InfluxDB are started only in 'all' mode, not in 'server' mode."
+}
+
+repo=$(pwd | rev | cut -d '/' -f 1 | rev)
 mode="all"
 
 echo "================================================================================================"
@@ -8,71 +27,51 @@ echo "         					BUILD_AND_DEPLOY ($repo) "
 echo "================================================================================================"
 
 while [ ! -z $1 ]; do
-	case "$1" in
-		-h|--help)
-			help
-			exit 0
-		;;
+    case "$1" in
+        -h|--help)
+            help
+            exit 0
+        ;;
         --mode)
-			if [[ -z $2 ]];
-			then
-				print_error "--mode needs a value"
-				exit 1
-			else
-				mode=$2
-				shift
-			fi
-		;;
-
+            if [[ -z $2 ]]; then
+                echo "--mode needs a value"
+                exit 1
+            else
+                mode=$2
+                shift
+            fi
+        ;;
     esac
     shift
 done
-
 
 function build_and_deploy_server()
 {
     docker build -t coap-server . 
 
     docker run \
-			-v ~/.aws/credentials:/root/.aws/credentials \
             --network host -p 5683:5683 coap-server 
 }
 
-function run_server()
-{
-    docker run -v ~/.aws/credentials:/root/.aws/credentials \
-            --network host -p 5683:5683 coap-server 
+function grafana_start() {
+    if ! pgrep -x "grafana-server" > /dev/null; then
+        sudo /bin/systemctl daemon-reload
+        sudo /bin/systemctl enable grafana-server
+        sudo /bin/systemctl start grafana-server
+    else
+        echo "Grafana is already running."
+    fi
 }
 
-function deploy_lambda()
-{
-    sam deploy --template-file lambda_handler/template.yaml
+function influxdb_start() {
+    if ! pgrep -x "influxd" > /dev/null; then
+        sudo service influxdb start
+    else
+        echo "InfluxDB is already running."
+    fi
 }
 
-function grafana_start()
-{
-	sudo /bin/systemctl daemon-reload
- 	sudo /bin/systemctl enable grafana-server
- 	sudo /bin/systemctl start grafana-server
-}
-
-function influxdb_start()
-{
-	sudo service influxdb start
-}
-
-if [ $mode == "lambda" ];then
-    deploy_lambda
-    if [[ $build_status == 'success' ]];then
-		echo "successfully deployed lambda function and script is exited"
-		exit 0
-	else
-		echo "deploy failed"
-		exit -1
-	fi
-fi
-
-if [ $mode == "server" ];then
+if [ $mode == "all" ];then
 	grafana_start
 	influxdb_start
     build_and_deploy_server
@@ -85,25 +84,10 @@ if [ $mode == "server" ];then
 	fi
 fi
 
-if [ $mode == "run-server" ];then
-    run_server
+if [ $mode == "server" ];then
+    build_and_deploy_server
     if [[ $build_status == 'success' ]];then
 		echo "successfully deployed the server and script is exited"
-		exit 0
-	else
-		echo "deploy failed"
-		exit -1
-	fi
-fi
-
-if [ $mode == "all" ];then
-	grafana_start
-	influxdb_start
-	grafana_start
-    deploy_lambda
-	build_and_deploy_server
-    if [[ $build_status == 'success' ]];then
-		echo "successfully deployed the system and script is exited"
 		exit 0
 	else
 		echo "deploy failed"

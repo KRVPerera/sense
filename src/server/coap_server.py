@@ -27,12 +27,11 @@ class TimeResource(resource.ObservableResource):
 
 class temperature(resource.Resource):
     async def render_post(self, request):
-        payload = json.loads(request.payload.decode('utf8'))
-        message = sqsClient.send_message(
-            QueueUrl = sqsUrl,
-            MessageBody = (json.dumps(payload))
-        )
-        sendInfluxdb(payload['temperature'], TEMPERATURE)
+        print(request.payload)
+        payload = request.payload.decode('utf8')
+        print(payload)
+        decodedValues = decodeTemperature(payload)
+        sendInfluxdb(decodedValues)
         return aiocoap.Message(content_format=0,
                 payload=json.dumps({"status": "ok"}).encode('utf8'))
 

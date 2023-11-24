@@ -37,7 +37,7 @@
 
 End to end IOT system which collects sensor data and visualize on cloud
 
-![High Level Architecture](./images/Architecture.png)
+![High Level Architecture](./images/architecture.jpeg)
 
 <!-- BUILT WITH -->
 

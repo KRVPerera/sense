@@ -20,21 +20,15 @@ Sensor node is connected to to internet via border router. We are writing a sepa
 
 This project is implemented using [IoT-LAB M3]([IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/)) mcu boards and they have [AT86RF231](https://www.iot-lab.info/assets/misc/docs/iot-lab-m3/AT86RF231.pdf) radio chip. Radio chip is designed for `IEEE 802.15.4 (LR-WPAN)` standard (Low-rate wireless personal area networks). 
 
-
-
 **6LoWPAN** (IPv6 over Low-Power Wireless Personal Area Network)
 
 Provides neighbor discovery, header compression like features and it is designed for low power devices with limiting processing capabilities.
 
  
 
-
-
 ##### References
 
 [IEEE 802.15.4 - Wikipedia](https://en.wikipedia.org/wiki/IEEE_802.15.4#:~:text=4%20is%20a%20technical%20standard,defined%20the%20standard%20in%202003.)
-
-
 
 ## CoAP protocol for application layer
 

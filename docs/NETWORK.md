@@ -6,14 +6,13 @@ Our project uses IPv6 (TCP/IP) stack for connectivity between nodes and connecti
 
 ```mermaid
 graph LR;
-    A[Sensor node] -->|802.15.4| B[Border Router];
+    A([Sensor node]) -->|802.15.4| B([Border Router]);
     B --> |ETHOS| C(Internet);
-    C --> D(Server);
+    C --> D[(InfluxDB)]
+    D --> E(Grafana);
 ```
 
 Sensor node is connected to to internet via border router. We are writing a guide how to setup the border router with our setup.
-
-- 
 
 ## CoAP protocol for application layer
 

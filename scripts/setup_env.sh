@@ -12,6 +12,7 @@ export GNRC_NETWORKING_NODE=$((BORDER_ROUTER_NODE + 3))
 export COAP_CLIENT_NODE=$((BORDER_ROUTER_NODE + 4))
 export SENSOR_NODE=$((BORDER_ROUTER_NODE + 5))
 export COAP_CLIENT_TEST_NODE=$((BORDER_ROUTER_NODE + 6))
+export HELLO_NODE=$((BORDER_ROUTER_NODE + 7))
 
 printf "%-25s %s\n" "BORDER_ROUTER_NODE:" "$BORDER_ROUTER_NODE"
 printf "%-25s %s\n" "COAP_SERVER_NODE:" "$COAP_SERVER_NODE"
@@ -20,21 +21,29 @@ printf "%-25s %s\n" "GNRC_NETWORKING_NODE:" "$GNRC_NETWORKING_NODE"
 printf "%-25s %s\n" "COAP_CLIENT_NODE:" "$COAP_CLIENT_NODE"
 printf "%-25s %s\n" "SENSOR_NODE:" "$SENSOR_NODE"
 printf "%-25s %s\n" "COAP_CLIENT_TEST_NODE:" "$COAP_CLIENT_TEST_NODE"
+printf "%-25s %s\n" "HELLO_NODE:" "$HELLO_NODE"
 printf "%-25s %s\n" "SITE:" "$SENSE_SITE"
 
 
 # comment this out in production
 if [ -z "$COAP_SERVER_IP" ]; then
     # If not set, then export it with the specified value
-    export COAP_SERVER_IP="[2001:660:5307:3107:a4a9:dc28:5c45:38a9]:5683"
+    export COAP_SERVER_IP="[2001:660:4403:497:a417:1216:7ea7:9acb]:5683"
     echo "COAP_SERVER_IP : ${COAP_SERVER_IP}"
 fi
 export COAP_SERVER_IP_ONLY=$(extract_ip "$COAP_SERVER_IP")
 echo ${COAP_SERVER_IP_ONLY}
 
 
+# Site		subnets	from			to
+# Grenoble	128	2001:660:5307:3100::/64	2001:660:5307:317f::/64
+# Lille		128	2001:660:4403:0480::/64	2001:660:4403:04ff::/64
+# Paris		128	2001:660:330f:a280::/64	2001:660:330f:a2ff::/64
+# Saclay	64	2001:660:3207:04c0::/64	2001:660:3207:04ff::/64
+# Strasbourg	32	2001:660:4701:f0a0::/64	2001:660:4701:f0bf::/64
+
 # https://www.iot-lab.info/legacy/tutorials/understand-ipv6-subnetting-on-the-fit-iot-lab-testbed/index.html
-export BORDER_ROUTER_IP=2001:660:4403:0497::1/64
+export BORDER_ROUTER_IP=2001:660:330f:a293::1/64 # paris
 # export BORDER_ROUTER_IP=2001:660:5307:3108::1/64
 # export BORDER_ROUTER_IP=2001:660:5307:3109::1/64
 # export BORDER_ROUTER_IP=2001:660:5307:3110::1/64

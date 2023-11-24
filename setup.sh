@@ -5,7 +5,7 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
 fi
 
 export SENSE_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-echo "SENSE_HOME is set to $SENSE_HOME"
+printf "%-25s %s\n" "SENSE_HOME:" "$SENSE_HOME"
 
 SCRIPTS=scripts
 

@@ -81,7 +81,7 @@ More details about sensor layer is here :  [Sensor](./docs/SENSOR,md)
 
 ## Network Layer
 
-More details about sensor layer is here : [Network](./docs/NETWORK,md)
+More details about network layer is here : [Network](./docs/NETWORK,md)
 
 - We use CoAP request response style application layer protocol.
 
@@ -108,6 +108,8 @@ More details about sensor layer is here : [Network](./docs/NETWORK,md)
 
 
 ## Data Layer
+
+More details about sensor layer is here : [Server](./docs/SERVER,md)
 
 - InfluxDB is a TSDB (time series) type NoSQL databse
 

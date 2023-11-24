@@ -9,7 +9,7 @@
 https://www.youtube.com/watch?v=Y-Kq7G6Sz5Q&feature=youtu.be
 
 ```
-[![IMAGE ALT TEXT HERE](https://www.youtube.com/watch?v=Y-Kq7G6Sz5Q/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)End to end IOT system which collects sensor data and visualize on cloud
+[![IMAGE ALT TEXT HERE](https://www.youtube.com/watch?v=Y-Kq7G6Sz5Q)End to end IOT system which collects sensor data and visualize on cloud
 ```
 
 ![High Level Architecture](./images/architecture.jpeg)

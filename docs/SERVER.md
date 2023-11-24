@@ -5,7 +5,7 @@
 
 ## Overview
 
-This project implements a cloud-based solution for handling CoAP data. The server listens for CoAP data, writes it into an InfluxDB database, and visualizes the data using Grafana. The implementation utilizes Docker for easy deployment, and the entire system can be deployed on an AWS EC2 instance.
+This project implements a cloud-based solution for handling CoAP data. The server listens for CoAP data, writes it into an InfluxDB database, and visualizes the data using Grafana. The implementation utilizes **Docker for easy deployment**, and the entire system can be deployed on an AWS EC2 instance.
 
 ## Prerequisites
 
@@ -38,7 +38,9 @@ This project implements a cloud-based solution for handling CoAP data. The serve
      ```
 
      This allows incoming UDP traffic on port 5683 from any IPv6 address.
-
+     
+    - Note for Testing:
+    For testing purposes, all IPv6 addresses are allowed (::/0). In a production environment, consider limiting access by applying a range of IPs.
 4. **Configure Inbound Rules for Grafana**
 
    - Add an inbound rule for TCP at port 3000 for IPv4.
@@ -47,11 +49,12 @@ This project implements a cloud-based solution for handling CoAP data. The serve
      Type: Custom TCP Rule
      Protocol: TCP
      Port Range: 3000
-     Source: ::/0
+     Source: 0.0.0.0/0
      ```
 
      This allows incoming TCP traffic on port 3000 from any IPv4 address.
-
+    - Note for Testing:
+    For testing purposes, all IPv4 addresses are allowed (0.0.0.0/0). In a production environment, consider limiting access by applying a range of IPs.
 ## Setting Up Grafana and InfluxDB
 
 1. **Install InfluxDB and Grafana**
@@ -115,7 +118,6 @@ This project implements a cloud-based solution for handling CoAP data. The serve
 
 2. **Add InfluxDB Data Source**
 
-   - Click on the gear icon (⚙️) in the left sidebar to open the "Settings" menu.
    - Select "Data Sources."
    - Click on "Add your first data source."
    - Choose "InfluxDB" from the list of available data sources.
@@ -127,22 +129,22 @@ This project implements a cloud-based solution for handling CoAP data. The serve
      - **Name:** Give your data source a name.
      - **Type:** Select "InfluxDB."
      - **HTTP URL:** Set the URL to your InfluxDB instance, `http://localhost:8086`.
-     - **InfluxDB Details:** Provide InfluxDB details including `Database name`, `Username`, `Password`
+     - **InfluxDB Details:** Provide InfluxDB details including `Database name`, `Username`, `Password`. (This need to be defined in the [configuration.py](../src/server/configuration.py) file).
 
    - Click on "Save & Test" to verify the connection.
 
 4. **Create a Dashboard**
 
-   - Click on the "+" icon in the left sidebar to create a new dashboard.
+   - Click on the "Dashboard" icon in the left sidebar to create a new dashboard.
+   - Select the influxDB data source created earlier.
    - Click on "Add Panel" and choose "Graph."
-   - In the "Query" section, select your InfluxDB data source.
 
 5. **Query InfluxDB for Time-Series Data**
 
-   - In the "Metrics" tab, set the measurement and field to visualize from your InfluxDB database.
+   - In the "Query" tab, set the measurement and field to visualize from your InfluxDB database.
 
-     - **Measurement:** `temperature` (or your specified measurement name).
-     - **Field:** `value` (or your specified field name).
+     - **Measurement:** `temperature`.
+     - **Field:** `value`.
 
    - Set the time range to view your time-series data.
 

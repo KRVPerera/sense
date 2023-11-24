@@ -1,10 +1,9 @@
 <a name="readme-top"></a>
 
 <p align="center">
-  <img src="./images/logo_Logo.png" width="400"/>
+  <img src="./images/logo_Logo.png" width="600"/>
 </p>
 
-<!-- TABLE OF CONTENTS -->
 ## Demo
 <div align="center">
   <a href="https://www.youtube.com/watch?v=Y-Kq7G6Sz5Q"><img src="https://img.youtube.com/vi/Y-Kq7G6Sz5Q/0.jpg" alt="Demo"></a>
@@ -12,7 +11,7 @@
 
 ## How to Run
 
-- https://github.com/KRVPerera/sense/wiki/How-to-run-the-project
+- [Wiki page](https://github.com/KRVPerera/sense/wiki/How-to-run-the-project)
 
 ## High Level Architecture
 
@@ -56,7 +55,8 @@ More details about sensor layer is here :  [docs/Sensor](./docs/SENSOR.md)
 
 - Parity bit is added as extra precaution to recognize corrupted data
 
-                                                                                   <p align="right">(<a href="#readme-top">back to top</a>)</p>
+                                                                                   
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Network Layer
 
@@ -109,7 +109,7 @@ The integration of InfluxDB and Grafana within the EC2 environment provides a ro
 
 ### References
 
-[NoSQL Database | InfluxData](https://www.influxdata.com/glossary/nosql-database/)
+[NoSQL Database - InfluxDB](https://www.influxdata.com/glossary/nosql-database/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -125,4 +125,5 @@ The integration of InfluxDB and Grafana within the EC2 environment provides a ro
  
 - Data is not encrypted. Even when you use DTLS still from application layer your server and node can decide on a encryption mechanism to secure the data further.
 
-                                                                                   <p align="right">(<a href="#readme-top">back to top</a>)</p>
+                                                                                   
+<p align="right">(<a href="#readme-top">back to top</a>)</p>

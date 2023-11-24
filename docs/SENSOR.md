@@ -39,7 +39,7 @@ In our project we used only the LPS331AP sensor to measure temperature values.
 
 ## IOT-LAB M3 board architecture
 
-![IOT test bed m3 architecture | 500](../images/m3-archi.png)
+![IOT test bed m3 architecture](../images/m3-archi.png)
 
 More details about IOT-LAB M3 board can be found here:  [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/)
 

@@ -88,11 +88,9 @@ More details about data management layer is here : [docs/Server](./docs/SERVER.m
 
 - Grafana complements InfluxDB by providing powerful visualization capabilities for time-series data.
 
-- To ensure data integrity, a parity bit is appended to each temperature value during transmission. The EC2 CoAP listener, running as a Docker container, extracts the received data and performs frequent parity checks.
+- To ensure data integrity, a parity bit is appended to each temperature value during transmission. The EC2 CoAP listener, running as a Docker container, extracts the received data and performs frequent parity checks. 
 
-                                                                                   <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## Overview of Data Flow
+### Overview of Data Flow
  
 1. **Data Ingestion:**
    - CoAP data is ingested into the EC2 instance, where the CoAP listener Docker container captures and extracts the temperature values along with parity bits.

@@ -59,6 +59,13 @@ static void *coap_server_connect(void *arg)
     mutex_lock(&data_lock);
 
     send_coap_get_request(CORE);
+    ztimer_sleep(ZTIMER_MSEC, 1000);
+
+    send_coap_get_request(BOARD);
+
+    ztimer_sleep(ZTIMER_MSEC, 1000);
+
+    gcoap_post("asd", SHA_256);
 
     mutex_unlock(&data_lock);
     

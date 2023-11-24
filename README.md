@@ -18,27 +18,27 @@
 
 ## Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+* [RIOT - Real Time operating system](https://www.riot-os.org/)
 
-* RIOT - Real Time operating system
+* [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/) MCU boards
 
-* [IoT-LAB M3]([IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/)) MCU boards
+* [I2C Protocol](https://en.wikipedia.org/wiki/I%C2%B2C)
 
-* I2C  Protocol
-
-* [CoAP]([Constrained Application Protocol - Wikipedia](https://en.wikipedia.org/wiki/Constrained_Application_Protocol)) - Constrained Application Protocol
+* [CoAP - Constrained Application Protocol](https://en.wikipedia.org/wiki/Constrained_Application_Protocol) - Constrained Application Protocol
 
 * [Grafana](https://grafana.com/)
 
-* [InfluxDB](https://www.influxdata.com/glossary/nosql-database/) - is a time series no sql database designed to handle high write and query loads, primarily used for real-time analytics, monitoring, and IoT applications.
+* [InfluxDB](https://www.influxdata.com/glossary/nosql-database/)
 
-* Amazon EC2
+* [Amazon EC2](https://aws.amazon.com/ec2/)
+
+* [Docker](https://www.docker.com/)
   
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Sensor Layer
 
-More details about sensor layer is here :  [Sensor](./docs/SENSOR.md)
+More details about sensor layer is here :  [docs/Sensor](./docs/SENSOR.md)
 
 - We using M3 boards pressure sensors built in temperature sensor to read temperature data
 
@@ -52,25 +52,23 @@ More details about sensor layer is here :  [Sensor](./docs/SENSOR.md)
 
 - Parity bit is added as extra precaution to recognize corrupted data
 
-                                                                                                                   ([back to top](#readme-top))
+                                                                                   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Network Layer
 
-More details about network layer is here : [Network](./docs/NETWORK.md)
+More details about network layer is here : [docs/Network](./docs/NETWORK.md)
 
 - We use CoAP request response style application layer protocol.
 
 - CoAP is a **low overhead** protocol designed for **constrained** network nodes.
 
-- It **Confirmable** mode message communication with server that we use which gets a `ACK` response from the server.
+- It has **Confirmable** mode message communication with server that we use which gets a `ACK` response from the server.
 
 - It provides **re transmission** to mitigate packet loss during transmission. It has a 16 bit message id to help this.
 
 - Runs on UDP protocol reducing overhead on nodes.
 
-- Since it runs on UDP it can intermittently connect and disconnect which by nature of IOT nodes
-
-                                                                                                                   ([back to top](#readme-top))
+- Since it runs on UDP it can intermittently connect and disconnect which by nature of IOT nodes                                                                               
 
 #### References
 
@@ -80,36 +78,49 @@ More details about network layer is here : [Network](./docs/NETWORK.md)
 
 [What is CoAP](https://www.radware.com/security/ddos-knowledge-center/ddospedia/coap/)
 
-## Data Layer
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-More details about sensor layer is here : [Server](./docs/SERVER.md)
+## Data Management Layer
 
-- InfluxDB is a TSDB (time series) type NoSQL databse
+More details about data management layer is here : [docs/Server](./docs/SERVER.md)
 
-- Grafana time series
+- InfluxDB serves as the core Time Series Database (TSDB) in this architecture. It is a NoSQL database optimized for handling time-stamped data efficiently.
 
-- Parity fail handling by interpolation
+- Grafana complements InfluxDB by providing powerful visualization capabilities for time-series data.
 
-- 
+- To ensure data integrity, a parity bit is appended to each temperature value during transmission. The EC2 CoAP listener, running as a Docker container, extracts the received data and performs frequent parity checks.
 
-                                                                                                                   ([back to top](#readme-top))
+                                                                                   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-##### References
+## Overview of Data Flow
+ 
+1. **Data Ingestion:**
+   - CoAP data is ingested into the EC2 instance, where the CoAP listener Docker container captures and extracts the temperature values along with parity bits.
+ 
+2. **Data Storage:**
+   - Extracted and verified data, is written into InfluxDB for persistent storage.
+ 
+3. **Data Visualization:**
+   - Grafana connects to InfluxDB to fetch time-series data and displays it through customizable dashboards.
+ 
+The integration of InfluxDB and Grafana within the EC2 environment provides a robust foundation for handling, storing, and visualizing time-series data efficiently.
+
+### References
 
 [NoSQL Database | InfluxData](https://www.influxdata.com/glossary/nosql-database/)
 
-   
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Security
-
-- Although we have not focused on this aspect. CoAP protocol it self support secure communication over DTLS by exchanging ECDSA certificates. It is easy to setup.
-
-- For testing purposes we have opened all the source IPv6 addresses in Influx database. but we need to add inbound rules only to allow our CoAP client IPs to reach the server.
-
-- We have made sure only the relevant port for CoAP is open in the server.
-
+ 
+- Although we have not focused on this aspect. CoAP protocol it self support secure communication over DTLS by exchanging ECDSA certificates. It is an easy to setup.
+ 
+- For testing purposes we have opened all the source IPv6 addresses in EC2 instance. but we need to add inbound rules only to allow our CoAP client IPs to reach the server.
+ 
+- We have made sure only the relevant port for CoAP to open in the server.
+ 
 - Parity bit serves as data corruption detection. But we can go for CRC like more advance algorithms.
-
+ 
 - Data is not encrypted. Even when you use DTLS still from application layer your server and node can decide on a encryption mechanism to secure the data further.
 
-                                                                                                                   ([back to top](#readme-top))
+                                                                                   <p align="right">(<a href="#readme-top">back to top</a>)</p>

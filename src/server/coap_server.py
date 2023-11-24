@@ -14,7 +14,8 @@ from decoder import decodeTemperature
 
 # logging setup
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("coap-server").setLevel(logging.DEBUG)
+logger = logging.getLogger("coap-server")
+logger.setLevel(logging.DEBUG)
 
 
 class TimeResource(resource.ObservableResource):
@@ -25,9 +26,10 @@ class TimeResource(resource.ObservableResource):
 
 class temperature(resource.Resource):
     async def render_post(self, request):
-        payload = json.loads(request.payload.decode('utf8'))
-        print(payload)
-        decodedValues = decodeTemperature(payload['temperature'])
+        payload = request.payload.decode('utf8')
+        logger.debug(f"Received message: {payload}")
+        decodedValues = decodeTemperature(payload)
+        logger.debug(f"Decoded values: {decodedValues}")
         sendInfluxdb(decodedValues)
         return aiocoap.Message(content_format=0,
                 payload=json.dumps({"status": "ok"}).encode('utf8'))

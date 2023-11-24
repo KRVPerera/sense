@@ -1,5 +1,9 @@
 # Sensor Layer
 
+- [IoT Lab M3 board](#iot-lab-m3-board-architecture)
+
+- 
+
 In this project we use iot-lab m3 boards provided by FIT IOT-LAB which has 4 different types of sensors mounted to it. They are,
 
 - The **light** sensor (ISL29020): This measures ambient light intensity in lux.  
@@ -84,8 +88,6 @@ There are two common types of parity:
 In our project we have used odd parity.
 
 [Parity bit calculator](https://github.com/KRVPerera/sense/blob/d57dd8540bc15ae0ad9e885204da4558fc1d42b5/src/sensor/sensor-connected/main.c#L118C1-L132C2)
-
-
 
 ## Power optimization
 

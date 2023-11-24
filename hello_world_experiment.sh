@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+source setup.sh
 source ${SENSE_SCRIPTS_HOME}/setup_env.sh
 
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then

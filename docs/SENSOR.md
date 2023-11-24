@@ -2,7 +2,15 @@
 
 - [IoT Lab M3 board](#iot-lab-m3-board-architecture)
 
-- 
+- [Noise in Data](#noise-in-temperature-readings)
+
+- [Noise Handling](#noise-reduction-technique-we-used)
+
+- [Data Resilience](#data-resilience)
+
+- [Power optimization](#power-optimization)
+
+- [Sensor Calibration](#calibration)
 
 In this project we use iot-lab m3 boards provided by FIT IOT-LAB which has 4 different types of sensors mounted to it. They are,
 
@@ -96,3 +104,57 @@ In our project we have used odd parity.
 - Also, To conserve energy, we employ the sleep method from the ztimer module during periods when temperature values are not being sensed.
 
 - To further optimize power consumption, we have implemented a strategy where individual temperature values are not immediately sent to the server, as this process tends to be energy-intensive due to networking operations. Instead, we have implemented a buffering mechanism, capturing and storing 10 temperature values at one-second intervals. Once the buffer reaches a capacity of 10 values, we initiate the transmission of this batch to the server via a border router, utilizing the CoAP protocol. This approach helps minimize power usage during communication and contributes to the overall energy efficiency of the system.
+
+## Calibration
+
+Sensor needed some setup to work properly. In IOT test bed examples they initialize the sensor and reads data. But that code is not properly written and sensor needs to be reset to work in properly to get good enough data.
+
+- **Initialization**
+  
+  Init function can fail. Even I2C communication fail may also be there and it needs to be captured. Since we don't read data faster we setup the sensor to work in `7Hz` mode. Sensor supports 7,12 and 25Hz(with some penalties).
+  
+  ```c
+   lpsxxx_params_t paramts = {
+        .i2c = lpsxxx_params[0].i2c,
+        .addr = lpsxxx_params[0].addr,
+        .rate = LPSXXX_RATE_7HZ};
+  
+  
+  if (lpsxxx_init(&lpsxxx, &paramts) != LPSXXX_OK)
+    {
+      puts("Sensor initialization failed");
+      return 0;
+    }
+  ```
+
+- 
+- Helper functions
+  
+  We wrote some helper functions. There may already be functions provided by RIOT but due to time limitation we wrote our own.
+  
+  ```c
+  int write_register_value(const lpsxxx_t *dev, uint16_t reg, uint8_t value)
+  {
+    i2c_acquire(DEV_I2C);
+    if (i2c_write_reg(DEV_I2C, DEV_ADDR, reg, value, 0) < 0)
+    {
+      i2c_release(DEV_I2C);
+      return -LPSXXX_ERR_I2C;
+    }
+    i2c_release(DEV_I2C);
+  
+    return LPSXXX_OK; // Success
+  }
+  
+  int temp_sensor_write_CTRL_REG2_value(const lpsxxx_t *dev, uint8_t value)
+  {
+    return write_register_value(dev, LPSXXX_REG_CTRL_REG2, value);
+  }
+  
+  int temp_sensor_write_res_conf(const lpsxxx_t *dev, uint8_t value)
+  {
+    return write_register_value(dev, LPSXXX_REG_RES_CONF, value);
+  }
+  ```
+  
+  

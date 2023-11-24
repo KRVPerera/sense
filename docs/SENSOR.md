@@ -119,7 +119,6 @@ Sensor needed some setup to work properly. In IOT test bed examples they initial
         .addr = lpsxxx_params[0].addr,
         .rate = LPSXXX_RATE_7HZ};
   
-  
   if (lpsxxx_init(&lpsxxx, &paramts) != LPSXXX_OK)
     {
       puts("Sensor initialization failed");
@@ -127,34 +126,48 @@ Sensor needed some setup to work properly. In IOT test bed examples they initial
     }
   ```
 
-- 
-- Helper functions
-  
-  We wrote some helper functions. There may already be functions provided by RIOT but due to time limitation we wrote our own.
+- **Sensor reset**
+  Sensor is reset to remove any garbage values in its DSPs and to properly initialize the sensor
   
   ```c
-  int write_register_value(const lpsxxx_t *dev, uint16_t reg, uint8_t value)
-  {
-    i2c_acquire(DEV_I2C);
-    if (i2c_write_reg(DEV_I2C, DEV_ADDR, reg, value, 0) < 0)
+    // 7       6543    2          1      0
+    // BOOT RESERVED SWRESET AUTO_ZERO ONE_SHOT
+    //  1      0000   1      0            0
+    // 44
+    if (temp_sensor_write_CTRL_REG2_value(&lpsxxx, 0x44) != LPSXXX_OK)
     {
-      i2c_release(DEV_I2C);
-      return -LPSXXX_ERR_I2C;
+      puts("Sensor reset failed");
+      return 0;
     }
-    i2c_release(DEV_I2C);
-  
-    return LPSXXX_OK; // Success
-  }
-  
-  int temp_sensor_write_CTRL_REG2_value(const lpsxxx_t *dev, uint8_t value)
-  {
-    return write_register_value(dev, LPSXXX_REG_CTRL_REG2, value);
-  }
-  
-  int temp_sensor_write_res_conf(const lpsxxx_t *dev, uint8_t value)
-  {
-    return write_register_value(dev, LPSXXX_REG_RES_CONF, value);
-  }
   ```
   
-  
+  ![](/home/krv/.config/marktext/images/2023-11-24-23-47-06-image.png)
+
+- Helper functions
+
+We wrote some helper functions. There may already be functions provided by RIOT but due to time limitation we wrote our own.
+
+```c
+int write_register_value(const lpsxxx_t *dev, uint16_t reg, uint8_t value)
+{
+  i2c_acquire(DEV_I2C);
+  if (i2c_write_reg(DEV_I2C, DEV_ADDR, reg, value, 0) < 0)
+  {
+    i2c_release(DEV_I2C);
+    return -LPSXXX_ERR_I2C;
+  }
+  i2c_release(DEV_I2C);
+
+  return LPSXXX_OK; // Success
+}
+
+int temp_sensor_write_CTRL_REG2_value(const lpsxxx_t *dev, uint8_t value)
+{
+  return write_register_value(dev, LPSXXX_REG_CTRL_REG2, value);
+}
+
+int temp_sensor_write_res_conf(const lpsxxx_t *dev, uint8_t value)
+{
+  return write_register_value(dev, LPSXXX_REG_RES_CONF, value);
+}
+```

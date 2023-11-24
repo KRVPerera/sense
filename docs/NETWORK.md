@@ -6,6 +6,22 @@ Our project uses IPv6 (TCP/IP) stack for connectivity between nodes and connecti
 
 ## Simple Architecture
 
+Certainly, KRV. Here's a visual representation of the flow from a sensor node to a CoAP server through a border router, illustrated using Markdown:
+
+markdownCopy code
+
+Sensor Node
+    |
+    | Wireless `802.15.4`
+    V
+Border Router
+    |
+    | Wired - `ETHOS` (Ehternet Over Serial)
+    V
+CoAP Server
+
+
+
 - Border Router [Setting up border router](https://github.com/KRVPerera/sense/wiki/Setting-up-border-router)
 
 - Network availability for sensor node

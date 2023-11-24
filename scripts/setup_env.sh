@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 source ${SENSE_SCRIPTS_HOME}/common_functions.sh
+export SENSE_SITE=paris
 
 export BORDER_ROUTER_NODE=60 # Border router
 
@@ -19,8 +20,8 @@ printf "%-25s %s\n" "GNRC_NETWORKING_NODE:" "$GNRC_NETWORKING_NODE"
 printf "%-25s %s\n" "COAP_CLIENT_NODE:" "$COAP_CLIENT_NODE"
 printf "%-25s %s\n" "SENSOR_NODE:" "$SENSOR_NODE"
 printf "%-25s %s\n" "COAP_CLIENT_TEST_NODE:" "$COAP_CLIENT_TEST_NODE"
+printf "%-25s %s\n" "SITE:" "$SENSE_SITE"
 
-export SENSE_SITE=paris
 
 # comment this out in production
 if [ -z "$COAP_SERVER_IP" ]; then

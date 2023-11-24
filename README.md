@@ -45,21 +45,17 @@ End to end IOT system which collects sensor data and visualize on cloud
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [![Next][Next.js]][Next-url]
+* RIOT - Real Time operating system
 
-* [![React][React.js]][React-url]
+* [IoT-LAB M3]([IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/)) MCU boards
 
-* [![Vue][Vue.js]][Vue-url]
+* [CoAP]([Constrained Application Protocol - Wikipedia](https://en.wikipedia.org/wiki/Constrained_Application_Protocol)) - Constrained Application Protocol
 
-* [![Angular][Angular.io]][Angular-url]
+* [Grafana](https://grafana.com/)
 
-* [![Svelte][Svelte.dev]][Svelte-url]
+* [InfluxDB](https://www.influxdata.com/glossary/nosql-database/) - is a time series no sql database designed to handle high write and query loads, primarily used for real-time analytics, monitoring, and IoT applications.
 
-* [![Laravel][Laravel.com]][Laravel-url]
-
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-
-* [![JQuery][JQuery.com]][JQuery-url]
+* Amazon EC2
   
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

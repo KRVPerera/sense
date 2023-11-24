@@ -12,7 +12,7 @@
 
 ## High Level Architecture
 
-![High Level Architecture](./images/architecture.jpeg)
+![High Level Architecture](./images/archi.png)
 
 <!-- BUILT WITH -->
 

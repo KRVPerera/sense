@@ -5,11 +5,12 @@
 </p>
 
 <!-- TABLE OF CONTENTS -->
+## Demo
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=Y-Kq7G6Sz5Q"><img src="https://img.youtube.com/vi/Y-Kq7G6Sz5Q/0.jpg" alt="Demo"></a>
+</div>
 
-
-
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Y-Kq7G6Sz5Q/0.jpg)](https://www.youtube.com/watch?v=Y-Kq7G6Sz5Q)
-
+## High Level Architecture
 
 ![High Level Architecture](./images/architecture.jpeg)
 

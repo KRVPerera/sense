@@ -75,9 +75,9 @@ More details about sensor layer is here :  [Sensor](./docs/SENSOR,md)
 
 - Board is in **sleep** mode when not reading the sensor data
 
+- Parity bit is added as extra precaution to recognize corrupted data
 
-
-# 
+                                                                                                                   ([back to top](#readme-top))
 
 ## Network Layer
 

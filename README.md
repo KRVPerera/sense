@@ -38,7 +38,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 ### Sensor Layer
 
-More details about sensor layer is here :  [Sensor](./docs/SENSOR,md)
+More details about sensor layer is here :  [Sensor](./docs/SENSOR.md)
 
 - We using M3 boards pressure sensors built in temperature sensor to read temperature data
 
@@ -56,7 +56,7 @@ More details about sensor layer is here :  [Sensor](./docs/SENSOR,md)
 
 ## Network Layer
 
-More details about network layer is here : [Network](./docs/NETWORK,md)
+More details about network layer is here : [Network](./docs/NETWORK.md)
 
 - We use CoAP request response style application layer protocol.
 
@@ -82,7 +82,7 @@ More details about network layer is here : [Network](./docs/NETWORK,md)
 
 ## Data Layer
 
-More details about sensor layer is here : [Server](./docs/SERVER,md)
+More details about sensor layer is here : [Server](./docs/SERVER.md)
 
 - InfluxDB is a TSDB (time series) type NoSQL databse
 

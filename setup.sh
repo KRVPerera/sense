@@ -30,3 +30,12 @@ fi
 if [ ! -d "$SENSE_STOPPERS_HOME" ]; then
     mkdir -p "$SENSE_STOPPERS_HOME"
 fi
+
+if [ ! -d "$SENSE_HOME/external/RIOT" ]; then
+	(
+
+	cd $SENSE_HOME
+	git submodule update --init
+
+	)
+fi

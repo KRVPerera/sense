@@ -8,11 +8,6 @@ build_status=$?
 if [ $build_status -ne 0 ]; then
     exit $build_status
 fi
-build_wireless_firmware ${COAP_SERVER_HOME} ${COAP_SERVER_EXE_NAME}
-build_status=$?
-if [ $build_status -ne 0 ]; then
-    exit $build_status
-fi
 
 build_wireless_firmware ${SENSOR_CONNECTED_HOME} ${SENSOR_CONNECTED_EXE_NAME}
 build_status=$?
@@ -23,21 +18,17 @@ fi
 if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
     echo "Copy firmware files to shared"
     echo "cp ${BORDER_ROUTER_HOME}/bin/${ARCH}/${BORDER_ROUTER_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}"
-    echo "cp ${COAP_SERVER_HOME}/bin/${ARCH}/${COAP_SERVER_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}"
 
     cp ${BORDER_ROUTER_HOME}/bin/${ARCH}/${BORDER_ROUTER_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}
-    cp ${COAP_SERVER_HOME}/bin/${ARCH}/${COAP_SERVER_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}
     cp ${SENSOR_CONNECTED_HOME}/bin/${ARCH}/${SENSOR_CONNECTED_EXE_NAME}.elf ${SENSE_FIRMWARE_HOME}
 
     # submit border router job and save job id
     border_router_job_id=$(submit_border_router_job "${BORDER_ROUTER_NODE}")
-    n_node_job_id=$(submit_coap_server_job "${COAP_SERVER_NODE}")
     sensor_node_job_id=$(submit_sensor_node_job "${SENSOR_CONNECTED_NODE}")
 
     create_stopper_script $n_node_job_id $border_router_job_id $sensor_node_job_id
 
     wait_for_job "${border_router_job_id}"
-    wait_for_job "${n_node_job_id}"
     wait_for_job "${sensor_node_job_id}"
 
     create_tap_interface "${BORDER_ROUTER_NODE}" &

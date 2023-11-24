@@ -81,26 +81,4 @@ More details about sensor layer is here :  [Sensor](./docs/SENSOR,md)
 
 ## Network Layer
 
-### Websocket
-
-### Publish Subscriber channel - phase 2
-
-[MQTT · FIT IoT-LAB](https://www.iot-lab.info/docs/tools/mqtt-broker/)
-
-### Test server
-
-### Deployment server
-
-AWS
-
-## Data
-
-> [!WARNING]
-> not sure if accelerometer, gyroscopes have a meaning. 
-> I can see some boards may be connected to robots or moving platforms.. But not sure if we have access to those yet.
-
-#### Sensor data
-
-- temperature
-- humidity
-- atmospheric pressure
+More details about sensor layer is here : [Network](./docs/NETWORK,md)

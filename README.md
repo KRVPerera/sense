@@ -105,8 +105,6 @@ More details about network layer is here : [Network](./docs/NETWORK,md)
 
 [What is CoAP](https://www.radware.com/security/ddos-knowledge-center/ddospedia/coap/)
 
-
-
 ## Data Layer
 
 More details about sensor layer is here : [Server](./docs/SERVER,md)

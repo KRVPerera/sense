@@ -141,7 +141,7 @@ Sensor needed some setup to work properly. In IOT test bed examples they initial
     }
   ```
   
-  ![](/home/krv/.config/marktext/images/2023-11-24-23-47-06-image.png)
+  ![Sensor Reset](./images/sensor_reset.png)
 
 - Helper functions
 
@@ -171,3 +171,6 @@ int temp_sensor_write_res_conf(const lpsxxx_t *dev, uint8_t value)
   return write_register_value(dev, LPSXXX_REG_RES_CONF, value);
 }
 ```
+
+##### References
+- Sensor data sheet

@@ -114,13 +114,12 @@ fi
 
 export TERM=vt100
 
-alias ie='iotlab-experiment'
 alias soc='source ~/.bashrc'
 alias c='clear'
 alias gl='git pull'
 alias ..="cd .."
 alias ...="cd ../.."
-alias cw="cd ~/sense/src/network/gcoap"
+alias cw="cd ~/sense/"
 alias gp="git push"
 alias gst="git status"
 alias gb="git branch"

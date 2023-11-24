@@ -2,42 +2,29 @@
 
 Our project uses IPv6 (TCP/IP) stack for connectivity between nodes and connectivity to our server which handles most of the data.
 
-
-
 ## Simple Architecture
-
-
 
 ```mermaid
 graph LR;
     A[Sensor node] -->|802.15.4| B[Border Router];
     B --> |ETHOS| C(Internet);
-    C --> |ETHOS| D(Server);
+    C --> D(Server);
 ```
 
+Sensor node is connected to to internet via border router. We are writing a guide how to setup the border router with our setup.
 
-
-- Border Router [Setting up border router](https://github.com/KRVPerera/sense/wiki/Setting-up-border-router)
-
-- Network availability for sensor node
-
-- CoAP protocol
-
-
+- 
 
 ## CoAP protocol for application layer
+
+```mermaid
+graph LR;
+    A[Sensor node] -->|CoAP| D(Server);
+```
 
 - We send each in ´Confirmable´ mode
 
 - 
-
-
-
-
-
-
-
-
 
 ## References
 

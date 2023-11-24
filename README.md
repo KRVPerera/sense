@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <p align="center">
-  <img src="./images/logo_Logo.png" width="600"/>
+  <img src="./images/logo_Logo.png" width="800"/>
 </p>
 
 ## Demo

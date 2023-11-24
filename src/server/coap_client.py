@@ -14,8 +14,8 @@ async def main():
     protocol = await Context.create_client_context()
     count =0
     while (count < 200):
-        randString = ",".join([setParity(round(random.uniform(35.0, 38.0), 2)) for i in range(5)])
-        payload = (randString + ',').encode("utf-8")
+        randString = ",".join([setParity(random.randint(3500, 3900)) for i in range(5)])
+        payload = (randString+',').encode("utf-8")
         request = Message(code=aiocoap.POST, payload=payload , uri='coap://[2a05:d016:1bb:3e00:2fbe:1fb4:63f9:eb4b]:5683/temp')
         try:
             response = await protocol.request(request).response
@@ -27,9 +27,7 @@ async def main():
         time.sleep(1)
        
 def setParity(value):
-    binary_representation = struct.pack('!f', value)
-    binary_string = ''.join(format(byte, '08b') for byte in binary_representation)
-    ones_count = binary_string.count('1')
+    ones_count = bin(value).count('1')
     if ones_count % 2 == 1:
         return ",".join([str(value), '0'])
     else:

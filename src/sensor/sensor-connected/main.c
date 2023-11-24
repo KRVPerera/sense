@@ -11,6 +11,19 @@
 #include "lpsxxx.h"
 #include "lpsxxx_params.h"
 
+#include "msg.h"
+
+#include "net/gcoap.h"
+#include "net/ipv6/addr.h"
+#include "net/sock/util.h"
+#include "shell.h"
+#include "net/utils.h"
+#include "od.h"
+#include "ztimer.h"
+#include "mutex.h"
+
+#include "gcoap_example.h"
+
 #include "debug.h"
 #define ENABLE_DEBUG 0
 
@@ -117,6 +130,14 @@ int calculate_odd_parity(int num) {
     return parityBit;
 }
 
+#define MAIN_QUEUE_SIZE (4)
+static msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
+
+void setup_coap_client(void) {
+    msg_init_queue(_main_msg_queue, MAIN_QUEUE_SIZE);
+    ztimer_sleep(ZTIMER_MSEC, 1000);
+}
+
 int main(void)
 {
   if (temp_sensor_reset() == 0) {
@@ -177,6 +198,9 @@ int main(void)
     }
     if (counter == 10) {
       DEBUG_PRINT("Data: %s\n", data.buffer);
+      send_coap_get_request(BOARD);
+      ztimer_sleep(ZTIMER_MSEC, 1000);
+      gcoap_post(data.buffer, TEMP);
       memset(data.buffer, 0, sizeof(data.buffer));
       counter = 0;
     }

@@ -39,7 +39,7 @@
   
   <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Sensor Layer
+## Sensor Layer
 
 More details about sensor layer is here :  [docs/Sensor](./docs/SENSOR.md)
 

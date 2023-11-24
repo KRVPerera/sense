@@ -10,6 +10,10 @@
   <a href="https://www.youtube.com/watch?v=Y-Kq7G6Sz5Q"><img src="https://img.youtube.com/vi/Y-Kq7G6Sz5Q/0.jpg" alt="Demo"></a>
 </div>
 
+## How to Run
+
+- https://github.com/KRVPerera/sense/wiki/How-to-run-the-project
+
 ## High Level Architecture
 
 ![High Level Architecture](./images/archi.png)

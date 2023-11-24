@@ -199,7 +199,6 @@ int main(void)
     }
     if (counter == 10) {
       DEBUG_PRINT("Data: %s\n", data.buffer);
-      send_coap_get_request(BOARD);
       ztimer_sleep(ZTIMER_MSEC, 1000);
       gcoap_post(data.buffer, TEMP);
       memset(data.buffer, 0, sizeof(data.buffer));

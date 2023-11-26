@@ -1,12 +1,13 @@
 <a name="readme-top"></a>
 
 <p align="center">
-  <img src="./images/logo_Logo.png" width="800"/>
+  <img src="./images/logo_Logo.png" width="300"/>
 </p>
 
 ## Demo
-<div align="center">
+<div align="center" width="300">
   <a href="https://www.youtube.com/watch?v=Y-Kq7G6Sz5Q"><img src="https://img.youtube.com/vi/Y-Kq7G6Sz5Q/0.jpg" alt="Demo"></a>
+  <p><a href="https://www.youtube.com/watch?v=Y-Kq7G6Sz5Q">Youtube Link</a></p>
 </div>
 
 ## How to Run

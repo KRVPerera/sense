@@ -2,7 +2,7 @@
 
 source ${SENSE_SCRIPTS_HOME}/common_functions.sh
 # grenoble, paris, lille, saclay, strasbourg
-export SENSE_SITE=grenoble
+export SENSE_SITE=paris
 
 
 export BORDER_ROUTER_NODE=60 # Border router

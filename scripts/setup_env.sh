@@ -10,8 +10,8 @@ printf "%-25s %s\n" "SENSE_SITE:" "$SENSE_SITE"
 current_hostname=$(hostname)
 
 # Compare the current hostname with the expected one
-if [ "$current_hostname" != "$expected_hostname" ]; then
-	error_message="ERROR: You are running this script on site $current_hostname, not on '$SENSE_SITE'."
+if [ "$current_hostname" != "$SENSE_SITE" ]; then
+	error_message="ERROR: You are running this script on site '$current_hostname', not on '$SENSE_SITE'."
 	# Displaying the Error Message in a Box
 	echo "***********************************************************************"
 	echo "*                                                                     *"

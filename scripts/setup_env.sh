@@ -2,7 +2,28 @@
 
 source ${SENSE_SCRIPTS_HOME}/common_functions.sh
 # grenoble, paris, lille, saclay, strasbourg
-export SENSE_SITE=paris
+export SENSE_SITE=grenoble
+
+printf "%-25s %s\n" "SENSE_SITE:" "$SENSE_SITE"
+
+# Get the current hostname
+current_hostname=$(hostname)
+
+# Compare the current hostname with the expected one
+if [ "$current_hostname" != "$expected_hostname" ]; then
+	error_message="ERROR: You are running this script on site $current_hostname, not on '$SENSE_SITE'."
+	# Displaying the Error Message in a Box
+	echo "***********************************************************************"
+	echo "*                                                                     *"
+	printf "* %-36s*\n" "$error_message"
+	printf "* %-68s*\n" $0 
+	printf "* %s %-56s*\n" "SENSE_SITE:" "$SENSE_SITE"
+	echo "* Change SENSE_SITE variable in setup_env.sh                          *"
+	echo "*                                                                     *"
+	echo "***********************************************************************"
+	export ERROR_WRONG_SITE=1
+	exit $ERROR_WRONG_SITE
+fi
 
 
 export BORDER_ROUTER_NODE=60 # Border router

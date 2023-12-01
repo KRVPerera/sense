@@ -2,7 +2,7 @@
 
 source ${SENSE_SCRIPTS_HOME}/common_functions.sh
 # grenoble, paris, lille, saclay, strasbourg
-export SENSE_SITE=grenoble
+export SENSE_SITE=paris
 
 printf "%-25s %s\n" "SENSE_SITE:" "$SENSE_SITE"
 

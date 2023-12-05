@@ -1,11 +1,11 @@
 hello:
-	./hello_world_experiment.sh
+	./scripts/hello_world_experiment.sh
 
 run_mini_project_1:
 	./scripts/mini_project1.sh
 
 run_sensor:
-	./sensor_read_experiment.sh
+	./scripts/sensor_read_experiment.sh
 
 sense:
 	./scripts/sensor-connected.sh

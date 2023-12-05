@@ -1,7 +1,30 @@
 #!/usr/bin/env bash
 
 source ${SENSE_SCRIPTS_HOME}/common_functions.sh
-export SENSE_SITE=paris
+# grenoble, paris, lille, saclay, strasbourg
+export SENSE_SITE=grenoble
+
+printf "%-25s %s\n" "SENSE_SITE:" "$SENSE_SITE"
+
+# Get the current hostname
+current_hostname=$(hostname)
+
+# Compare the current hostname with the expected one
+if [ "$current_hostname" != "$SENSE_SITE" ]; then
+	error_message="ERROR: You are running this script on site '$current_hostname', not on '$SENSE_SITE'."
+	# Displaying the Error Message in a Box
+	echo "***********************************************************************"
+	echo "*                                                                     *"
+	printf "* %-36s*\n" "$error_message"
+	printf "* %-68s*\n" $0 
+	printf "* %s %-56s*\n" "SENSE_SITE:" "$SENSE_SITE"
+	echo "* Change SENSE_SITE variable in setup_env.sh                          *"
+	echo "*                                                                     *"
+	echo "***********************************************************************"
+	export ERROR_WRONG_SITE=1
+	exit $ERROR_WRONG_SITE
+fi
+
 
 export BORDER_ROUTER_NODE=60 # Border router
 
@@ -24,7 +47,6 @@ printf "%-25s %s\n" "COAP_CLIENT_TEST_NODE:" "$COAP_CLIENT_TEST_NODE"
 printf "%-25s %s\n" "HELLO_NODE:" "$HELLO_NODE"
 printf "%-25s %s\n" "SITE:" "$SENSE_SITE"
 
-
 # comment this out in production
 if [ -z "$COAP_SERVER_IP" ]; then
     # If not set, then export it with the specified value
@@ -32,19 +54,33 @@ if [ -z "$COAP_SERVER_IP" ]; then
 fi
 export COAP_SERVER_IP_ONLY=$(extract_ip "$COAP_SERVER_IP")
 
-
-# Site		subnets	from			to
-# Grenoble	128	2001:660:5307:3100::/64	2001:660:5307:317f::/64
-# Lille		128	2001:660:4403:0480::/64	2001:660:4403:04ff::/64
-# Paris		128	2001:660:330f:a280::/64	2001:660:330f:a2ff::/64
-# Saclay	64	2001:660:3207:04c0::/64	2001:660:3207:04ff::/64
-# Strasbourg	32	2001:660:4701:f0a0::/64	2001:660:4701:f0bf::/64
+# Site		    subnets	from			        to
+# Grenoble	    128	    2001:660:5307:3100::/64	2001:660:5307:317f::/64
+# Lille		    128	    2001:660:4403:0480::/64	2001:660:4403:04ff::/64
+# Paris		    128	    2001:660:330f:a280::/64	2001:660:330f:a2ff::/64
+# Saclay	    64	    2001:660:3207:04c0::/64	2001:660:3207:04ff::/64
+# Strasbourg	32	    2001:660:4701:f0a0::/64	2001:660:4701:f0bf::/64
 
 # https://www.iot-lab.info/legacy/tutorials/understand-ipv6-subnetting-on-the-fit-iot-lab-testbed/index.html
-export BORDER_ROUTER_IP=2001:660:330f:a293::1/64 # paris
-# export BORDER_ROUTER_IP=2001:660:5307:3108::1/64
-# export BORDER_ROUTER_IP=2001:660:5307:3109::1/64
-# export BORDER_ROUTER_IP=2001:660:5307:3110::1/64
+
+if [ "$SENSE_SITE" = "grenoble" ]; then
+    # 2001:660:5307:3100::/64	2001:660:5307:317f::/64
+    export BORDER_ROUTER_IP=2001:660:5307:3108::1/64
+elif [ "$SENSE_SITE" = "paris" ]; then
+    # 2001:660:330f:a280::/64   2001:660:330f:a2ff::/64
+    export BORDER_ROUTER_IP=2001:660:330f:a293::1/64
+elif [ "$SENSE_SITE" = "lille" ]; then
+    # 2001:660:4403:0480::/64	2001:660:4403:04ff::/64
+    export BORDER_ROUTER_IP=2001:660:4403:0493::1/64
+elif [ "$SENSE_SITE" = "saclay" ]; then
+    # 2001:660:3207:04c0::/64	2001:660:3207:04ff::/64
+    export BORDER_ROUTER_IP=2001:660:3207:04de::1/64
+elif [ "$SENSE_SITE" = "strasbourg" ]; then
+    # 2001:660:4701:f0a0::/64	2001:660:4701:f0bf::/64
+    export BORDER_ROUTER_IP=2001:660:4701:f0af::1/64
+else
+    echo "Invalid SENSE_SITE value. Please set to 'grenoble' or 'paris'."
+fi
 
 export ARCH=iotlab-m3
 
@@ -93,4 +129,3 @@ export SENSOR_CONNECTED_HOME=${SENSE_HOME}/src/sensor/${SENSOR_CONNECTED_FOLDER_
 #SENSE_SCRIPTS_HOME="${SENSE_HOME}/${SCRIPTS}"
 #SENSE_STOPPERS_HOME="${SENSE_SCRIPTS_HOME}/stoppers"
 #SENSE_FIRMWARE_HOME="${HOME}/bin"
-

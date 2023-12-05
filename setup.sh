@@ -32,10 +32,10 @@ if [ ! -d "$SENSE_STOPPERS_HOME" ]; then
 fi
 
 if [ ! -d "$SENSE_HOME/external/RIOT" ]; then
+
 	(
-
-	cd $SENSE_HOME
-	git submodule update --init
-
+	cd $SENSE_SCRIPTS_HOME
+	./init.sh
 	)
+
 fi

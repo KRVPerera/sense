@@ -7,8 +7,8 @@ if [ -n "$IOT_LAB_FRONTEND_FQDN" ]; then
   source /opt/riot.source
 fi
 
-BORDER_ROUTER_NODE=28 # border router
-GNRC_NETWORKING_NODE=26
+BORDER_ROUTER_NODE=20 # border router
+GNRC_NETWORKING_NODE=21
 
 build_wireless_firmware_cached ${BORDER_ROUTER_HOME} ${BORDER_ROUTER_EXE_NAME}
 build_status=$?

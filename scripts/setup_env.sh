@@ -59,9 +59,9 @@ export COAP_SERVER_IP_ONLY=$(extract_ip "$COAP_SERVER_IP")
 # Lille		    128	    2001:660:4403:0480::/64	2001:660:4403:04ff::/64
 # Paris		    128	    2001:660:330f:a280::/64	2001:660:330f:a2ff::/64
 # Saclay	    64	    2001:660:3207:04c0::/64	2001:660:3207:04ff::/64
-# Strasbourg	32	    2001:660:4701:f0a0::/64	2001:660:4701:f0bf::/64
+# Strasbourg	    32	    2a07:2e40:fffe:00e0::/64    2a07:2e40:fffe:00ff::/64
 
-# https://www.iot-lab.info/legacy/tutorials/understand-ipv6-subnetting-on-the-fit-iot-lab-testbed/index.html
+# https://www.iot-lab.info/docs/getting-started/ipv6/
 
 if [ "$SENSE_SITE" = "grenoble" ]; then
     # 2001:660:5307:3100::/64	2001:660:5307:317f::/64
@@ -76,8 +76,8 @@ elif [ "$SENSE_SITE" = "saclay" ]; then
     # 2001:660:3207:04c0::/64	2001:660:3207:04ff::/64
     export BORDER_ROUTER_IP=2001:660:3207:04de::1/64
 elif [ "$SENSE_SITE" = "strasbourg" ]; then
-    # 2001:660:4701:f0a0::/64	2001:660:4701:f0bf::/64
-    export BORDER_ROUTER_IP=2001:660:4701:f0af::1/64
+    # 2a07:2e40:fffe:00e0::/64    2a07:2e40:fffe:00ff::/64
+    export BORDER_ROUTER_IP=2a07:2e40:fffe:00ef::1/64
 else
     echo "Invalid SENSE_SITE value. Please set to 'grenoble' or 'paris'."
 fi

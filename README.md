@@ -61,7 +61,6 @@
       <ul>
             <li><a href="#sensor-layer-detailed-information">Sensor Layer Detailed Information</a></li>
             <li><a href="#network-layer-detailed-information">Network Layer Detailed Information</a></li>
-            <li><a href="#data-layer-detailed-information">Data Layer Detailed Information</a></li>
       </ul>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -123,8 +122,6 @@ References
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Data Management Layer
-
-More details about data management layer is in section : <a href="#data-layer-detailed-information">Data Layer Detailed Informaton | Sense</a>
 
 - InfluxDB serves as the core Time Series Database (TSDB) in this architecture. It is a NoSQL database optimized for handling time-stamped data efficiently.
 - Grafana complements InfluxDB by providing powerful visualization capabilities for time-series data.
@@ -740,16 +737,6 @@ References
   (<a href="#documentation-top"> Documentation</a> |
   <a href="#readme-top"> Top </a>)
 </p>
-
-</details>
-
-### Data Layer Detailed Information
-
-<details>
-  <summary>Data Layer Details
-  </summary>
-
-[docs/SERVER](docs/SERVER.md)
 
 </details>
 

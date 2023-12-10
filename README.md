@@ -146,16 +146,17 @@ References
 
 ### Built With
 
-* [RIOT - Real Time operating system](https://www.riot-os.org/)
-* [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/) MCU boards
-* [I2C Protocol](https://en.wikipedia.org/wiki/I%C2%B2C)
-* [CoAP - Constrained Application Protocol](https://en.wikipedia.org/wiki/Constrained_Application_Protocol) - Constrained Application Protocol
+* [![RIOT][RIOT]][RIOT-url]
+* [![I2C Wiki][IoT-LAB]][IoT-LAB-url]
+* [![I2C Wiki][I2C]][I2C-url]
+* [![CoAP Wiki][CoAP]][CoAP-url]
 * [![Grafana][Grafana]][Grafana-url]
 * [![InfluxDB][InfluxDB]][InfluxDB-url]
 * [![Amazon EC2][AWS]][AWS-url]
 * [![Docker][Docker]][Docker-url]
 
-    <p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## Getting Started
 
@@ -616,9 +617,21 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [AWS]: https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white
 [AWS-url]: https://aws.amazon.com/ec2/
 
-[Grafana]: https://img.shields.io/badge/grafana-blue?style=for-the-badge
-[Grafana-url]: https://grafana.com/
-
 
 [Docker]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [Docker-url]: https://www.docker.com/
+
+[I2C]: https://img.shields.io/badge/I2C-Protocol-blue?style=for-the-badge
+[I2C-url]: https://en.wikipedia.org/wiki/I%C2%B2C
+
+[Grafana]: https://img.shields.io/badge/Grafana-black?logo=grafana
+[Grafana-url]: https://grafana.com/
+
+[CoAP]: https://img.shields.io/badge/CoAP-Constrained_Application_Protocol-blue?style=for-the-badge
+[CoAP-url]: https://en.wikipedia.org/wiki/Constrained_Application_Protocol
+
+[RIOT]: https://img.shields.io/badge/RIOT-Real_Time_Operating_System-blue?style=for-the-badge
+[RIOT-url]: https://www.riot-os.org/
+
+[IoT-LAB]: https://img.shields.io/badge/F_I_T_IOT_LAB-M3_MCU_Boards-blue?style=for-the-badge
+[IoT-LAB-url]: https://www.iot-lab.info/docs/boards/iot-lab-m3/

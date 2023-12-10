@@ -170,7 +170,10 @@ Test bed,
 
 Server,
 
-- Server with IPv6 stack and public IPv6 address. This is because RIOT OS only has IPv6 stack support by the time we did this project.
+Server with IPv6 stack and public IPv6 address. This is because RIOT OS only has IPv6 stack support by the time we did this project. We are using an Amazon EC2 instance.
+
+- AWS account with EC2 access
+- Docker installed on the EC2 instance
 
 References,
 
@@ -179,21 +182,185 @@ References,
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+<a name="installation-top"></a>
+
 ### Installation
 
 #### Server side
 
-Following the below guide you will be setting up the server. Below are the points we are goint to address.
+##### Setting Up EC2 and Assigning a Public IPv6 Address
 
-- Docker installation
-- InfluxDB installation
-- Grafana installation
-- Running CoAP server using docker
+###### Create an EC2 Instance
 
-More detailed server setup is in section : <a href="#data-layer-detailed-information">Data Layer Detailed Informaton | Sense</a>
+  - Launch an EC2 instance with a suitable AMI (Amazon Machine Image).
+  - Ensure that the instance has the necessary permissions to interact with other AWS services.
+
+###### Assign a Public IPv6 Address
+
+Follow the [Amazon EC2 instance IP addressing | AWS Documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#ipv6-assign-instance) to assign a public IPv6 address to your EC2 instance.
+
+###### Configure Inbound Rules for CoAP
+
+   - Go to the AWS Management Console.
+   - Navigate to the EC2 Dashboard.
+   - Select your instance, go to the "Security" tab, and click on the associated Security Group.
+   - In the Security Group settings, add an inbound rule for UDP at port 5683 for IPv6.
+
+     ```plaintext
+     Type: Custom UDP Rule
+     Protocol: UDP
+     Port Range: 5683
+     Source: ::/0
+     ```
+
+     This allows incoming UDP traffic on port 5683 from any IPv6 address.
+
+> [!CAUTION]
+> Note for Testing: For testing purposes, all IPv6 addresses are allowed (::/0). In a production environment, consider limiting access by applying a range of IPs.
+
+<p align="right">
+  (<a href="#installation-top"> Installation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+###### Configure Inbound Rules for Grafana
+
+   - Add an inbound rule for TCP at port 3000 for IPv4.
+
+     ```plaintext
+     Type: Custom TCP Rule
+     Protocol: TCP
+     Port Range: 3000
+     Source: 0.0.0.0/0
+     ```
+
+     This allows incoming TCP traffic on port 3000 from any IPv4 address.
+
+> [!CAUTION]
+> Note for Testing: For testing purposes, all IPv4 addresses are allowed (0.0.0.0/0). In a production environment, consider limiting access by applying a range of IPs.
+
+<p align="right">
+  (<a href="#installation-top"> Installation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
+
+##### Setting Up Grafana and InfluxDB
+
+###### Install InfluxDB and Grafana
+
+  - [Install Docker](https://docs.docker.com/desktop/install/linux-install/)
+  - [Install InfluxDB](https://docs.influxdata.com/influxdb/v1.8/introduction/install/)
+  - [Install Grafana](https://grafana.com/docs/grafana/latest/installation/)
+
+
+###### Start Grafana
+
+  - Ensure Grafana is installed on your system.
+  - Start Grafana:
+
+     ```bash
+     sudo systemctl enable grafana-server
+     sudo systemctl start grafana-server
+     ```
+
+  - Access Grafana through `http://<public-ip>:3000/`.
+
+    - Default credentials:
+      - Username: `admin`
+      - Password: `admin`
+
+  - Upon the first login, Grafana will prompt you to change the password.
+
+###### Start InfluxDB
+
+  - Ensure InfluxDB is installed on your system.
+  - Start InfluxDB:
+
+     ```bash
+     sudo service influxdb start
+     ```
+
+  - Follow the [InfluxDB Documentation](https://docs.influxdata.com/influxdb/v1.8/introduction/get-started/) to get started.
+
+<p align="right">
+  (<a href="#installation-top"> Installation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
+
+##### Running the CoAP Server using Docker
+
+- Clone the Repository 
+
+   ```bash
+   git clone <repository_url>
+   cd <repository_directory>/src/server
+   ```
+
+- Build and Deploy the CoAP Server
+
+   ```bash
+   ./deploy.sh --mode server
+   ```
+
+   This script builds the CoAP server Docker container and deploys it. It also starts Grafana and InfluxDB if the mode is set to `all`.
+
+   <p align="right">
+  (<a href="#installation-top"> Installation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
+
+##### Usage: Grafana with InfluxDB
+
+1. Access Grafana Dashboard
+
+   - Open your web browser and go to `http://<public-ip>:3000/`.
+   - Log in to Grafana using the default credentials (admin/admin).
+
+2. Add InfluxDB Data Source
+
+   - Select "Data Sources."
+   - Click on "Add your first data source."
+   - Choose "InfluxDB" from the list of available data sources.
+
+3. Configure InfluxDB Connection
+
+   - Set the following parameters:
+
+     - **Name:** Give your data source a name.
+     - **Type:** Select "InfluxDB."
+     - **HTTP URL:** Set the URL to your InfluxDB instance, `http://localhost:8086`.
+     - **InfluxDB Details:** Provide InfluxDB details including `Database name`, `Username`, `Password`. (This need to be defined in the [configuration.py](../src/server/configuration.py) file).
+
+   - Click on "Save & Test" to verify the connection.
+
+4. Create a Dashboard
+
+   - Click on the "Dashboard" icon in the left sidebar to create a new dashboard.
+   - Select the influxDB data source created earlier.
+   - Click on "Add Panel" and choose "Graph."
+
+5. Query InfluxDB for Time-Series Data
+
+   - In the "Query" tab, set the measurement and field to visualize from your InfluxDB database.
+
+     - **Measurement:** `temperature`.
+     - **Field:** `value`.
+
+   - Set the time range to view your time-series data.
+
+This will setup the Grafana dashboard visualizing time-series data from your InfluxDB database.
+
+<p align="right">
+  (<a href="#installation-top"> Installation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
+
+##### InfluxDB Database Architecture
+
+- Database Name: `dht`
+- Measurement Name: `temperature`
 
 #### Testbed side
 
@@ -227,9 +394,9 @@ Run the command `make run_mini_project_1` from the sense home directory. You wil
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- DOCUMENTATION -->
-
-## Documentation
 <a name="documentation-top"></a>
+## Documentation
+
 
 > [!NOTE]  
 > Please expand below links

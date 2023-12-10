@@ -77,7 +77,7 @@
 
 ### Sensor Layer
 
-More details about sensor layer is here : <li><a href="#sensor-layer-detailed-information">Sensor Layer Detailed Informaton | Sense</a></li>
+More details about sensor layer is in section : <a href="#sensor-layer-detailed-information">Sensor Layer Detailed Informaton | Sense</a>
 
 - We using M3 boards pressure sensors built in temperature sensor to read temperature data
 - Sensor is setup to temperature resolution configuration 101. To Further reduce noise and increase precision by internal averaging. (AVGT2, AVGT1, ABGT0) - 101
@@ -90,7 +90,7 @@ More details about sensor layer is here : <li><a href="#sensor-layer-detailed-in
 
 ### Network Layer
 
-More details about network layer is here : <li><a href="#network-layer-detailed-information">Network Layer Detailed Informaton | Sense</a></li>
+More details about network layer is in section : <a href="#network-layer-detailed-information">Network Layer Detailed Informaton | Sense</a>
 
 - We use CoAP request response style application layer protocol.
 - CoAP is a **low overhead** protocol designed for **constrained** network nodes.
@@ -109,7 +109,7 @@ References
 
 ### Data Management Layer
 
-More details about data management layer is here : <li><a href="#data-layer-detailed-information">Data Layer Detailed Informaton | Sense</a></li>
+More details about data management layer is in section : <a href="#data-layer-detailed-information">Data Layer Detailed Informaton | Sense</a>
 
 - InfluxDB serves as the core Time Series Database (TSDB) in this architecture. It is a NoSQL database optimized for handling time-stamped data efficiently.
 - Grafana complements InfluxDB by providing powerful visualization capabilities for time-series data.

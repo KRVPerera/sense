@@ -75,6 +75,21 @@
 
 ![High Level Architecture](./images/archi.png)
 
+<!-- BUILT WITH -->
+
+### Built With
+
+* [![RIOT][RIOT]][RIOT-url]
+* [![I2C Wiki][IoT-LAB]][IoT-LAB-url]
+* [![I2C Wiki][I2C]][I2C-url]
+* [![CoAP Wiki][CoAP]][CoAP-url]
+* [![Grafana][Grafana]][Grafana-url]
+* [![InfluxDB][InfluxDB]][InfluxDB-url]
+* [![Amazon EC2][AWS]][AWS-url]
+* [![Docker][Docker]][Docker-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ### Sensor Layer
 
 More details about sensor layer is in section : <a href="#sensor-layer-detailed-information">Sensor Layer Detailed Informaton | Sense</a>
@@ -142,24 +157,12 @@ References
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- BUILT WITH -->
-
-### Built With
-
-* [![RIOT][RIOT]][RIOT-url]
-* [![I2C Wiki][IoT-LAB]][IoT-LAB-url]
-* [![I2C Wiki][I2C]][I2C-url]
-* [![CoAP Wiki][CoAP]][CoAP-url]
-* [![Grafana][Grafana]][Grafana-url]
-* [![InfluxDB][InfluxDB]][InfluxDB-url]
-* [![Amazon EC2][AWS]][AWS-url]
-* [![Docker][Docker]][Docker-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 ## Getting Started
 
 ### Prerequisites
+
+<details>
+  <summary>prerequisites details</summary>
 
 Test bed,
 
@@ -185,9 +188,17 @@ References,
 
 <a name="installation-top"></a>
 
+</details>
+
 ### Installation
 
+<details>
+  <summary>installation details</summary>
+
 #### Server side
+
+<details>
+  <summary>server side installation details</summary>
 
 ##### Setting Up EC2 and Assigning a Public IPv6 Address
 
@@ -362,7 +373,12 @@ This will setup the Grafana dashboard visualizing time-series data from your Inf
 - Database Name: `dht`
 - Measurement Name: `temperature`
 
+</details>
+
 #### Testbed side
+
+<details>
+  <summary>testbed side installation details</summary>
 
 Testbed already has relevant environment and tool and our make command `make run_mini_project_1` will completely run the sensor layer once you properly set it up according the section below.
 
@@ -386,6 +402,10 @@ If you already tried our [How to Run Hello | Sense Wiki](https://github.com/KRVP
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+</details>
+
+</details>
+
 ### How to run the project
 
 If the server is ready and everything is setup correctly,
@@ -398,17 +418,12 @@ Run the command `make run_mini_project_1` from the sense home directory. You wil
 ## Documentation
 
 
-> [!NOTE]  
-> Please expand below links
-
 ### Sensor Layer Detailed Information
 
 
 <details>
   <summary>Sensor Layer Details
   </summary>
-
-
 
 - [IoT Lab M3 board](#iot-lab-m3-board-architecture)
 - [Noise in Data](#noise-in-temperature-readings)

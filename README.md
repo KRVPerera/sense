@@ -5,13 +5,11 @@
 
 <a name="readme-top"></a>
 
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/KRVPerera/sense/blob/main/README.md">
     <img src="images/logo_Logo_sm.png" alt="Logo" width="200">
   </a>
-
   <h3 align="center">Sense</h3>
 
   <p align="center">

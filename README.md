@@ -75,15 +75,10 @@
 More details about sensor layer is here : [docs/Sensor](./docs/SENSOR.md)
 
 - We using M3 boards pressure sensors built in temperature sensor to read temperature data
-
 - Sensor is setup to temperature resolution configuration 101. To Further reduce noise and increase precision by internal averaging. (AVGT2, AVGT1, ABGT0) - 101
-
 - We use **SMA** (Simple Moving Average) technique to reduce noise in the data
-
 - Data is collected and send in bulk to the server
-
 - Board is in **sleep** mode when not reading the sensor data
-
 - Parity bit is added as extra precaution to recognize corrupted data
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -93,15 +88,10 @@ More details about sensor layer is here : [docs/Sensor](./docs/SENSOR.md)
 More details about network layer is here : [docs/Network](./docs/NETWORK.md)
 
 - We use CoAP request response style application layer protocol.
-
 - CoAP is a **low overhead** protocol designed for **constrained** network nodes.
-
 - It has **Confirmable** mode message communication with server that we use which gets a `ACK` response from the server.
-
 - It provides **re transmission** to mitigate packet loss during transmission. It has a 16 bit message id to help this.
-
 - Runs on UDP protocol reducing overhead on nodes.
-
 - Since it runs on UDP it can intermittently connect and disconnect which by nature of IOT nodes
 
 References
@@ -117,19 +107,15 @@ References
 More details about data management layer is here : [docs/Server](./docs/SERVER.md)
 
 - InfluxDB serves as the core Time Series Database (TSDB) in this architecture. It is a NoSQL database optimized for handling time-stamped data efficiently.
-
 - Grafana complements InfluxDB by providing powerful visualization capabilities for time-series data.
-
 - To ensure data integrity, a parity bit is appended to each temperature value during transmission. The EC2 CoAP listener, running as a Docker container, extracts the received data and performs frequent parity checks.
 
 ### Overview of Data Flow
 
 1. **Data Ingestion:**
    CoAP data is ingested into the EC2 instance, where the CoAP listener Docker container captures and extracts the temperature values along with parity bits.
-
 2. **Data Storage:**
    Extracted and verified data, is written into InfluxDB for persistent storage.
-
 3. **Data Visualization:**
    Grafana connects to InfluxDB to fetch time-series data and displays it through customizable dashboards.
 
@@ -144,13 +130,9 @@ References
 ### Security
 
 - Although we have not focused on this aspect. CoAP protocol it self support secure communication over DTLS by exchanging ECDSA certificates. It is an easy to setup.
-
 - For testing purposes we have opened all the source IPv6 addresses in EC2 instance. but we need to add inbound rules only to allow our CoAP client IPs to reach the server.
-
 - We have made sure only the relevant port for CoAP to open in the server.
-
 - Parity bit serves as data corruption detection. But we can go for CRC like more advance algorithms.
-
 - Data is not encrypted. Even when you use DTLS still from application layer your server and node can decide on a encryption mechanism to secure the data further.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -174,21 +156,21 @@ References
 
 ### Prerequisites
 
+Test bed,
+
 - You need an account in [FIT IoT Testbed](https://www.iot-lab.info/)
 - Get SSH access. [SSH Access : FIT IoT Testbed](https://www.iot-lab.info/docs/getting-started/ssh-access/)
 - For firstime use of command line tools you need authentication `iotlab-auth -u <login>`
 - Next we recommend to follow our hello example [How to Run Hello | Sense Wiki](https://github.com/KRVPerera/sense/wiki/Running-our-Hello-world-in-F-I-T-IOT%E2%80%90LAB).
-- Docker
-- 
-- Setup the server to receive data from testbed. Please see the installation section.
 
-Check these links to know about the testbed,
+Server,
 
--   [Design | FIT IoT Testbed](https://www.iot-lab.info/docs/getting-started/design/)
+- Server with IPv6 stack and public IPv6 address. This is because RIOT OS only has IPv6 stack support by the time we did this project.
 
-Check our wiki for more information,
+References,
 
--   [Sense Wiki](https://github.com/KRVPerera/sense/wiki)
+- [Design | FIT IoT Testbed](https://www.iot-lab.info/docs/getting-started/design/)
+- [Sense Wiki](https://github.com/KRVPerera/sense/wiki)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -196,9 +178,14 @@ Check our wiki for more information,
 
 #### Server side
 
-More details about data management layer (server) is here : [docs/Server](https://github.com/KRVPerera/sense/blob/main/docs/SERVER.md)
+Following the below guide you will be setting up the server. Below are the points we are goint to address.
 
+- Docker installation
+- InfluxDB installation
+- Grafana installation
+- Running CoAP server using docker
 
+More details server setup is here : [docs/Server](https://github.com/KRVPerera/sense/blob/main/docs/SERVER.md)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

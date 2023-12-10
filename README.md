@@ -148,10 +148,10 @@ References
 * [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/) MCU boards
 * [I2C Protocol](https://en.wikipedia.org/wiki/I%C2%B2C)
 * [CoAP - Constrained Application Protocol](https://en.wikipedia.org/wiki/Constrained_Application_Protocol) - Constrained Application Protocol
-* [Grafana](https://grafana.com/)
+* [![Grafana][Grafana]][Grafana-url]
 * [![InfluxDB][InfluxDB]][InfluxDB-url]
 * [![Amazon EC2][AWS]][AWS-url]
-* [Docker](https://www.docker.com/)
+* [![Docker][Docker]][Docker-url]
 
     <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -470,3 +470,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 [AWS]: https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white
 [AWS-url]: https://aws.amazon.com/ec2/
+
+[Grafana]: https://img.shields.io/badge/grafana-blue?style=for-the-badge
+[Grafana-url]: https://grafana.com/
+
+
+[Docker]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://www.docker.com/

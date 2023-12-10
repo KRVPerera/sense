@@ -493,8 +493,6 @@ References
 
 Our project uses IPv6 (TCP/IP) stack for connectivity between nodes and connectivity to our server which handles most of the data.
 
- diagram, 
-
 #### Architecture
 
 ```mermaid
@@ -506,6 +504,12 @@ graph LR;
 ```
 
 Sensor node is connected to to internet via border router. We are writing a separate guide how to setup the border router with our setup.
+
+
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
 
 #### Link Layer
 
@@ -525,6 +529,12 @@ References
 - [6LoWPAN - Wikipedia](https://en.wikipedia.org/wiki/6LoWPAN)
 - [RPL - Wikipedia](https://en.wikipedia.org/wiki/IPv6_Routing_Protocol_for_Low-Power_and_Lossy_Networks)
 
+
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
+
 #### CoAP protocol for application layer
 
 ```mermaid
@@ -541,6 +551,12 @@ References
 - [Constrained Application Protocol - Wikipedia](https://en.wikipedia.org/wiki/Constrained_Application_Protocol)
 - [The Constrained Application Protocol (CoAP)](https://datatracker.ietf.org/doc/html/rfc7252)
 - [What is CoAP](https://www.radware.com/security/ddos-knowledge-center/ddospedia/coap/)
+
+
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
 
 </details>
 

@@ -263,7 +263,7 @@ In our project we used only the LPS331AP sensor to measure temperature values.
 
 ### IOT-LAB M3 board architecture
 
-![IOT test bed m3 architecture](../images/m3-archi.png)
+![IOT test bed m3 architecture](./images/m3-archi.png)
 
 More details about IOT-LAB M3 board can be found here:  [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/)
 
@@ -365,7 +365,7 @@ Sensor needed some setup to work properly. In IOT test bed examples they initial
     }
   ```
   
-  ![Sensor Reset](../images/sensor_reset.png)
+  ![Sensor Reset](./images/sensor_reset.png)
 
   - **Temperature Resolution**
   Resolution is set to 16 (AVGT2 AVGT1 AVGT0 100) to set the precision of temperature data according to our application.
@@ -382,8 +382,8 @@ Sensor needed some setup to work properly. In IOT test bed examples they initial
     }
   ```
 
-![Res conf](../images/res_conf.png)
-![Res conf 1](../images/res_temp1.png)
+![Res conf](./images/res_conf.png)
+![Res conf 1](./images/res_temp1.png)
 
   - **Wait for sensor to stabalize**
   

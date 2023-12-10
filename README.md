@@ -190,7 +190,8 @@ Following the below guide you will be setting up the server. Below are the point
 - Grafana installation
 - Running CoAP server using docker
 
-More details server setup is here : [docs/Server](https://github.com/KRVPerera/sense/blob/main/docs/SERVER.md)
+More detailed server setup is in section : <a href="#data-layer-detailed-information">Data Layer Detailed Informaton | Sense</a>
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

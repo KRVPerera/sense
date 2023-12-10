@@ -192,9 +192,6 @@ References,
 
 ### Installation
 
-<details>
-  <summary>installation details</summary>
-
 #### Server side
 
 <details>

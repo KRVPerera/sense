@@ -59,8 +59,9 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#Documentation">Documentation</a></li>
       <ul>
-            <li><a href="#sensor-layer-detailed-information">Sensor Layer Detailed Information</a></li>
-            <li><a href="#network-layer-detailed-information">Network Layer Detailed Information</a></li>
+            <li>Sensor Layer Detailed Information</li>
+            <li>Network Layer Detailed Information</li>
+            <li>Data Layer Detailed Information</li>
       </ul>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -227,9 +228,11 @@ Run the command `make run_mini_project_1` from the sense home directory. You wil
 <!-- DOCUMENTATION -->
 
 ## Documentation
+
 <a name="documentation-top"></a>
 <details>
-  <summary>Sensor Layer Details</summary>
+  <summary>Sensor Layer Details
+  </summary>
 
 ### Sensor Layer Detailed Information
 
@@ -272,7 +275,7 @@ In this project we use iot-lab m3 boards provided by FIT IOT-LAB which has 4 dif
 
 In our project we used only the LPS331AP sensor to measure temperature values.
 
-### IOT-LAB M3 board architecture
+#### IOT-LAB M3 board architecture
 
 ![IOT test bed m3 architecture](./images/m3-archi.png)
 
@@ -283,7 +286,7 @@ More details about IOT-LAB M3 board can be found here:  [IoT-LAB M3 · FIT IoT-L
   <a href="#readme-top"> Top </a>)
 </p>
 
-### Noise in temperature readings
+#### Noise in temperature readings
 
 Noise in sensor readings refers to unwanted or random variations in the data collected by sensors. This noise can be caused by various factors and can have a significant impact on the accuracy and reliability of the sensor readings. Here are some common sources of noise in IoT sensor data.
 
@@ -302,7 +305,7 @@ Noise in sensor readings refers to unwanted or random variations in the data col
   <a href="#readme-top"> Top </a>)
 </p>
 
-### Noise reduction technique we used
+#### Noise reduction technique we used
 
 To eliminate those noises we implemented moving averaging filtering method.
 
@@ -325,11 +328,11 @@ In our project we used Simple Moving Average Method with window size equal to 5.
   <a href="#readme-top"> Top </a>)
 </p>
 
-### Data Resilience
+#### Data Resilience
 
 To ensure that the exact data we sent received to the server, we used a parity bit after the each temperature value. When the data is received by the CoAP cloud server, the server extracts the data, including the parity bit assigned to each temperature value. The server then performs a parity check, verifying the integrity of each temperature value. If a discrepancy is detected, indicating that the data has been corrupted during transmission, the server average out the corrupted data to ensure the accuracy and reliability of the received information.
 
-### Parity bit
+#### Parity bit
 
 There are two common types of parity:
 
@@ -352,7 +355,7 @@ In our project we have used odd parity.
   <a href="#readme-top"> Top </a>)
 </p>
 
-### Power optimization
+#### Power optimization
 
 - In our project, the communication between the sensor and the processor is facilitated through the utilization of the I2C interface in a low-power mode. 
 
@@ -365,7 +368,7 @@ In our project we have used odd parity.
   <a href="#readme-top"> Top </a>)
 </p>
 
-### Calibration
+#### Calibration
 
 Sensor needed some setup to work properly. In IOT test bed examples they initialize the sensor and reads data. But that code is not properly written and sensor needs to be reset to work in properly to get good enough data.
 
@@ -480,7 +483,11 @@ References
   <a href="#readme-top"> Top </a>)
 </p>
 
-  </details>
+</details>
+
+<details>
+  <summary>Network Layer Details
+  </summary>
 
 ### Network Layer Detailed Information
 
@@ -488,7 +495,7 @@ Our project uses IPv6 (TCP/IP) stack for connectivity between nodes and connecti
 
  diagram, 
 
-## Architecture
+#### Architecture
 
 ```mermaid
 graph LR;
@@ -500,7 +507,7 @@ graph LR;
 
 Sensor node is connected to to internet via border router. We are writing a separate guide how to setup the border router with our setup.
 
-## Link Layer
+#### Link Layer
 
 This project is implemented using [IoT-LAB M3]([IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/)) mcu boards and they have [AT86RF231](https://www.iot-lab.info/assets/misc/docs/iot-lab-m3/AT86RF231.pdf) radio chip. Radio chip is designed for `IEEE 802.15.4 (LR-WPAN)` standard (Low-rate wireless personal area networks). 
 
@@ -512,15 +519,13 @@ Provides neighbor discovery, header compression like features and it is designed
 
 RPL is an IPv6-based routing protocol designed for energy-efficient communication in low-power and resource-constrained networks, commonly used in the Internet of Things (IoT) and industrial settings.
 
-### References
+References
 
 - [IEEE 802.15.4 - Wikipedia](https://en.wikipedia.org/wiki/IEEE_802.15.4#:~:text=4%20is%20a%20technical%20standard,defined%20the%20standard%20in%202003.)
-
 - [6LoWPAN - Wikipedia](https://en.wikipedia.org/wiki/6LoWPAN)
-
 - [RPL - Wikipedia](https://en.wikipedia.org/wiki/IPv6_Routing_Protocol_for_Low-Power_and_Lossy_Networks)
 
-## CoAP protocol for application layer
+#### CoAP protocol for application layer
 
 ```mermaid
 graph LR;
@@ -530,13 +535,14 @@ The Constrained Application Protocol (CoAP) is a lightweight and efficient commu
 
 We send each messsage in ´Confirmable´ mode.
 
-
 References
 
 - [CoAP server with public IPv6 network on M3 nodes · FIT IoT-LAB](https://www.iot-lab.info/learn/tutorials/riot/riot-coap-m3/)
 - [Constrained Application Protocol - Wikipedia](https://en.wikipedia.org/wiki/Constrained_Application_Protocol)
 - [The Constrained Application Protocol (CoAP)](https://datatracker.ietf.org/doc/html/rfc7252)
 - [What is CoAP](https://www.radware.com/security/ddos-knowledge-center/ddospedia/coap/)
+
+</details>
 
 [docs/SERVER](docs/SERVER.md)
 

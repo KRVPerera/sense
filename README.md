@@ -226,6 +226,7 @@ Run the command `make run_mini_project_1` from the sense home directory. You wil
 <!-- DOCUMENTATION -->
 
 ## Documentation
+<a name="documentation-top"></a>
 
 ### Sensor Layer Detailed Informaton
 
@@ -235,6 +236,8 @@ Run the command `make run_mini_project_1` from the sense home directory. You wil
 - [Data Resilience](#data-resilience)
 - [Power optimization](#power-optimization)
 - [Sensor Calibration](#calibration)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 In this project we use iot-lab m3 boards provided by FIT IOT-LAB which has 4 different types of sensors mounted to it. They are,
 
@@ -259,6 +262,11 @@ In this project we use iot-lab m3 boards provided by FIT IOT-LAB which has 4 dif
   - [L3G4200D](https://www.iot-lab.info/assets/misc/docs/iot-lab-m3/L3G4200D.pdf)
   - [L3G4200D gyroscope driver](https://doc.riot-os.org/group__drivers__l3g4200d.html)
 
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
+
 In our project we used only the LPS331AP sensor to measure temperature values.
 
 ### IOT-LAB M3 board architecture
@@ -266,6 +274,11 @@ In our project we used only the LPS331AP sensor to measure temperature values.
 ![IOT test bed m3 architecture](./images/m3-archi.png)
 
 More details about IOT-LAB M3 board can be found here:  [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/)
+
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
 
 ### Noise in temperature readings
 
@@ -280,6 +293,11 @@ Noise in sensor readings refers to unwanted or random variations in the data col
 - Issues in signal processing or during data transmission can introduce noise into the sensor readings. This could be due to poor quality communication channels or interference during data transmission.
 
 - External electromagnetic fields or radio frequency signals can interfere with the signals from sensors, leading to inaccurate readings.
+
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
 
 ### Noise reduction technique we used
 
@@ -298,6 +316,11 @@ There are different variations of moving averages, including:
 In our project we used Simple Moving Average Method with window size equal to 5.
 
 [Moving average method implementation](https://github.com/KRVPerera/sense/blob/d57dd8540bc15ae0ad9e885204da4558fc1d42b5/src/sensor/sensor-connected/main.c#L159C7-L180C1)
+
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
 
 ### Data Resilience
 
@@ -321,6 +344,11 @@ In our project we have used odd parity.
 
 [Parity bit calculator](https://github.com/KRVPerera/sense/blob/d57dd8540bc15ae0ad9e885204da4558fc1d42b5/src/sensor/sensor-connected/main.c#L118C1-L132C2)
 
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
+
 ### Power optimization
 
 - In our project, the communication between the sensor and the processor is facilitated through the utilization of the I2C interface in a low-power mode. 
@@ -329,9 +357,19 @@ In our project we have used odd parity.
 
 - To further optimize power consumption, we have implemented a strategy where individual temperature values are not immediately sent to the server, as this process tends to be energy-intensive due to networking operations. Instead, we have implemented a buffering mechanism, capturing and storing 10 temperature values at one-second intervals. Once the buffer reaches a capacity of 10 values, we initiate the transmission of this batch to the server via a border router, utilizing the CoAP protocol. This approach helps minimize power usage during communication and contributes to the overall energy efficiency of the system.
 
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
+
 ### Calibration
 
 Sensor needed some setup to work properly. In IOT test bed examples they initialize the sensor and reads data. But that code is not properly written and sensor needs to be reset to work in properly to get good enough data.
+
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
 
 - **Initialization**
   
@@ -367,6 +405,11 @@ Sensor needed some setup to work properly. In IOT test bed examples they initial
   
   ![Sensor Reset](./images/sensor_reset.png)
 
+  <p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
+
   - **Temperature Resolution**
   Resolution is set to 16 (AVGT2 AVGT1 AVGT0 100) to set the precision of temperature data according to our application.
 
@@ -390,6 +433,11 @@ Sensor needed some setup to work properly. In IOT test bed examples they initial
   ```c
      ztimer_sleep(ZTIMER_MSEC, 5000);
   ```
+
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
 
 - Helper functions
 
@@ -424,8 +472,11 @@ References
 
 - https://www.iot-lab.info/assets/misc/docs/iot-lab-m3/LPS331AP.pdf
 
+<p align="right">
+  (<a href="#documentation-top"> Documentation</a> |
+  <a href="#readme-top"> Top </a>)
+</p>
 
-[doas/SENSOR](docs/SENSOR.md)
 
 [docs/NETWORK](docs/NETWORK.md)
 

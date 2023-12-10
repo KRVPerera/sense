@@ -57,11 +57,11 @@
       </ul>
     </li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#Documentation">Documentation</a></li>
+    <li><a href="#documentation">Documentation</a></li>
       <ul>
-            <li>Sensor Layer Detailed Information</li>
-            <li>Network Layer Detailed Information</li>
-            <li>Data Layer Detailed Information</li>
+            <li><a href="#sensor-layer-detailed-information">Sensor Layer Detailed Information</a></li>
+            <li><a href="#network-layer-detailed-information">Network Layer Detailed Information</a></li>
+            <li><a href="#data-layer-detailed-information">Data Layer Detailed Information</a></li>
       </ul>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -229,15 +229,17 @@ Run the command `make run_mini_project_1` from the sense home directory. You wil
 
 ## Documentation
 
-> [!IMPORTANT]  
+> [!NOTE]  
 > Please expand below links
+
+### Sensor Layer Detailed Information
 
 <a name="documentation-top"></a>
 <details>
   <summary>Sensor Layer Details
   </summary>
 
-### Sensor Layer Detailed Information
+
 
 - [IoT Lab M3 board](#iot-lab-m3-board-architecture)
 - [Noise in Data](#noise-in-temperature-readings)
@@ -488,6 +490,7 @@ References
 
 </details>
 
+### Network Layer Detailed Information
 <details>
   <summary>Network Layer Details
   </summary>

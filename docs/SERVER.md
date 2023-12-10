@@ -39,8 +39,8 @@ This project implements a cloud-based solution for handling CoAP data. The serve
 
      This allows incoming UDP traffic on port 5683 from any IPv6 address.
 
-    > [!WARNING]
-    > Note for Testing: or testing purposes, all IPv6 addresses are allowed (::/0). In a production environment, consider limiting access by applying a range of IPs.
+> [!CAUTION]
+> Note for Testing: For testing purposes, all IPv6 addresses are allowed (::/0). In a production environment, consider limiting access by applying a range of IPs.
 
 4. **Configure Inbound Rules for Grafana**
 
@@ -54,8 +54,10 @@ This project implements a cloud-based solution for handling CoAP data. The serve
      ```
 
      This allows incoming TCP traffic on port 3000 from any IPv4 address.
-    - Note for Testing:
-    For testing purposes, all IPv4 addresses are allowed (0.0.0.0/0). In a production environment, consider limiting access by applying a range of IPs.
+
+> [!CAUTION]
+> Note for Testing: For testing purposes, all IPv4 addresses are allowed (0.0.0.0/0). In a production environment, consider limiting access by applying a range of IPs.
+
 ## Setting Up Grafana and InfluxDB
 
 1. **Install InfluxDB and Grafana**

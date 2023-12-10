@@ -144,14 +144,14 @@ References
 
 ### Built With
 
-- [RIOT - Real Time operating system](https://www.riot-os.org/)
-- [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/) MCU boards
-- [I2C Protocol](https://en.wikipedia.org/wiki/I%C2%B2C)
-- [CoAP - Constrained Application Protocol](https://en.wikipedia.org/wiki/Constrained_Application_Protocol) - Constrained Application Protocol
-- [Grafana](https://grafana.com/)
-- [InfluxDB](https://www.influxdata.com/glossary/nosql-database/)
-- [Amazon EC2](https://aws.amazon.com/ec2/)
-- [Docker](https://www.docker.com/)
+* [RIOT - Real Time operating system](https://www.riot-os.org/)
+* [IoT-LAB M3 · FIT IoT-LAB](https://www.iot-lab.info/docs/boards/iot-lab-m3/) MCU boards
+* [I2C Protocol](https://en.wikipedia.org/wiki/I%C2%B2C)
+* [CoAP - Constrained Application Protocol](https://en.wikipedia.org/wiki/Constrained_Application_Protocol) - Constrained Application Protocol
+* [Grafana](https://grafana.com/)
+* [![InfluxDB][InfluxDB]][InfluxDB-url]
+* [![Amazon EC2][AWS]][AWS-url]
+* [Docker](https://www.docker.com/)
 
     <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -462,3 +462,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [issues-url]: https://github.com/KRVPerera/sense/issues
 [license-shield]: https://img.shields.io/github/license/KRVPerera/sense.svg?style=plastic
 [license-url]: https://github.com/KRVPerera/sense/blob/master/LICENSE.txt
+
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[InfluxDB]: https://img.shields.io/badge/InfluxDB-22ADF6?style=for-the-badge&logo=InfluxDB&logoColor=white
+[InfluxDB-url]: https://www.influxdata.com/glossary/nosql-database/
+
+[AWS]: https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white
+[AWS-url]: https://aws.amazon.com/ec2/

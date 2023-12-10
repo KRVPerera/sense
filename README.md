@@ -186,9 +186,9 @@ References,
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-<a name="installation-top"></a>
-
 </details>
+
+<a name="installation-top"></a>
 
 ### Installation
 
@@ -418,12 +418,10 @@ Run the command `make run_mini_project_1` from the sense home directory. You wil
 ## Documentation
 
 
-### Sensor Layer Detailed Information
-
-
 <details>
   <summary>Sensor Layer Details
   </summary>
+
 
 - [IoT Lab M3 board](#iot-lab-m3-board-architecture)
 - [Noise in Data](#noise-in-temperature-readings)

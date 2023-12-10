@@ -214,7 +214,7 @@ If you already tried our [How to Run Hello | Sense Wiki](https://github.com/KRVP
 8. If the default nodes are busy, change the initial node number here [setup_env.sh#L29 | Sense](https://github.com/KRVPerera/sense/blob/27b935a44a8a17de54a6b4f463ea0e086fbcb665/scripts/setup_env.sh#L29)
 
 > [!TIP]
-> Our demo video can be a hand one experience setup for you here [IoT mini project Group 12 | Youtube](https://youtu.be/Y-Kq7G6Sz5Q) video.
+> Our demo video can be a used as a hands on experience for the setup [IoT mini project Group 12 | Youtube](https://youtu.be/Y-Kq7G6Sz5Q) video.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -496,8 +496,6 @@ References
   <summary>Network Layer Details
   </summary>
 
-### Network Layer Detailed Information
-
 Our project uses IPv6 (TCP/IP) stack for connectivity between nodes and connectivity to our server which handles most of the data.
 
 #### Architecture
@@ -567,9 +565,15 @@ References
 
 </details>
 
+### Data Layer Detailed Information
+
+<details>
+  <summary>Data Layer Details
+  </summary>
+
 [docs/SERVER](docs/SERVER.md)
 
-[docs/COMPRESSION](docs/COMPRESSION.md)
+</details>
 
 <!-- LICENSE -->
 

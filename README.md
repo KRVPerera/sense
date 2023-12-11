@@ -409,6 +409,7 @@ Run the command `make run_mini_project_1` from the sense home directory. You wil
 <a name="documentation-top"></a>
 ## Documentation
 
+### Sensor Layer Detailed Information
 
 <details>
   <summary>Sensor Layer Details

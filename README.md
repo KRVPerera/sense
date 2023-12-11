@@ -196,12 +196,11 @@ References,
 
 ###### Create an EC2 Instance
 
-  - Launch an EC2 instance with a suitable AMI (Amazon Machine Image).
-  - Ensure that the instance has the necessary permissions to interact with other AWS services.
+  - Launch an EC2 instance with a suitable AMI (Preffered Ubuntu).
 
 ###### Assign a Public IPv6 Address
 
-Follow the [Amazon EC2 instance IP addressing | AWS Documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#ipv6-assign-instance) to assign a public IPv6 address to your EC2 instance.
+Follow the [Amazon EC2 instance IP addressing | AWS Documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-instance-addressing.html#ipv6-addressing) to assign a public IPv6 address to your EC2 instance.
 
 ###### Configure Inbound Rules for CoAP
 
